@@ -11,7 +11,6 @@
 .auth.json
 composer.lock
 coverage
-phpunit.xml
 psalm.xml
 .php_cs
 .php_cs.cache
