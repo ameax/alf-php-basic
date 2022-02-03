@@ -1,0 +1,58 @@
+{
+    "name": "alf/alf-php-basic",
+    "description": "Base PHP library from Alf4712.",
+    "keywords": [
+        "alf",
+        "php",
+        "alf-php-basic",
+        "Stefan Jann",
+        "alf4712",
+        "Ameax",
+        "Aranes"
+    ],
+    "version": "1.0.0",
+    "homepage": "https://github.com/alf/alf-php-basic",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Stefan Jann alias Alf4712",
+            "email": "sj@aranes.de",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "ext-dom": "*",
+        "ext-curl": "*",
+        "ext-libxml": "*",
+        "ext-mbstring": "*",
+        "ext-zip": "*",
+        "ext-bcmath": "*",
+        "ext-iconv": "*"
+    },
+    "require-dev": {
+        "jetbrains/phpstorm-attributes": "^1.0",
+        "pestphp/pest": "^1.20",
+        "spatie/ray": "^1.28",
+        "roave/security-advisories": "dev-latest"
+    },
+    "autoload": {
+        "psr-4": {
+            "Alf\\AlfPhp\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Alf\\AlfPhp\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
