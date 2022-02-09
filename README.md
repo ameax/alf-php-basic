@@ -13,8 +13,8 @@ composer require alf/alf-php-basic
 ## Usage
 
 ```php
-use Alf\AlfPhp\AlfBasicClass;
-$obj = new AlfBasicClass();
+use Alf\AlfPhp\types\scalars\AlfInt;
+$obj = new AlfInt();
 print_r($obj);
 ```
 

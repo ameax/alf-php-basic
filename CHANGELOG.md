@@ -2,6 +2,13 @@
 
 All notable changes to `alf-php-basic` will be documented in this file.
 
+## 1.0.2 - 2022-02-09
+
+- Scalar-Type: alfInt
+- Basic-Attribute: AlfAttrParameter
+- Parameter-Attribute: AlfAttrParameterIsInt
+- Test: AlfInt
+
 ## 1.0.1 - 2022-02-09
 
 - BugFix Changelog-Date for 1.0.0

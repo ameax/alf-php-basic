@@ -1,6 +1,6 @@
 The MIT License (MIT)
 
-Copyright (c) alf4712 <sj@aranes.de>
+Copyright (c) Alf4712 <sj@aranes.de>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -10,13 +10,13 @@
 .env.backup
 .auth.json
 composer.lock
+docker-compose.override.yml
 coverage
 psalm.xml
 .php_cs
 .php_cs.cache
 .phpunit.result.cache
 .php-cs-fixer.cache
-docker-compose.override.yml
 Homestead.json
 Homestead.yaml
 npm-debug.log
