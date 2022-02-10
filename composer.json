@@ -1,6 +1,7 @@
 {
     "name": "ameax/alf-php-basic",
     "description": "Base PHP library from Alf4712.",
+    "type": "package",
     "keywords": [
         "alf",
         "php",
@@ -16,7 +17,8 @@
         {
             "name": "Stefan Jann alias Alf4712",
             "email": "sj@aranes.de",
-            "role": "Developer"
+            "role": "Developer",
+            "homepage": "https://www.aranes.de"
         }
     ],
     "require": {

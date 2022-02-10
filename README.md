@@ -7,7 +7,7 @@ Base PHP library from Alf4712.
 You can install the package via composer:
 
 ```bash
-composer require alf/alf-php-basic
+composer require ameax/alf-php-basic
 ```
 
 ## Usage
