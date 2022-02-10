@@ -2,7 +2,7 @@
 
 All notable changes to `alf-php-basic` will be documented in this file.
 
-## 1.0.3 to 1.0.5 - 2022-02-10
+## 1.0.3 to 1.0.6 - 2022-02-10
 
 - Update for Packagist
 
