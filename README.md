@@ -1,5 +1,9 @@
 # Base PHP library from Alf.
 
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/ameax/alf-php-basic.svg?style=flat-square)](https://packagist.org/packages/ameax/alf-php-basic)
+[![Tests](https://github.com/ameax/alf-php-basic/actions/workflows/run-tests.yml/badge.svg?branch=main)](https://github.com/ameax/alf-php-basic/actions/workflows/run-tests.yml)
+[![Total Downloads](https://img.shields.io/packagist/dt/ameax/alf-php-basic.svg?style=flat-square)](https://packagist.org/packages/ameax/alf-php-basic)
+
 Base PHP library from Alf4712.
 
 ## Installation
