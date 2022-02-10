@@ -1,5 +1,5 @@
 {
-    "name": "alf/alf-php-basic",
+    "name": "ameax/alf-php-basic",
     "description": "Base PHP library from Alf4712.",
     "keywords": [
         "alf",
@@ -10,8 +10,7 @@
         "Ameax",
         "Aranes"
     ],
-    "version": "1.0.0",
-    "homepage": "https://github.com/alf/alf-php-basic",
+    "homepage": "https://github.com/ameax/alf-php-basic",
     "license": "MIT",
     "authors": [
         {
