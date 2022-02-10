@@ -1,10 +1,11 @@
 <?php
 
-namespace Alf\AlfPhp;
+namespace Alf;
 
-use Alf\AlfPhp\attributes\AlfAttrAutoComplete;
+use Alf\Attributes\AlfAttrAutoComplete;
+use Alf\Services\AlfProgramming;
 use JetBrains\PhpStorm\ArrayShape;
-use JetBrains\PhpStorm\Pure;
+use ReflectionClass;
 
 abstract class AlfBasicClass {
 
@@ -12,9 +13,8 @@ abstract class AlfBasicClass {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    #[Pure]
     final public static function _AlfBasicClass($obj) : AlfBasicClass {
-        return $obj;
+        return AlfProgramming::_()->unused($obj);
     }
 
     public function __destruct() { }
@@ -25,6 +25,10 @@ abstract class AlfBasicClass {
     // TODO: public function __sleep() : array
     // TODO: public function __serialize() : array
     // TODO: public function __unserialize(array $data) : void
+
+    public function getParentClass() : ?string {
+        return (new ReflectionClass($this))->getParentClass()?->getName();
+    }
 
     #[ArrayShape(['class' => "string"])]
     public function __debugInfo() : ?array {

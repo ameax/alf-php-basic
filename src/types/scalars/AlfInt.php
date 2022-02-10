@@ -1,21 +1,18 @@
 <?php
 
-namespace Alf\AlfPhp\types\scalars;
+namespace Alf\Types\Scalars;
 
-use Alf\AlfPhp\AlfBasicTypeScalar;
-use Alf\AlfPhp\attributes\AlfAttrAutoComplete;
-use Alf\AlfPhp\attributes\AlfAttrParameterIsInt;
-use Alf\AlfPhp\services\AlfProgramming;
+use Alf\AlfBasicTypeScalar;
+use Alf\Attributes\AlfAttrAutoComplete;
+use Alf\Attributes\AlfAttrParameterIsInt;
+use Alf\Interfaces\Values\AlfNullWork;
+use Alf\Interfaces\Values\AlfNullWorkTrait;
+use Alf\Services\AlfProgramming;
 use JetBrains\PhpStorm\Pure;
 
-class AlfInt extends AlfBasicTypeScalar {
+class AlfInt extends AlfBasicTypeScalar implements AlfNullWork {
 
-    /** @AlfAttrAutoComplete */
-    #[AlfAttrAutoComplete]
-    #[Pure]
-    public static function _AlfInt($obj) : AlfInt {
-        return AlfProgramming::unused($obj, parent::_AlfBasicTypeScalar($obj));
-    }
+    use AlfNullWorkTrait;
 
     protected ?int $value = null;
 
@@ -24,25 +21,30 @@ class AlfInt extends AlfBasicTypeScalar {
         $this->set($value);
     }
 
-    public function set(#[AlfAttrParameterIsInt] int|null|AlfInt $value = null) : static {
-        if (is_a($value, alfInt::class)) {
-            if ($value->isNull()) {
-                $this->value = null;
-            } else {
-                $this->value = $value->get();
-            }
-        } else {
-            $this->value = $value;
-        }
+    public function set(#[AlfAttrParameterIsInt] int|null|AlfInt $value) : static {
+        $this->value = AlfProgramming::_()->valueToInt($value);
         return $this;
     }
 
-    public function isNull() : bool {
-        return is_null($this->value);
+    /** @AlfAttrAutoComplete */
+    #[AlfAttrAutoComplete]
+    public static function _AlfInt($obj) : AlfInt {
+        return AlfProgramming::_()->unused($obj, parent::_AlfBasicTypeScalar($obj), static::_AlfNullGet($obj));
     }
 
+    #[Pure]
     public function get() : int {
-        return $this->value ?? 0;
+        return $this->getValue() ?? 0;
+    }
+
+    #[Pure]
+    public function getValue() : ?int {
+        return $this->value;
+    }
+
+    public function setToNull() : static {
+        $this->set(null);
+        return $this;
     }
 
 }

@@ -2,31 +2,43 @@
 
 All notable changes to `alf-php-basic` will be documented in this file.
 
+## 1.1.0 - 2022-02-10
+
+- refactor namespaces
+- interface: AlfValueGet
+- interface: AlfNullGet
+- interface: AlfNullSet
+- interface: AlfNullWork
+- attribute: AlfAttrTraitAutoCall
+- update: AlfInt extends AlfNullWork
+- AlfProgramming::valueToInt()
+- AlfBasicClass::getParentClass()
+- bugfix: service calls are now by object, no static functions even more
+- @AlfAttrAutoComplete functions are no longer #[Pure]. All these functions are now calling AlfProgramming::_()->unused()
+
 ## 1.0.3 to 1.0.7 - 2022-02-10
 
-- Update for Packagist
-- Update github details
+- update for Packagist
+- update for GitHub
 
 ## 1.0.2 - 2022-02-09
 
-- Scalar-Type: alfInt
-- Basic-Attribute: AlfAttrParameter
-- Parameter-Attribute: AlfAttrParameterIsInt
-- Test: AlfInt
+- scalar type: alfInt
+- basic attribute: AlfAttrParameter
+- parameter attribute: AlfAttrParameterIsInt
 
 ## 1.0.1 - 2022-02-09
 
-- BugFix Changelog-Date for 1.0.0
-- ToDos for AlfBasicClass
-- Basic-Class: AlfBasicSingleton
-- Service: AlfProgramming
-- Basic-Class: AlfAttribute
-- Attribute: AlfAttrAutoComplete
-- Basic-Class: AlfType
-- Basic-Class: AlfTypeScalar
-- Remove test: AlfBasicClassTest
+- basic class: AlfBasicSingleton
+- basic class: AlfAttribute
+- basic class: AlfType
+- basic class: AlfTypeScalar
+- service: AlfProgramming
+- attribute: AlfAttrAutoComplete
+- ToDo entries: AlfBasicClass
+- bugfix: changelog date for v1.0.0
 
 ## 1.0.0 - 2022-02-03
 
 - initial release
-- Alf\AlfPhp\AlfBasicClass
+- basic class: AlfBasicClass

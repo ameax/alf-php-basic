@@ -7,11 +7,11 @@ use Alf\Services\AlfProgramming;
 use Attribute;
 
 #[Attribute(Attribute::TARGET_METHOD)]
-class AlfAttrAutoComplete extends AlfBasicAttribute {
+class AlfAttrTraitAutoCall extends AlfBasicAttribute {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfAttrAutoComplete($obj) : AlfAttrAutoComplete {
+    final public static function _AlfAttrTraitAutoCall($obj) : AlfAttrTraitAutoCall {
         return AlfProgramming::_()->unused($obj, parent::_AlfBasicAttribute($obj));
     }
 

@@ -17,7 +17,7 @@ composer require ameax/alf-php-basic
 ## Usage
 
 ```php
-use Alf\AlfPhp\types\scalars\AlfInt;
+use Alf\types\scalars\AlfInt;
 $obj = new AlfInt();
 print_r($obj);
 ```

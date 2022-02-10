@@ -39,12 +39,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Alf\\AlfPhp\\": "src"
+            "Alf\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Alf\\AlfPhp\\Tests\\": "tests"
+            "Alf\\Tests\\": "tests"
         }
     },
     "scripts": {

@@ -1,18 +1,16 @@
 <?php
 
-namespace Alf\AlfPhp;
+namespace Alf;
 
-use Alf\AlfPhp\attributes\AlfAttrAutoComplete;
-use Alf\AlfPhp\services\AlfProgramming;
-use JetBrains\PhpStorm\Pure;
+use Alf\Attributes\AlfAttrAutoComplete;
+use Alf\Services\AlfProgramming;
 
 abstract class AlfBasicType extends AlfBasicClass {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    #[Pure]
     public static function _AlfBasicType($obj) : AlfBasicType {
-        return AlfProgramming::unused($obj, parent::_AlfBasicClass($obj));
+        return AlfProgramming::_()->unused($obj, parent::_AlfBasicClass($obj));
     }
 
 }

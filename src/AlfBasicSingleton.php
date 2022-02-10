@@ -1,8 +1,9 @@
 <?php
 
-namespace Alf\AlfPhp;
+namespace Alf;
 
-use Alf\AlfPhp\attributes\AlfAttrAutoComplete;
+use Alf\Attributes\AlfAttrAutoComplete;
+use Alf\Services\AlfProgramming;
 use JetBrains\PhpStorm\Pure;
 use RuntimeException;
 
@@ -18,16 +19,20 @@ abstract class AlfBasicSingleton {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    #[Pure]
     public static function _AlfBasicSingleton($obj) : AlfBasicSingleton {
-        return $obj;
+        return AlfProgramming::_()->unused($obj);
     }
 
     public static function _() : static {
-        if (!isset(static::$_instances[static::class])) {
-            static::$_instances[static::class] = new static();
+        if (!isset(static::$_instances[static::getInstanceName()])) {
+            static::$_instances[static::getInstanceName()] = new static();
         }
-        return static::$_instances[static::class];
+        return static::$_instances[static::getInstanceName()];
+    }
+
+    #[Pure]
+    final protected static function getInstanceName() : string {
+        return static::class;
     }
 
     public function __destruct() { }

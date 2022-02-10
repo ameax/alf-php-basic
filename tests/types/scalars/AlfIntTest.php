@@ -1,10 +1,12 @@
 <?php
 
-use Alf\AlfPhp\types\scalars\AlfInt;
+use Alf\AlfBasicTypeScalar;
+use Alf\Types\Scalars\AlfInt;
 
 test('AlfInt() isNull()', function () {
     $obj = new AlfInt();
-    expect($obj->isNull())->toBeTrue();
+    $obj2 = AlfInt::_AlfInt($obj);
+    expect($obj2->isNull())->toBeTrue();
 });
 
 test('AlfInt()=0', function () {
@@ -19,9 +21,9 @@ test('AlfInt(5)=5', function () {
 });
 
 
-test('AlfInt(5)->set() isNull()', function () {
+test('AlfInt(5)->set(null) isNull()', function () {
     $obj = new AlfInt(5);
-    $obj->set();
+    $obj->set(null);
     expect($obj->isNull())->toBeTrue();
 });
 
@@ -51,4 +53,9 @@ test('AlfInt(0)->set(AlfInt(5))=5', function () {
     $obj->set($obj2);
     expect($obj->get())->toBe(5);
     expect($obj->get())->not->toBe(0);
+});
+
+test('AlfInt->getParentClass()', function () {
+    $obj = new AlfInt();
+    expect($obj->getParentClass())->toBe(AlfBasicTypeScalar::class);
 });
