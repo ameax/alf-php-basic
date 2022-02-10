@@ -2,6 +2,10 @@
 
 All notable changes to `alf-php-basic` will be documented in this file.
 
+## 1.1.1 - 2022-02-11
+
+- bugfix: directory first uppercase letter problem on GitHub
+
 ## 1.1.0 - 2022-02-10
 
 - refactor namespaces
