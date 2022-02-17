@@ -22,14 +22,18 @@ class AlfInt extends AlfBasicTypeScalar implements AlfNullWork {
     }
 
     public function set(#[AlfAttrParameterIsInt] int|null|AlfInt $value) : static {
-        $this->value = AlfProgramming::_()->valueToInt($value);
+        $newValue = AlfProgramming::_()->valueToInt($value);
+        if (is_null($newValue)) {
+            return $this->setToNull();
+        }
+        $this->value = $this->convertValueForSet($newValue);
         return $this;
     }
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
     public static function _AlfInt($obj) : AlfInt {
-        return AlfProgramming::_()->unused($obj, parent::_AlfBasicTypeScalar($obj), static::_AlfNullGet($obj));
+        return AlfProgramming::_()->unused($obj, static::_AlfBasicTypeScalar($obj), static::_AlfNullGet($obj));
     }
 
     #[Pure]
@@ -43,8 +47,13 @@ class AlfInt extends AlfBasicTypeScalar implements AlfNullWork {
     }
 
     public function setToNull() : static {
-        $this->set(null);
+        $this->value = null;
         return $this;
+    }
+
+    #[Pure]
+    protected function convertValueForSet(int $value) : ?int {
+        return $value;
     }
 
 }

@@ -1,7 +1,9 @@
 <?php
 
 use Alf\AlfBasicTypeScalar;
+use Alf\Interfaces\Values\AlfNullSetTrait;
 use Alf\Types\Scalars\AlfInt;
+use Alf\Types\Scalars\AlfInt8;
 
 test('AlfInt() isNull()', function () {
     $obj = new AlfInt();
@@ -55,7 +57,19 @@ test('AlfInt(0)->set(AlfInt(5))=5', function () {
     expect($obj->get())->not->toBe(0);
 });
 
-test('AlfInt->getParentClass()', function () {
+test('AlfInt->getPhpParentClass()', function () {
     $obj = new AlfInt();
-    expect($obj->getParentClass())->toBe(AlfBasicTypeScalar::class);
+    expect($obj->getPhpParentClass())->toBe(AlfBasicTypeScalar::class);
 });
+
+test('AlfInt8->listPhpParentClasses()', function () {
+    $objInt8 = new AlfInt8();
+    expect($objInt8->listPhpParentClasses())->toHaveKey(AlfInt::class);
+});
+
+test('AlfInt8->listPhpTraits()', function () {
+    $objInt8 = new AlfInt8();
+    expect($objInt8->listPhpTraits())->toHaveKey(AlfNullSetTrait::class);
+});
+
+

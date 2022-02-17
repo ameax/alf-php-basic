@@ -2,6 +2,19 @@
 
 All notable changes to `alf-php-basic` will be documented in this file.
 
+## 1.1.2 - 2022-02-17
+
+- AlfBasicClass::getPhpParentClass() - rename from AlfBasicClass::getParentClass()
+- AlfBasicClass::listPhpParentClasses()
+- AlfBasicClass::listPhpTraits()
+- scalar type: AlfInt8
+- abstract scalar type: AlfIntRange
+- service: AlfCache
+- service: AlfPhpClassManager
+- AlfPhpClassManager::getParent()
+- AlfPhpClassManager::listParents()
+- AlfPhpClassManager::listTraits()
+
 ## 1.1.1 - 2022-02-11
 
 - bugfix: directory first uppercase letter problem on GitHub
@@ -18,7 +31,8 @@ All notable changes to `alf-php-basic` will be documented in this file.
 - AlfProgramming::valueToInt()
 - AlfBasicClass::getParentClass()
 - bugfix: service calls are now by object, no static functions even more
-- @AlfAttrAutoComplete functions are no longer #[Pure]. All these functions are now calling AlfProgramming::_()->unused()
+- @AlfAttrAutoComplete functions are no longer #[Pure]. All these functions are now calling AlfProgramming::_()->
+  unused()
 
 ## 1.0.3 to 1.0.7 - 2022-02-10
 

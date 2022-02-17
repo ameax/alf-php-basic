@@ -12,7 +12,7 @@ class AlfAttrTraitAutoCall extends AlfBasicAttribute {
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
     final public static function _AlfAttrTraitAutoCall($obj) : AlfAttrTraitAutoCall {
-        return AlfProgramming::_()->unused($obj, parent::_AlfBasicAttribute($obj));
+        return AlfProgramming::_()->unused($obj, static::_AlfBasicAttribute($obj));
     }
 
 }

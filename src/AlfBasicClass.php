@@ -3,13 +3,11 @@
 namespace Alf;
 
 use Alf\Attributes\AlfAttrAutoComplete;
+use Alf\Services\AlfPhpClassManager;
 use Alf\Services\AlfProgramming;
 use JetBrains\PhpStorm\ArrayShape;
-use ReflectionClass;
 
 abstract class AlfBasicClass {
-
-    public function __construct() { }
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
@@ -17,23 +15,50 @@ abstract class AlfBasicClass {
         return AlfProgramming::_()->unused($obj);
     }
 
-    public function __destruct() { }
+    public function __construct() {
+        foreach (array_reverse($this->listPhpTraits()) as $traitName) {
+            $callCTorFunc = '_'.$traitName.'CTor';
+            $this->$callCTorFunc();
+        }
+    }
 
-    public function __clone() { }
+
+    public function __destruct() {
+        foreach ($this->listPhpTraits() as $traitName) {
+            $callDTorFunc = '_'.$traitName.'DTor';
+            $this->$callDTorFunc();
+        }
+    }
+
+    public function __clone() {
+        foreach (array_reverse($this->listPhpTraits()) as $traitName) {
+            $callCloneFunc = '_'.$traitName.'Clone';
+            $this->$callCloneFunc();
+        }
+    }
 
     // TODO: public function __wakeup() : void
     // TODO: public function __sleep() : array
     // TODO: public function __serialize() : array
     // TODO: public function __unserialize(array $data) : void
 
-    public function getParentClass() : ?string {
-        return (new ReflectionClass($this))->getParentClass()?->getName();
+    public function getPhpParentClass() : ?string {
+        return AlfPhpClassManager::_()->getParent($this);
     }
 
-    #[ArrayShape(['class' => "string"])]
+    public function listPhpParentClasses() : array {
+        return AlfPhpClassManager::_()->listParents($this);
+    }
+
+    public function listPhpTraits() : array {
+        return AlfPhpClassManager::_()->listTraits($this);
+    }
+
+    #[ArrayShape(['class' => "string", 'parent' => "string"])]
     public function __debugInfo() : ?array {
         return [
-            'class' => static::class,
+            'class'  => static::class,
+            'parent' => $this->getPhpParentClass(),
         ];
     }
 

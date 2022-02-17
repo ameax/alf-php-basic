@@ -10,7 +10,7 @@ abstract class AlfBasicTypeScalar extends AlfBasicType {
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
     public static function _AlfBasicTypeScalar($obj) : AlfBasicTypeScalar {
-        return AlfProgramming::_()->unused($obj, parent::_AlfBasicType($obj));
+        return AlfProgramming::_()->unused($obj, static::_AlfBasicType($obj));
     }
 
 }
