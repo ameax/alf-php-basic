@@ -41,7 +41,7 @@ class AlfPhpClassManager extends AlfBasicSingleton {
     }
 
     protected function getTraitsByReflection(ReflectionClass $reflection) : array {
-        return alfCache::_()->cacheArray(__METHOD__.'::'.$reflection->getName(),
+        return AlfCache::_()->cacheArray(__METHOD__.'::'.$reflection->getName(),
             function () use ($reflection) : array {
                 $output = [];
 
