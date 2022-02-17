@@ -8,16 +8,16 @@ use JetBrains\PhpStorm\Pure;
 
 class AlfCache extends AlfBasicSingleton {
 
+    private array $cacheBool   = [];
+    private array $cacheInt    = [];
+    private array $cacheString = [];
+    private array $cacheArray  = [];
+
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
     public static function _AlfCache($obj) : AlfCache {
         return AlfProgramming::_()->unused($obj, static::_AlfBasicSingleton($obj));
     }
-
-    private array $cacheBool   = [];
-    private array $cacheInt    = [];
-    private array $cacheString = [];
-    private array $cacheArray  = [];
 
     public function reset() : static {
         $this->cacheBool = [];
@@ -37,6 +37,15 @@ class AlfCache extends AlfBasicSingleton {
         return $this;
     }
 
+    #[Pure]
+    public function getCacheBool(string $key) : ?bool {
+        return $this->getCache($key, $this->cacheBool);
+    }
+
+    public function setCacheBool(string $key, bool $value) : static {
+        return $this->setCache($key, $this->cacheBool, $value);
+    }
+
     final protected function setCache(string $key, array &$cache, $value) : static {
         $cache[$key] = $value;
         return $this;
@@ -47,6 +56,10 @@ class AlfCache extends AlfBasicSingleton {
         return $cache[$key] ?? null;
     }
 
+    public function cacheBool(string $key, callable $funcIfNotExists) : bool {
+        return $this->cache($key, $this->cacheBool, $funcIfNotExists);
+    }
+
     final protected function cache(string $key, array &$cache, callable $funcIfNotExists) : bool|int|string|array {
         if (!array_key_exists($key, $cache)) {
             $cache[$key] = $funcIfNotExists();
@@ -54,34 +67,17 @@ class AlfCache extends AlfBasicSingleton {
         return $cache[$key];
     }
 
-    public function setCacheBool(string $key, bool $value) : static {
-        return $this->setCache($key, $this->cacheBool, $value);
-    }
-
     #[Pure]
-    public function getCacheBool(string $key) : ?bool {
-        return $this->getCache($key, $this->cacheBool);
-    }
-
-    public function cacheBool(string $key, callable $funcIfNotExists) : bool {
-        return $this->cache($key, $this->cacheBool, $funcIfNotExists);
+    public function getCacheInt(string $key) : ?int {
+        return $this->getCache($key, $this->cacheInt);
     }
 
     public function setCacheInt(string $key, int $value) : static {
         return $this->setCache($key, $this->cacheInt, $value);
     }
 
-    #[Pure]
-    public function getCacheInt(string $key) : ?int {
-        return $this->getCache($key, $this->cacheInt);
-    }
-
     public function cacheInt(string $key, callable $funcIfNotExists) : int {
         return $this->cache($key, $this->cacheInt, $funcIfNotExists);
-    }
-
-    public function setCacheString(string $key, string $value) : static {
-        return $this->setCache($key, $this->cacheString, $value);
     }
 
     #[Pure]
@@ -89,17 +85,21 @@ class AlfCache extends AlfBasicSingleton {
         return $this->getCache($key, $this->cacheString);
     }
 
-    public function cacheString(string $key, callable $funcIfNotExists) : string {
-        return $this->cache($key, $this->cacheString, $funcIfNotExists);
+    public function setCacheString(string $key, string $value) : static {
+        return $this->setCache($key, $this->cacheString, $value);
     }
 
-    public function setCacheArray(string $key, array $value) : static {
-        return $this->setCache($key, $this->cacheArray, $value);
+    public function cacheString(string $key, callable $funcIfNotExists) : string {
+        return $this->cache($key, $this->cacheString, $funcIfNotExists);
     }
 
     #[Pure]
     public function getCacheArray(string $key) : ?array {
         return $this->getCache($key, $this->cacheArray);
+    }
+
+    public function setCacheArray(string $key, array $value) : static {
+        return $this->setCache($key, $this->cacheArray, $value);
     }
 
     public function cacheArray(string $key, callable $funcIfNotExists) : array {

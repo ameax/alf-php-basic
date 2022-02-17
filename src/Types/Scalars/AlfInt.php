@@ -30,6 +30,16 @@ class AlfInt extends AlfBasicTypeScalar implements AlfNullWork {
         return $this;
     }
 
+    public function setToNull() : static {
+        $this->value = null;
+        return $this;
+    }
+
+    #[Pure]
+    protected function convertValueForSet(int $value) : ?int {
+        return $value;
+    }
+
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
     public static function _AlfInt($obj) : AlfInt {
@@ -44,16 +54,6 @@ class AlfInt extends AlfBasicTypeScalar implements AlfNullWork {
     #[Pure]
     public function getValue() : ?int {
         return $this->value;
-    }
-
-    public function setToNull() : static {
-        $this->value = null;
-        return $this;
-    }
-
-    #[Pure]
-    protected function convertValueForSet(int $value) : ?int {
-        return $value;
     }
 
 }

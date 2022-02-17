@@ -15,12 +15,6 @@ abstract class AlfIntRange extends AlfInt {
     }
 
     #[Pure]
-    abstract public function getValueMin() : int;
-
-    #[Pure]
-    abstract public function getValueMax() : int;
-
-    #[Pure]
     protected function convertValueForSet(int $value) : ?int {
         if ($value > $this->getValueMax()) {
             return $this->getValueMax();
@@ -30,5 +24,11 @@ abstract class AlfIntRange extends AlfInt {
         }
         return $value;
     }
+
+    #[Pure]
+    abstract public function getValueMax() : int;
+
+    #[Pure]
+    abstract public function getValueMin() : int;
 
 }
