@@ -2,6 +2,10 @@
 
 All notable changes to `alf-php-basic` will be documented in this file.
 
+## 1.1.3 - 2022-02-17
+
+- scalar type: AlfInt8U
+
 ## 1.1.2 - 2022-02-17
 
 - AlfBasicClass::getPhpParentClass() - rename from AlfBasicClass::getParentClass()
