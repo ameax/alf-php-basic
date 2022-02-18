@@ -66,8 +66,7 @@ function listAlfClasses() : array {
     ];
 }
 
-
-function listAlfSingleton() : array {
+function listAlfSingletons() : array {
     return [
         \Alf\AlfBasicSingleton::class,
         // Services
@@ -75,4 +74,12 @@ function listAlfSingleton() : array {
         AlfPhpClassManager::class,
         AlfProgramming::class,
     ];
+}
+
+function listAlfClassesAndSingletons() : array {
+    return array_merge(listAlfClasses(), listAlfSingletons());
+}
+
+function listAlfAll() : array {
+    return array_merge(listAlfClasses(), listAlfSingletons(), listAlfInterfaces(), listAlfTraits());
 }

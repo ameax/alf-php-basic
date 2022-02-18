@@ -8,4 +8,4 @@ test('class must be a instance of AlfBasicSingleton',
         $reflection = new ReflectionClass($className);
         $isAlfBasicSingleton = $reflection->isSubclassOf(AlfBasicSingleton::class) || ($className === AlfBasicSingleton::class);
         expect($isAlfBasicSingleton)->toBeTrue();
-    })->with(listAlfSingleton());
+    })->with(listAlfSingletons());

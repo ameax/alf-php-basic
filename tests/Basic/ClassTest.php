@@ -9,5 +9,3 @@ test('class must be a instance of AlfBasicClass',
         $isAlfBasicClass = $reflection->isSubclassOf(AlfBasicClass::class) || ($className === AlfBasicClass::class);
         expect($isAlfBasicClass)->toBeTrue();
     })->with(listAlfClasses());
-
-
