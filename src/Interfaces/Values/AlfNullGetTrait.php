@@ -17,11 +17,6 @@ trait AlfNullGetTrait {
         return AlfProgramming::_()->unused($obj, static::_AlfValueGet($obj));
     }
 
-    #[Pure]
-    public function isNull() : bool {
-        return is_null($this->getValue());
-    }
-
     /** @AlfAttrTraitAutoCall */
     #[AlfAttrTraitAutoCall]
     protected function _AlfNullGetTraitCTor() : void {
@@ -35,6 +30,11 @@ trait AlfNullGetTrait {
     /** @AlfAttrTraitAutoCall */
     #[AlfAttrTraitAutoCall]
     protected function _AlfNullGetTraitClone() : void {
+    }
+
+    #[Pure]
+    public function isNull() : bool {
+        return is_null($this->getValue());
     }
 
 }
