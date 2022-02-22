@@ -5,32 +5,30 @@ namespace Alf\Interfaces\Values;
 use Alf\Attributes\AlfAttrAutoComplete;
 use Alf\Attributes\AlfAttrTraitAutoCall;
 use Alf\Services\AlfProgramming;
-use JetBrains\PhpStorm\Pure;
 
-trait AlfValueGetTrait {
+trait AlfEmptySetTrait {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    public static function _AlfValueGet($obj) : AlfValueGet {
+    public static function _AlfEmptySet($obj) : AlfEmptySet {
         return AlfProgramming::_()->unused($obj);
     }
 
     /** @AlfAttrTraitAutoCall */
     #[AlfAttrTraitAutoCall]
-    protected function _AlfValueGetTraitCTor() : void {
+    protected function _AlfEmptySetTraitCTor() : void {
     }
 
     /** @AlfAttrTraitAutoCall */
     #[AlfAttrTraitAutoCall]
-    protected function _AlfValueGetTraitDTor() : void {
+    protected function _AlfEmptySetTraitDTor() : void {
     }
 
     /** @AlfAttrTraitAutoCall */
     #[AlfAttrTraitAutoCall]
-    protected function _AlfValueGetTraitClone() : void {
+    protected function _AlfEmptySetTraitClone() : void {
     }
 
-    #[Pure]
-    abstract public function getValue();
+    abstract public function setToEmpty() : static;
 
 }

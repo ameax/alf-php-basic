@@ -12,6 +12,10 @@ use Alf\Attributes\AlfAttrAutoComplete;
 use Alf\Attributes\AlfAttrParameter;
 use Alf\Attributes\AlfAttrParameterIsInt;
 use Alf\Attributes\AlfAttrTraitAutoCall;
+use Alf\Interfaces\Values\AlfEmptyGet;
+use Alf\Interfaces\Values\AlfEmptyGetTrait;
+use Alf\Interfaces\Values\AlfEmptySet;
+use Alf\Interfaces\Values\AlfEmptySetTrait;
 use Alf\Interfaces\Values\AlfNullGet;
 use Alf\Interfaces\Values\AlfNullGetTrait;
 use Alf\Interfaces\Values\AlfNullSet;
@@ -33,6 +37,8 @@ use JetBrains\PhpStorm\Pure;
 function listAlfInterfaces() : array {
     return [
         // Interfaces/Values
+        AlfEmptyGet::class,
+        AlfEmptySet::class,
         AlfNullGet::class,
         AlfNullSet::class,
         AlfNullWork::class,
@@ -44,6 +50,8 @@ function listAlfInterfaces() : array {
 function listAlfTraits() : array {
     return [
         // Interfaces/Values
+        AlfEmptyGetTrait::class,
+        AlfEmptySetTrait::class,
         AlfNullGetTrait::class,
         AlfNullSetTrait::class,
         AlfNullWorkTrait::class,

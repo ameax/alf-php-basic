@@ -53,7 +53,7 @@ abstract class AlfBasicClass {
     }
 
     #[ArrayShape(['class' => "string", 'parent' => "string"])]
-    public function __debugInfo() : ?array {
+    public function __debugInfo() : array {
         return [
             'class'  => static::class,
             'parent' => $this->getPhpParentClass(),

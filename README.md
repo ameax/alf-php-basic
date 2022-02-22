@@ -17,9 +17,15 @@ composer require ameax/alf-php-basic
 ## Usage
 
 ```php
-use Alf\types\scalars\AlfInt;
-$obj = new AlfInt();
-print_r($obj);
+use Alf\Types\Scalars\AlfInt;
+require_once('./vendor/autoload.php');
+
+$foo = new AlfInt(5);
+print_r($foo);
+
+eval('$x = new Alf\Types\Scalars\AlfInt(3);');
+$bar = AlfInt::_AlfInt($x); // autocomplete for programmers e.g. phpStorm or Netbeans
+var_dump($bar->isEmpty());
 ```
 
 ## Testing

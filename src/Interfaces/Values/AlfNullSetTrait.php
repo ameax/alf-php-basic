@@ -29,4 +29,6 @@ trait AlfNullSetTrait {
     protected function _AlfNullSetTraitClone() : void {
     }
 
+    abstract public function setToNull() : static;
+
 }
