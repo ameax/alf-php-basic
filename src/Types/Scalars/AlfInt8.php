@@ -10,7 +10,7 @@ class AlfInt8 extends AlfIntRange {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    public static function _AlfInt8($obj) : AlfInt8 {
+    final public static function _AlfInt8($obj) : AlfInt8 {
         return AlfProgramming::_()->unused($obj, static::_AlfIntRange($obj));
     }
 

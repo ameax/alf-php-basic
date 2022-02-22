@@ -10,7 +10,7 @@ class AlfPhpClassManager extends AlfBasicSingleton {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    public static function _AlfPhpClassManager($obj) : AlfPhpClassManager {
+    final public static function _AlfPhpClassManager($obj) : AlfPhpClassManager {
         return AlfProgramming::_()->unused($obj, static::_AlfBasicSingleton($obj));
     }
 

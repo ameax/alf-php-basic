@@ -5,14 +5,16 @@ namespace Alf\Types\Scalars;
 use Alf\AlfBasicTypeScalar;
 use Alf\Attributes\AlfAttrAutoComplete;
 use Alf\Attributes\AlfAttrParameterIsInt;
-use Alf\Interfaces\Values\AlfNullWork;
-use Alf\Interfaces\Values\AlfNullWorkTrait;
 use Alf\Services\AlfProgramming;
 use JetBrains\PhpStorm\Pure;
 
-class AlfInt extends AlfBasicTypeScalar implements AlfNullWork {
+class AlfInt extends AlfBasicTypeScalar {
 
-    use AlfNullWorkTrait;
+    /** @AlfAttrAutoComplete */
+    #[AlfAttrAutoComplete]
+    final public static function _AlfInt($obj) : AlfInt {
+        return AlfProgramming::_()->unused($obj, static::_AlfBasicTypeScalar($obj), static::_AlfNullGet($obj));
+    }
 
     protected ?int $value = null;
 
@@ -26,7 +28,7 @@ class AlfInt extends AlfBasicTypeScalar implements AlfNullWork {
         if (is_null($newValue)) {
             return $this->setToNull();
         }
-        $this->value = $this->convertValueForSet($newValue);
+        $this->value = $this->_convertValueForSet($newValue);
         return $this;
     }
 
@@ -36,14 +38,8 @@ class AlfInt extends AlfBasicTypeScalar implements AlfNullWork {
     }
 
     #[Pure]
-    protected function convertValueForSet(int $value) : ?int {
+    protected function _convertValueForSet(int $value) : ?int {
         return $value;
-    }
-
-    /** @AlfAttrAutoComplete */
-    #[AlfAttrAutoComplete]
-    public static function _AlfInt($obj) : AlfInt {
-        return AlfProgramming::_()->unused($obj, static::_AlfBasicTypeScalar($obj), static::_AlfNullGet($obj));
     }
 
     #[Pure]

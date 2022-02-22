@@ -4,24 +4,19 @@ namespace Alf;
 
 use Alf\Attributes\AlfAttrAutoComplete;
 use Alf\Services\AlfProgramming;
+use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
 use RuntimeException;
 
 abstract class AlfBasicSingleton {
 
-    private static array $_instances = [];
-
-    final private function __construct() {
-        $this->cTor();
-    }
-
-    protected function cTor() : void { }
-
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    public static function _AlfBasicSingleton($obj) : AlfBasicSingleton {
+    final public static function _AlfBasicSingleton($obj) : AlfBasicSingleton {
         return AlfProgramming::_()->unused($obj);
     }
+
+    private static array $_instances = [];
 
     public static function _() : static {
         if (!isset(static::$_instances[static::getInstanceName()])) {
@@ -34,6 +29,12 @@ abstract class AlfBasicSingleton {
     final protected static function getInstanceName() : string {
         return static::class;
     }
+
+    final private function __construct() {
+        $this->cTor();
+    }
+
+    protected function cTor() : void { }
 
     public function __destruct() { }
 
@@ -70,6 +71,13 @@ abstract class AlfBasicSingleton {
      */
     final public function __unserialize(array $data) : void {
         throw new RuntimeException(__METHOD__);
+    }
+
+    #[ArrayShape(['class' => "string"])]
+    public function __debugInfo() : ?array {
+        return [
+            'class' => static::class,
+        ];
     }
 
 }

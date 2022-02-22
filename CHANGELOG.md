@@ -2,6 +2,17 @@
 
 All notable changes to `alf-php-basic` will be documented in this file.
 
+## 1.1.4 - XXXX-XX-XX
+
+- tests for AlfCache
+- tests for autocomplete functions
+- tests for interfaces need traits
+- tests for traits need interface
+- tests for traits autocall functions
+- code cleanup by tests
+- resort functions in classes
+- AlfBasicTypeScalar implements AlfNullWork
+
 ## 1.1.3 - 2022-02-17
 
 - scalar type: AlfInt8U

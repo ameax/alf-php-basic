@@ -5,6 +5,7 @@
 
 use Alf\AlfBasicAttribute;
 use Alf\AlfBasicClass;
+use Alf\AlfBasicSingleton;
 use Alf\AlfBasicType;
 use Alf\AlfBasicTypeScalar;
 use Alf\Attributes\AlfAttrAutoComplete;
@@ -26,7 +27,9 @@ use Alf\Types\Scalars\AlfInt;
 use Alf\Types\Scalars\AlfInt8;
 use Alf\Types\Scalars\AlfInt8U;
 use Alf\Types\Scalars\AlfIntRange;
+use JetBrains\PhpStorm\Pure;
 
+#[Pure]
 function listAlfInterfaces() : array {
     return [
         // Interfaces/Values
@@ -37,6 +40,7 @@ function listAlfInterfaces() : array {
     ];
 }
 
+#[Pure]
 function listAlfTraits() : array {
     return [
         // Interfaces/Values
@@ -47,6 +51,7 @@ function listAlfTraits() : array {
     ];
 }
 
+#[Pure]
 function listAlfClasses() : array {
     return [
         AlfBasicAttribute::class,
@@ -66,9 +71,10 @@ function listAlfClasses() : array {
     ];
 }
 
+#[Pure]
 function listAlfSingletons() : array {
     return [
-        \Alf\AlfBasicSingleton::class,
+        AlfBasicSingleton::class,
         // Services
         AlfCache::class,
         AlfPhpClassManager::class,
@@ -76,10 +82,12 @@ function listAlfSingletons() : array {
     ];
 }
 
+#[Pure]
 function listAlfClassesAndSingletons() : array {
     return array_merge(listAlfClasses(), listAlfSingletons());
 }
 
+#[Pure]
 function listAlfAll() : array {
     return array_merge(listAlfClasses(), listAlfSingletons(), listAlfInterfaces(), listAlfTraits());
 }

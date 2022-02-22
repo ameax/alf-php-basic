@@ -1,6 +1,9 @@
 <?php
 
-test('interface-dummy',
+test('interface has trait',
     function (string $interfaceName) {
-        expect(true)->toBeTrue();
+
+        $needTraitName = $interfaceName.'Trait';
+        expect(trait_exists($needTraitName))->toBeTrue();
+
     })->with(listAlfInterfaces());
