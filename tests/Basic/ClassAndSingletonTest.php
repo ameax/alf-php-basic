@@ -1,11 +1,12 @@
 <?php
 
+use Alf\AlfBasicClass;
 use Alf\AlfBasicSingleton;
 use Alf\Attributes\AlfAttrAutoComplete;
 
 test('autocomplete function',
     /** @throws ReflectionException */
-    function (string $className) {
+    function (string $className) : void {
 
         $reflectionClass = new ReflectionClass($className);
 
@@ -78,5 +79,29 @@ test('autocomplete function',
 
         // - finally
         expect($foundMethod)->not()->toBeNull();
+
+    })->with(listAlfClassesAndSingletons());
+
+test('__debugInfo()',
+    /** @throws ReflectionException */
+    function (string $className) : void {
+
+        $reflectionClass = new ReflectionClass($className);
+
+        // - Call It
+        if ($reflectionClass->isAbstract()) {
+            expect(true)->toBeTrue();
+            return;
+        }
+
+        $fullClassName = $reflectionClass->getName();
+        if ($reflectionClass->isSubclassOf(AlfBasicSingleton::class)) {
+            $inst = AlfBasicSingleton::_AlfBasicSingleton($fullClassName::_());
+        } else {
+            $inst = AlfBasicClass::_AlfBasicClass(new $fullClassName());
+        }
+
+        $debug = $inst->__debugInfo();
+        expect($debug['class'] ?? null)->toBe($reflectionClass->getName());
 
     })->with(listAlfClassesAndSingletons());

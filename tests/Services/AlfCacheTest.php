@@ -3,7 +3,7 @@
 use Alf\Services\AlfCache;
 
 test('cache bool',
-    function () {
+    function () : void {
 
         AlfCache::_()->setCacheBool('isTrue', true);
         $this->assertTrue(AlfCache::_()->getCacheBool('isTrue'),
@@ -51,7 +51,7 @@ test('cache bool',
     });
 
 test('cache int',
-    function () {
+    function () : void {
 
         AlfCache::_()->setCacheInt('isFive', 5);
         $this->assertSame(5,
@@ -105,7 +105,7 @@ test('cache int',
     });
 
 test('cache string',
-    function () {
+    function () : void {
 
         AlfCache::_()->setCacheString('isFive', 'Five');
         $this->assertSame('Five',
@@ -159,7 +159,7 @@ test('cache string',
     });
 
 test('cache array',
-    function () {
+    function () : void {
 
         AlfCache::_()->setCacheArray('arrOne', ['one' => 'two', 'three' => 'four']);
         $this->assertSame(['one' => 'two', 'three' => 'four'],
@@ -213,7 +213,7 @@ test('cache array',
     });
 
 test('cross type bool',
-    function () {
+    function () : void {
         AlfCache::_()->reset();
 
         AlfCache::_()->setCacheBool('over', true);
@@ -226,7 +226,7 @@ test('cross type bool',
     });
 
 test('cross type int',
-    function () {
+    function () : void {
         AlfCache::_()->reset();
 
         AlfCache::_()->setCacheInt('over', 10);
@@ -239,7 +239,7 @@ test('cross type int',
     });
 
 test('cross type string',
-    function () {
+    function () : void {
         AlfCache::_()->reset();
 
         AlfCache::_()->setCacheString('over', 'Alf4712');
@@ -252,7 +252,7 @@ test('cross type string',
     });
 
 test('cross type array',
-    function () {
+    function () : void {
         AlfCache::_()->reset();
 
         AlfCache::_()->setCacheArray('over', ['alf' => '4712']);

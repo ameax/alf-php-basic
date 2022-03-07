@@ -4,7 +4,7 @@ use Alf\AlfBasicAttribute;
 use Alf\Attributes\AlfAttrTraitAutoCall;
 
 test('trait has interface',
-    function (string $traitName) {
+    function (string $traitName) : void {
 
         $interfaceName = substr($traitName, 0, -5);
         expect(interface_exists($interfaceName))->toBeTrue();
@@ -13,7 +13,7 @@ test('trait has interface',
 
 test('trait has auto-trait-functions',
     /** @throws ReflectionException */
-    function (string $traitName) {
+    function (string $traitName) : void {
 
         $reflectionTrait = new ReflectionClass($traitName);
         $traitShortName = $reflectionTrait->getShortName();
@@ -64,3 +64,5 @@ test('trait has auto-trait-functions',
         }
 
     })->with(listAlfTraits());
+
+

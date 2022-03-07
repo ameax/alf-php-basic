@@ -14,6 +14,8 @@ All notable changes to `alf-php-basic` will be documented in this file.
 - AlfBasicTypeScalar implements AlfNullWork
 - interface: AlfEmptyGet
 - interface: AlfEmptySet
+- interface: AlfEmptyWork
+- interface: AlfNullOrEmptyWork
 
 ## 1.1.3 - 2022-02-17
 
