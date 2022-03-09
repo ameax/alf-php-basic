@@ -19,12 +19,12 @@ class AlfInt extends AlfBasicTypeScalar {
 
     protected ?int $value = null;
 
-    public function __construct(#[AlfAttrParameterIsInt] int|null|AlfInt $value = null) {
+    public function __construct(#[AlfAttrParameterIsInt] AlfInt|int|bool|null $value = null) {
         parent::__construct();
         $this->set($value);
     }
 
-    public function set(#[AlfAttrParameterIsInt] int|null|AlfInt $value) : static {
+    public function set(#[AlfAttrParameterIsInt] AlfInt|int|bool|null $value) : static {
         $newValue = AlfProgramming::_()->valueToInt($value);
         if (is_null($newValue)) {
             $this->value = null;

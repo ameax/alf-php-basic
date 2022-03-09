@@ -151,9 +151,9 @@ test('AlfInt',
             // -
             $inst->setToEmpty();
             $this->assertFalse($inst->isNull(),
-                              '(4) '.$shortName.'::setToNull()->isNull()');
+                               '(4) '.$shortName.'::setToNull()->isNull()');
             $this->assertTrue($inst->isEmpty(),
-                               '(4) '.$shortName.'::setToNull()->isEmpty()');
+                              '(4) '.$shortName.'::setToNull()->isEmpty()');
             $this->assertTrue($inst->isNullOrEmpty(),
                               '(4) '.$shortName.'::setToNull()->isNullOrEmpty()');
 

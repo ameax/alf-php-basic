@@ -30,9 +30,15 @@ final class AlfProgramming extends AlfBasicSingleton {
     }
 
     #[Pure]
-    public function valueToInt(#[AlfAttrParameterIsInt] int|null|AlfInt $value) : ?int {
+    public function valueToInt(#[AlfAttrParameterIsInt] AlfInt|int|bool|null $value) : ?int {
         if ((is_int($value)) || (is_null($value))) {
             return $value;
+        }
+        if ($value === true) {
+            return 1;
+        }
+        if ($value === false) {
+            return 0;
         }
         return $value->isNull() ? null : $value->get();
     }

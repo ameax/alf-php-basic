@@ -3,8 +3,7 @@
 // uses(Tests\TestCase::class)->in('Feature');
 // expect()->extend('toBeOne', function () { return $this->toBe(1); });
 
-// ToDo: Attribute AlfAttrParamsIsInt
-// ToDo: autocomplete for interface in traits
+// ToDo: Find all files and check if tested
 
 use Alf\AlfBasicAttribute;
 use Alf\AlfBasicClass;
@@ -161,6 +160,20 @@ function getIntValues() : array {
                 'get'      => 128,
                 'getValue' => 128,
             ],
+        ],
+        [
+            'set'      => true,
+            'isNull'   => false,
+            'isEmpty'  => false,
+            'get'      => 1,
+            'getValue' => 1,
+        ],
+        [
+            'set'      => false,
+            'isNull'   => false,
+            'isEmpty'  => true,
+            'get'      => 0,
+            'getValue' => 0,
         ],
     ];
 }
