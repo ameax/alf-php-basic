@@ -2,6 +2,13 @@
 
 All notable changes to `alf-php-basic` will be documented in this file.
 
+## 1.1.5 - XXXX-XX-XX
+
+- interface: AlfIntGet
+- interface: AlfIntSet
+- interface: AlfIntWork
+- first calculation functions for AlfInt by AlfIntWork
+
 ## 1.1.4 - 2022-03-09
 
 - tests

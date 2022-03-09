@@ -19,11 +19,10 @@ class AlfAttrParameterIsInt extends AlfAttrParameter {
     public function isParameterTypeOk(ReflectionParameter $param, string|null &$shouldType = null) : bool {
         $needParams = [];
 
-        // #[AlfAttrParameterIsInt] AlfInt|int|bool|null $value = null
+        // #[AlfAttrParameterIsInt] AlfInt|int|null $value = null
         // PHP sorts the parameters! Use the right order by PHP.
         $needParams[] = AlfInt::class;
         $needParams[] = 'int';
-        $needParams[] = 'bool';
         $needParams[] = 'null';
 
         // -

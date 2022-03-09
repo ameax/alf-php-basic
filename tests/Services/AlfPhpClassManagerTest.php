@@ -3,6 +3,9 @@
 use Alf\AlfBasicClass;
 use Alf\AlfBasicType;
 use Alf\AlfBasicTypeScalar;
+use Alf\Interfaces\Integers\AlfIntGetTrait;
+use Alf\Interfaces\Integers\AlfIntSetTrait;
+use Alf\Interfaces\Integers\AlfIntWorkTrait;
 use Alf\Interfaces\Values\AlfEmptyGetTrait;
 use Alf\Interfaces\Values\AlfEmptySetTrait;
 use Alf\Interfaces\Values\AlfEmptyWorkTrait;
@@ -38,7 +41,7 @@ test('listTraits AlfInt',
         $obj = new AlfInt();
         $traits = AlfPhpClassManager::_()->listTraits($obj);
 
-        $this->assertCount(8, $traits);
+        $this->assertCount(11, $traits);
 
         $this->assertArrayHasKey(AlfNullOrEmptyWorkTrait::class, $traits);
         $this->assertArrayHasKey(AlfNullWorkTrait::class, $traits);
@@ -48,5 +51,8 @@ test('listTraits AlfInt',
         $this->assertArrayHasKey(AlfEmptyGetTrait::class, $traits);
         $this->assertArrayHasKey(AlfEmptySetTrait::class, $traits);
         $this->assertArrayHasKey(AlfValueGetTrait::class, $traits);
+        $this->assertArrayHasKey(AlfIntGetTrait::class, $traits);
+        $this->assertArrayHasKey(AlfIntSetTrait::class, $traits);
+        $this->assertArrayHasKey(AlfIntWorkTrait::class, $traits);
 
     });

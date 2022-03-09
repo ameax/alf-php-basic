@@ -121,6 +121,8 @@ test('AlfInt',
             $isNullOrEmpty = $isNull || $isEmpty;
             $forGet = ($valueRow[$shortName]['get'] ?? $valueRow['get'] ?? null);
             $forValue = ($valueRow[$shortName]['getValue'] ?? $valueRow['getValue'] ?? null);
+            $forAfterAdd5 = ($valueRow[$shortName]['afterAdd5'] ?? $valueRow['afterAdd5'] ?? null);
+            $forAfterInc = ($valueRow[$shortName]['afterInc'] ?? $valueRow['afterInc'] ?? null);
 
             // -
             $this->assertSame($inst->isNull(), $isNull,
@@ -158,13 +160,13 @@ test('AlfInt',
                               '(4) '.$shortName.'::setToNull()->isNullOrEmpty()');
 
             // -
-            $inst->set($valueRow['set']);
+            $inst->setFromInt($valueRow['set']);
             $this->assertSame($inst->isNull(), $isNull,
-                              '(5) '.$shortName.'::set('.($valueRow['set'] ?? '-NULL-').')->isNull()');
+                              '(5) '.$shortName.'::setFromInt('.($valueRow['set'] ?? '-NULL-').')->isNull()');
             $this->assertSame($inst->isEmpty(), $isEmpty,
-                              '(5) '.$shortName.'::set('.($valueRow['set'] ?? '-NULL-').')->isEmpty()');
+                              '(5) '.$shortName.'::setFromInt('.($valueRow['set'] ?? '-NULL-').')->isEmpty()');
             $this->assertSame($inst->isNullOrEmpty(), $isNullOrEmpty,
-                              '(5) '.$shortName.'::set('.($valueRow['set'] ?? '-NULL-').')->isNullOrEmpty()');
+                              '(5) '.$shortName.'::setFromInt('.($valueRow['set'] ?? '-NULL-').')->isNullOrEmpty()');
 
             // -
             $inst2 = clone $inst;
@@ -180,6 +182,22 @@ test('AlfInt',
                               '(7) '.$shortName.'::set('.($valueRow['set'] ?? '-NULL-').')->get('.($forGet ?? '-NULL-').')');
             $this->assertSame($inst2->getValue(), $forValue,
                               '(7) '.$shortName.'::set('.($valueRow['set'] ?? '-NULL-').')->getValue('.($forValue ?? '-NULL-').')');
+
+            // -
+            $this->assertSame($inst2->get(), $inst2->getAsInt(),
+                              '(8) '.$shortName.'::get()<>getAsInt()');
+
+            // -
+            $instForAdd5 = clone $inst2;
+            $instForAdd5->add(5);
+            $this->assertSame($instForAdd5->getAsInt(), $forAfterAdd5,
+                              '(8) '.$shortName.'::add(5) is not '.($forAfterAdd5 ?? '-NULL-').', is '.$instForAdd5->getAsInt());
+
+            // -
+            $instForInc = clone $inst2;
+            $instForInc->inc();
+            $this->assertSame($instForInc->getAsInt(), $forAfterInc,
+                              '(8) '.$shortName.'::add(5) is not '.($forAfterInc ?? '-NULL-').', is '.$instForInc->getAsInt());
         }
 
     })->with(listAlfClasses());

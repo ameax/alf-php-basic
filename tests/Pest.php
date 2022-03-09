@@ -14,6 +14,12 @@ use Alf\Attributes\AlfAttrAutoComplete;
 use Alf\Attributes\AlfAttrParameter;
 use Alf\Attributes\AlfAttrParameterIsInt;
 use Alf\Attributes\AlfAttrTraitAutoCall;
+use Alf\Interfaces\Integers\AlfIntGet;
+use Alf\Interfaces\Integers\AlfIntGetTrait;
+use Alf\Interfaces\Integers\AlfIntSet;
+use Alf\Interfaces\Integers\AlfIntSetTrait;
+use Alf\Interfaces\Integers\AlfIntWork;
+use Alf\Interfaces\Integers\AlfIntWorkTrait;
 use Alf\Interfaces\Values\AlfEmptyGet;
 use Alf\Interfaces\Values\AlfEmptyGetTrait;
 use Alf\Interfaces\Values\AlfEmptySet;
@@ -42,6 +48,10 @@ use JetBrains\PhpStorm\Pure;
 #[Pure]
 function listAlfInterfaces() : array {
     return [
+        // Interfaces/Integers
+        AlfIntGet::class,
+        AlfIntSet::class,
+        AlfIntWork::class,
         // Interfaces/Values
         AlfEmptyGet::class,
         AlfEmptySet::class,
@@ -57,6 +67,10 @@ function listAlfInterfaces() : array {
 #[Pure]
 function listAlfTraits() : array {
     return [
+        // Interfaces/Integers
+        AlfIntGetTrait::class,
+        AlfIntSetTrait::class,
+        AlfIntWorkTrait::class,
         // Interfaces/Values
         AlfEmptyGetTrait::class,
         AlfEmptySetTrait::class,
@@ -114,66 +128,68 @@ function listAlfAll() : array {
 function getIntValues() : array {
     return [
         [
-            'set'      => null,
-            'isNull'   => true,
-            'isEmpty'  => false,
-            'get'      => 0,
-            'getValue' => null,
+            'set'       => null,
+            'isNull'    => true,
+            'isEmpty'   => false,
+            'get'       => 0,
+            'getValue'  => null,
+            'afterAdd5' => 5,
+            'afterInc'  => 1,
         ],
         [
-            'set'      => 0,
-            'isNull'   => false,
-            'isEmpty'  => true,
-            'get'      => 0,
-            'getValue' => 0,
+            'set'       => 0,
+            'isNull'    => false,
+            'isEmpty'   => true,
+            'get'       => 0,
+            'getValue'  => 0,
+            'afterAdd5' => 5,
+            'afterInc'  => 1,
         ],
         [
-            'set'      => 5,
-            'isNull'   => false,
-            'isEmpty'  => false,
-            'get'      => 5,
-            'getValue' => 5,
+            'set'       => 5,
+            'isNull'    => false,
+            'isEmpty'   => false,
+            'get'       => 5,
+            'getValue'  => 5,
+            'afterAdd5' => 10,
+            'afterInc'  => 6,
         ],
         [
-            'set'      => -5,
-            'isNull'   => false,
-            'isEmpty'  => false,
-            'get'      => -5,
-            'getValue' => -5,
-            'AlfInt8U' => [
-                'isEmpty'  => true,
-                'get'      => 0,
-                'getValue' => 0,
+            'set'       => -7,
+            'isNull'    => false,
+            'isEmpty'   => false,
+            'get'       => -7,
+            'getValue'  => -7,
+            'afterAdd5' => -2,
+            'afterInc'  => -6,
+            'AlfInt8U'  => [
+                'isEmpty'   => true,
+                'get'       => 0,
+                'getValue'  => 0,
+                'afterAdd5' => 5,
+                'afterInc'  => 1,
             ],
         ],
         [
-            'set'      => 500,
-            'isNull'   => false,
-            'isEmpty'  => false,
-            'get'      => 500,
-            'getValue' => 500,
-            'AlfInt8U' => [
-                'get'      => 255,
-                'getValue' => 255,
+            'set'       => 500,
+            'isNull'    => false,
+            'isEmpty'   => false,
+            'get'       => 500,
+            'getValue'  => 500,
+            'afterAdd5' => 505,
+            'afterInc'  => 501,
+            'AlfInt8U'  => [
+                'get'       => 255,
+                'getValue'  => 255,
+                'afterAdd5' => 255,
+                'afterInc'  => 255,
             ],
-            'AlfInt8'  => [
-                'get'      => 128,
-                'getValue' => 128,
+            'AlfInt8'   => [
+                'get'       => 128,
+                'getValue'  => 128,
+                'afterAdd5' => 128,
+                'afterInc'  => 128,
             ],
-        ],
-        [
-            'set'      => true,
-            'isNull'   => false,
-            'isEmpty'  => false,
-            'get'      => 1,
-            'getValue' => 1,
-        ],
-        [
-            'set'      => false,
-            'isNull'   => false,
-            'isEmpty'  => true,
-            'get'      => 0,
-            'getValue' => 0,
         ],
     ];
 }
