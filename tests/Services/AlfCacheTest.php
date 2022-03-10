@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 use Alf\Services\AlfCache;
 
 test('cache bool',

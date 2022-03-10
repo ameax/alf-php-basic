@@ -11,4 +11,8 @@ interface AlfIntWork extends AlfIntGet, AlfIntSet {
 
     public function inc() : static;
 
+    public function sub(#[AlfAttrParameterIsInt] AlfInt|int|null $value) : static;
+
+    public function dec() : static;
+
 }

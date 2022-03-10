@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 use Alf\AlfBasicSingleton;
 
 test('class must be a instance of AlfBasicSingleton',
@@ -12,7 +14,7 @@ test('class must be a instance of AlfBasicSingleton',
 
     })->with(listAlfSingletons());
 
-test('no __clone()',
+test('exception if clone',
     /** @throws ReflectionException */
     function (string $className) : void {
 
@@ -29,7 +31,7 @@ test('no __clone()',
 
     })->with(listAlfSingletons())->throws(RuntimeException::class);
 
-test('no serialize()',
+test('exception if serialize',
     /** @throws ReflectionException */
     function (string $className) : void {
 
@@ -46,7 +48,7 @@ test('no serialize()',
 
     })->with(listAlfSingletons())->throws(RuntimeException::class);
 
-test('no __wakeup()',
+test('exception if call __wakeup()',
     /** @throws ReflectionException */
     function (string $className) : void {
 
@@ -63,7 +65,7 @@ test('no __wakeup()',
 
     })->with(listAlfSingletons())->throws(RuntimeException::class);
 
-test('no __sleep()',
+test('exception if call __sleep()',
     /** @throws ReflectionException */
     function (string $className) : void {
 
@@ -80,7 +82,7 @@ test('no __sleep()',
 
     })->with(listAlfSingletons())->throws(RuntimeException::class);
 
-test('no __serialize()',
+test('exception if call __serialize()',
     /** @throws ReflectionException */
     function (string $className) : void {
 
@@ -97,7 +99,7 @@ test('no __serialize()',
 
     })->with(listAlfSingletons())->throws(RuntimeException::class);
 
-test('no __unserialize()',
+test('exception if call __unserialize()',
     /** @throws ReflectionException */
     function (string $className) : void {
 

@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types = 1);
+
 use Alf\AlfBasicAttribute;
 use Alf\Attributes\AlfAttrAutoComplete;
 use Alf\Attributes\AlfAttrTraitAutoCall;
 
-test('trait has interface',
+test('trait has interface with same name',
     function (string $traitName) : void {
 
         $interfaceName = substr($traitName, 0, -5);
@@ -12,7 +14,7 @@ test('trait has interface',
 
     })->with(listAlfTraits());
 
-test('trait has auto-trait-functions',
+test('trait has auto-trait-functions with attributes',
     /** @throws ReflectionException */
     function (string $traitName) : void {
 
@@ -66,7 +68,7 @@ test('trait has auto-trait-functions',
 
     })->with(listAlfTraits());
 
-test('autocomplete interface function',
+test('trait has an autocomplete interface function',
     /** @throws ReflectionException */
     function (string $traitName) : void {
 

@@ -42,4 +42,13 @@ trait AlfIntWorkTrait {
         return $this->add(1);
     }
 
+    public function sub(#[AlfAttrParameterIsInt] AlfInt|int|null $value) : static {
+        $this->setFromInt($this->getAsInt() - (AlfProgramming::_()->valueToInt($value) ?? 0));
+        return $this;
+    }
+
+    public function dec() : static {
+        return $this->sub(1);
+    }
+
 }

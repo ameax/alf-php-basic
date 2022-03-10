@@ -1,6 +1,8 @@
 <?php
 
-test('interface has trait',
+declare(strict_types = 1);
+
+test('interface has a trait with same name',
     function (string $interfaceName) : void {
 
         $needTraitName = $interfaceName.'Trait';

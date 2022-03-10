@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 use Alf\AlfBasicClass;
 use Alf\AlfBasicType;
 use Alf\AlfBasicTypeScalar;

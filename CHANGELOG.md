@@ -4,10 +4,21 @@ All notable changes to `alf-php-basic` will be documented in this file.
 
 ## 1.1.5 - XXXX-XX-XX
 
+- tests with declare(strict_types = 1);
 - interface: AlfIntGet
 - interface: AlfIntSet
 - interface: AlfIntWork
-- first calculation functions for AlfInt by AlfIntWork
+- calculation functions at AlfIntWork
+- AlfInt extends AlfIntWork
+- scalar type: AlfInt16
+- scalar type: AlfInt16U
+- scalar type: AlfInt32
+- scalar type: AlfInt32U
+- scalar type: AlfBool
+- interface: AlfBoolGet
+- interface: AlfBoolSet
+- interface: AlfBoolWork
+- attribute: AlfAttrParameterIsBool
 
 ## 1.1.4 - 2022-03-09
 
