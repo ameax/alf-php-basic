@@ -173,6 +173,35 @@ function listAlfAll() : array {
     return array_merge(listAlfClasses(), listAlfSingletons(), listAlfInterfaces(), listAlfTraits());
 }
 
+function getBoolValues() : array {
+    return [
+        [
+            'set'         => null,
+            'isNull'      => true,
+            'isEmpty'     => false,
+            'get'         => false,
+            'getValue'    => null,
+            'afterInvert' => true,
+        ],
+        [
+            'set'         => false,
+            'isNull'      => false,
+            'isEmpty'     => true,
+            'get'         => false,
+            'getValue'    => false,
+            'afterInvert' => true,
+        ],
+        [
+            'set'         => true,
+            'isNull'      => false,
+            'isEmpty'     => false,
+            'get'         => true,
+            'getValue'    => true,
+            'afterInvert' => false,
+        ],
+    ];
+}
+
 #[Pure]
 function getIntValues() : array {
     return [

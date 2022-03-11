@@ -2,7 +2,7 @@
 
 All notable changes to `alf-php-basic` will be documented in this file.
 
-## 1.1.5 - XXXX-XX-XX
+## 1.1.5 - 2022-03-11
 
 - tests with declare(strict_types = 1);
 - interface: AlfIntGet

@@ -31,4 +31,9 @@ trait AlfBoolWorkTrait {
     protected function _AlfBoolWorkTraitClone() : void {
     }
 
+    public function invert() : static {
+        $this->setFromBool(!$this->getAsBool());
+        return $this;
+    }
+
 }
