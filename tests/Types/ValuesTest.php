@@ -61,4 +61,37 @@ test('interface AlfNullOrEmpty',
         $this->assertTrue($inst2->isNullOrEmpty(),
                           '(3b) ->isNullOrEmpty()');
 
+        // -
+        $inst->setToEmpty();
+        $this->assertFalse($inst->isNull(),
+                           '(4a) ->isNull()');
+        $this->assertTrue($inst->isEmpty(),
+                          '(4a) ->isEmpty()');
+        $this->assertTrue($inst->isNullOrEmpty(),
+                          '(4a) ->isNullOrEmpty()');
+        $inst2 = clone $inst;
+        $this->assertFalse($inst2->isNull(),
+                           '(4b) ->isNull()');
+        $this->assertTrue($inst2->isEmpty(),
+                          '(4b) ->isEmpty()');
+        $this->assertTrue($inst2->isNullOrEmpty(),
+                          '(4b) ->isNullOrEmpty()');
+
+        // -
+        $inst->setToNull();
+        $this->assertTrue($inst->isNull(),
+                          '(5a) ->isNull()');
+        $this->assertFalse($inst->isEmpty(),
+                           '(5a) ->isEmpty()');
+        $this->assertTrue($inst->isNullOrEmpty(),
+                          '(5a) ->isNullOrEmpty()');
+
+        $inst2 = clone $inst;
+        $this->assertTrue($inst2->isNull(),
+                          '(5b) ->isNull()');
+        $this->assertFalse($inst2->isEmpty(),
+                           '(5b) ->isEmpty()');
+        $this->assertTrue($inst2->isNullOrEmpty(),
+                          '(5b) ->isNullOrEmpty()');
+
     })->with(listAlfClassesSubtype(AlfNullOrEmptyWork::class));

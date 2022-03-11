@@ -2,8 +2,8 @@
 
 namespace Alf\Attributes;
 
+use Alf\Interfaces\Integers\AlfIntGet;
 use Alf\Services\AlfProgramming;
-use Alf\Types\Scalars\AlfInt;
 use Attribute;
 use ReflectionParameter;
 
@@ -19,9 +19,9 @@ class AlfAttrParameterIsInt extends AlfAttrParameter {
     public function isParameterTypeOk(ReflectionParameter $param, string|null &$shouldType = null) : bool {
         $needParams = [];
 
-        // #[AlfAttrParameterIsInt] AlfInt|int|null $value = null
+        // #[AlfAttrParameterIsInt] AlfIntGet|int|null $value = null
         // PHP sorts the parameters! Use the right order by PHP.
-        $needParams[] = AlfInt::class;
+        $needParams[] = AlfIntGet::class;
         $needParams[] = 'int';
         $needParams[] = 'null';
 

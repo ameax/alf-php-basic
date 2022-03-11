@@ -6,7 +6,6 @@ use Alf\Attributes\AlfAttrAutoComplete;
 use Alf\Attributes\AlfAttrParameterIsInt;
 use Alf\Attributes\AlfAttrTraitAutoCall;
 use Alf\Services\AlfProgramming;
-use Alf\Types\Scalars\AlfInt;
 
 trait AlfIntWorkTrait {
 
@@ -33,7 +32,7 @@ trait AlfIntWorkTrait {
     protected function _AlfIntWorkTraitClone() : void {
     }
 
-    public function add(#[AlfAttrParameterIsInt] AlfInt|int|null $value) : static {
+    public function add(#[AlfAttrParameterIsInt] AlfIntGet|int|null $value) : static {
         $this->setFromInt($this->getAsInt() + (AlfProgramming::_()->valueToInt($value) ?? 0));
         return $this;
     }
@@ -42,7 +41,7 @@ trait AlfIntWorkTrait {
         return $this->add(1);
     }
 
-    public function sub(#[AlfAttrParameterIsInt] AlfInt|int|null $value) : static {
+    public function sub(#[AlfAttrParameterIsInt] AlfIntGet|int|null $value) : static {
         $this->setFromInt($this->getAsInt() - (AlfProgramming::_()->valueToInt($value) ?? 0));
         return $this;
     }

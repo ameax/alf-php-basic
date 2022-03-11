@@ -31,6 +31,6 @@ trait AlfBoolSetTrait {
     protected function _AlfBoolSetTraitClone() : void {
     }
 
-    abstract public function setFromBool(#[AlfAttrParameterIsBool] AlfBool|bool|null $value) : static;
+    abstract public function setFromBool(#[AlfAttrParameterIsBool] AlfBoolGet|bool|null $value) : static;
 
 }

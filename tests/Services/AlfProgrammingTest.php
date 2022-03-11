@@ -23,6 +23,50 @@ test('unusedRef',
 
     });
 
+test('valueIsNull',
+    function () {
+
+        $this->assertTrue(AlfProgramming::_()->valueIsNull(null),
+                          '(1a) valueIsNull(null)');
+        $this->assertTrue(AlfProgramming::_()->valueIsNull(null, false),
+                          '(1b) valueIsNull(null)');
+
+        $this->assertFalse(AlfProgramming::_()->valueIsNull(false),
+                           '(2a) valueIsNull(false)');
+        $this->assertFalse(AlfProgramming::_()->valueIsNull(false, false),
+                           '(2b) valueIsNull(false)');
+
+        $this->assertFalse(AlfProgramming::_()->valueIsNull(0),
+                           '(3a) valueIsNull(false)');
+        $this->assertFalse(AlfProgramming::_()->valueIsNull(0, false),
+                           '(3b) valueIsNull(false)');
+
+        $obj = new AlfInt();
+        $this->assertTrue(AlfProgramming::_()->valueIsNull($obj),
+                          '(4a) valueIsNull(AlfInt())');
+        $this->assertFalse(AlfProgramming::_()->valueIsNull($obj, false),
+                           '(4b) valueIsNull(AlfInt())');
+
+        $objDummyHasNot = new AlfProgrammingTestDummyForNullHasNoFunction();
+        $this->assertFalse(AlfProgramming::_()->valueIsNull($objDummyHasNot),
+                           '(5a) valueIsNull(-HasNoFunc-)');
+        $this->assertFalse(AlfProgramming::_()->valueIsNull($objDummyHasNot, false),
+                           '(5b) valueIsNull(-HasNoFunc-)');
+
+        $objDummyHasAndIs = new AlfProgrammingTestDummyForNullIsNull();
+        $this->assertTrue(AlfProgramming::_()->valueIsNull($objDummyHasAndIs),
+                          '(6a) valueIsNull(-HasFuncIsNull-)');
+        $this->assertFalse(AlfProgramming::_()->valueIsNull($objDummyHasAndIs, false),
+                           '(6b) valueIsNull(-HasFuncIsNull-)');
+
+        $objDummyHasAndIsNot = new AlfProgrammingTestDummyForNullIsNotNull();
+        $this->assertFalse(AlfProgramming::_()->valueIsNull($objDummyHasAndIsNot),
+                           '(6a) valueIsNull(-HasFuncIsNotNull-)');
+        $this->assertFalse(AlfProgramming::_()->valueIsNull($objDummyHasAndIsNot, false),
+                           '(6b) valueIsNull(-HasFuncIsNotNull-)');
+
+    });
+
 test('valueToInt should be null',
     function () : void {
 

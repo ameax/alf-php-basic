@@ -2,6 +2,18 @@
 
 All notable changes to `alf-php-basic` will be documented in this file.
 
+## 1.1.6 - XXXX-XX-XX
+
+- AlfProgramming: valueIsNull
+- enum: AlfColorRGBChannels
+- enum: AlfCharsets
+- basic class: AlfBasicTypeSelect
+- select type: AlfCharset
+- interface: AlfStringGet
+- interface: AlfStringSet
+- interface: AlfStringWork
+- attribute: AlfAttrParameterIsString
+
 ## 1.1.5 - 2022-03-11
 
 - tests with declare(strict_types = 1);
@@ -81,12 +93,11 @@ All notable changes to `alf-php-basic` will be documented in this file.
 ## 1.0.1 - 2022-02-09
 
 - basic class: AlfBasicSingleton
-- basic class: AlfAttribute
-- basic class: AlfType
-- basic class: AlfTypeScalar
+- basic class: AlfBasicAttribute
+- basic class: AlfBasicType
+- basic class: AlfBasicTypeScalar
 - service: AlfProgramming
 - attribute: AlfAttrAutoComplete
-- ToDo entries: AlfBasicClass
 - bugfix: changelog date for v1.0.0
 
 ## 1.0.0 - 2022-02-03

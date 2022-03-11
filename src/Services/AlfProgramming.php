@@ -6,9 +6,13 @@ use Alf\AlfBasicSingleton;
 use Alf\Attributes\AlfAttrAutoComplete;
 use Alf\Attributes\AlfAttrParameterIsBool;
 use Alf\Attributes\AlfAttrParameterIsInt;
-use Alf\Types\Scalars\AlfBool;
-use Alf\Types\Scalars\AlfInt;
+use Alf\Attributes\AlfAttrParameterIsString;
+use Alf\Interfaces\Booleans\AlfBoolGet;
+use Alf\Interfaces\Integers\AlfIntGet;
+use Alf\Interfaces\Strings\AlfStringGet;
+use Alf\Interfaces\Values\AlfNullWork;
 use JetBrains\PhpStorm\Pure;
+use Stringable;
 
 final class AlfProgramming extends AlfBasicSingleton {
 
@@ -32,19 +36,55 @@ final class AlfProgramming extends AlfBasicSingleton {
     }
 
     #[Pure]
-    public function valueToInt(#[AlfAttrParameterIsInt] AlfInt|int|null $value) : ?int {
-        if ((is_int($value)) || (is_null($value))) {
-            return $value;
+    public function valueIsNull(mixed $value, bool $checkViaFunctions = true) : bool {
+        if (is_null($value)) {
+            return true;
         }
-        return $value->isNull() ? null : $value->get();
+        if ($checkViaFunctions) {
+            if (is_a($value, AlfNullWork::class) && $value->isNull()) {
+                return true;
+            }
+            if (is_object($value) && method_exists($value, 'isNull') && $value->isNull()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     #[Pure]
-    public function valueToBool(#[AlfAttrParameterIsBool] AlfBool|bool|null $value) : ?bool {
-        if ((is_bool($value)) || (is_null($value))) {
+    public function valueToInt(#[AlfAttrParameterIsInt] AlfIntGet|int|null $value) : ?int {
+        if (is_int($value)) {
             return $value;
         }
-        return $value->isNull() ? null : $value->get();
+        if ($this->valueIsNull($value)) {
+            return null;
+        }
+        return $value->getAsInt();
+    }
+
+    #[Pure]
+    public function valueToBool(#[AlfAttrParameterIsBool] AlfBoolGet|bool|null $value) : ?bool {
+        if (is_bool($value)) {
+            return $value;
+        }
+        if ($this->valueIsNull($value)) {
+            return null;
+        }
+        return $value->getAsBool();
+    }
+
+    #[Pure]
+    public function valueToString(#[AlfAttrParameterIsString] AlfStringGet|Stringable|string|null $value) : ?bool {
+        if (is_string($value)) {
+            return $value;
+        }
+        if ($this->valueIsNull($value, false)) {
+            return null;
+        }
+        if (is_a($value, AlfStringGet::class)) {
+            return $value->getAsString();
+        }
+        return (string)$value;
     }
 
 }

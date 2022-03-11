@@ -6,18 +6,27 @@ declare(strict_types = 1);
 // expect()->extend('toBeOne', function () { return $this->toBe(1); });
 
 // ToDo: Find all files and check if tested
-// ToDo: Test AlfBool
+// ToDo: Test enums: has TypeSelect without "s"-Name
+// ToDo: Test AlfBasicTypeSelect: has enum wird "s"-Name
+// ToDo: Test AlfStringGetSet
+// ToDo: Test AlfStringWork
+// ToDo: extract AlfIntWork SetGetTests to a own test
+// ToDo: extract AlfBoolWork SetGetTests to a own test
 
 use Alf\AlfBasicAttribute;
 use Alf\AlfBasicClass;
 use Alf\AlfBasicSingleton;
 use Alf\AlfBasicType;
 use Alf\AlfBasicTypeScalar;
+use Alf\AlfBasicTypeSelect;
 use Alf\Attributes\AlfAttrAutoComplete;
 use Alf\Attributes\AlfAttrParameter;
 use Alf\Attributes\AlfAttrParameterIsBool;
 use Alf\Attributes\AlfAttrParameterIsInt;
+use Alf\Attributes\AlfAttrParameterIsString;
 use Alf\Attributes\AlfAttrTraitAutoCall;
+use Alf\Enums\AlfCharsets;
+use Alf\Enums\AlfColorRGBChannels;
 use Alf\Interfaces\Booleans\AlfBoolGet;
 use Alf\Interfaces\Booleans\AlfBoolGetTrait;
 use Alf\Interfaces\Booleans\AlfBoolSet;
@@ -30,6 +39,12 @@ use Alf\Interfaces\Integers\AlfIntSet;
 use Alf\Interfaces\Integers\AlfIntSetTrait;
 use Alf\Interfaces\Integers\AlfIntWork;
 use Alf\Interfaces\Integers\AlfIntWorkTrait;
+use Alf\Interfaces\Strings\AlfStringGet;
+use Alf\Interfaces\Strings\AlfStringGetTrait;
+use Alf\Interfaces\Strings\AlfStringSet;
+use Alf\Interfaces\Strings\AlfStringSetTrait;
+use Alf\Interfaces\Strings\AlfStringWork;
+use Alf\Interfaces\Strings\AlfStringWorkTrait;
 use Alf\Interfaces\Values\AlfEmptyGet;
 use Alf\Interfaces\Values\AlfEmptyGetTrait;
 use Alf\Interfaces\Values\AlfEmptySet;
@@ -58,6 +73,7 @@ use Alf\Types\Scalars\AlfInt32U;
 use Alf\Types\Scalars\AlfInt8;
 use Alf\Types\Scalars\AlfInt8U;
 use Alf\Types\Scalars\AlfIntRange;
+use Alf\Types\Selects\AlfCharset;
 use JetBrains\PhpStorm\Pure;
 
 #[Pure]
@@ -71,6 +87,10 @@ function listAlfInterfaces() : array {
         AlfIntGet::class,
         AlfIntSet::class,
         AlfIntWork::class,
+        // Interfaces/String
+        AlfStringGet::class,
+        AlfStringSet::class,
+        AlfStringWork::class,
         // Interfaces/Values
         AlfEmptyGet::class,
         AlfEmptySet::class,
@@ -94,6 +114,10 @@ function listAlfTraits() : array {
         AlfIntGetTrait::class,
         AlfIntSetTrait::class,
         AlfIntWorkTrait::class,
+        // Interfaces/String
+        AlfStringGetTrait::class,
+        AlfStringSetTrait::class,
+        AlfStringWorkTrait::class,
         // Interfaces/Values
         AlfEmptyGetTrait::class,
         AlfEmptySetTrait::class,
@@ -113,11 +137,13 @@ function listAlfClasses() : array {
         AlfBasicClass::class,
         AlfBasicType::class,
         AlfBasicTypeScalar::class,
+        AlfBasicTypeSelect::class,
         // Attributes
         AlfAttrAutoComplete::class,
         AlfAttrParameter::class,
-        AlfAttrParameterIsInt::class,
         AlfAttrParameterIsBool::class,
+        AlfAttrParameterIsInt::class,
+        AlfAttrParameterIsString::class,
         AlfAttrTraitAutoCall::class,
         // Types/Scalars
         AlfBool::class,
@@ -129,6 +155,8 @@ function listAlfClasses() : array {
         AlfInt32::class,
         AlfInt32U::class,
         AlfIntRange::class,
+        // Types/Selects
+        AlfCharset::class,
     ];
 }
 
@@ -168,9 +196,16 @@ function listAlfClassesAndSingletons() : array {
     return array_merge(listAlfClasses(), listAlfSingletons());
 }
 
+function listAlfEnums() : array {
+    return [
+        AlfCharsets::class,
+        AlfColorRGBChannels::class,
+    ];
+}
+
 #[Pure]
 function listAlfAll() : array {
-    return array_merge(listAlfClasses(), listAlfSingletons(), listAlfInterfaces(), listAlfTraits());
+    return array_merge(listAlfClasses(), listAlfSingletons(), listAlfInterfaces(), listAlfTraits(), listAlfEnums());
 }
 
 function getBoolValues() : array {
@@ -452,3 +487,22 @@ function getIntValues() : array {
     ];
 }
 
+class AlfProgrammingTestDummyForNullHasNoFunction {
+
+}
+
+class AlfProgrammingTestDummyForNullIsNull {
+
+    public function isNull() : bool {
+        return true;
+    }
+
+}
+
+class AlfProgrammingTestDummyForNullIsNotNull {
+
+    public function isNull() : bool {
+        return false;
+    }
+
+}

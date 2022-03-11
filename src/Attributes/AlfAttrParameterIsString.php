@@ -2,27 +2,29 @@
 
 namespace Alf\Attributes;
 
-use Alf\Interfaces\Booleans\AlfBoolGet;
+use Alf\Interfaces\Strings\AlfStringGet;
 use Alf\Services\AlfProgramming;
 use Attribute;
 use ReflectionParameter;
+use Stringable;
 
 #[Attribute(Attribute::TARGET_PARAMETER)]
-class AlfAttrParameterIsBool extends AlfAttrParameter {
+class AlfAttrParameterIsString extends AlfAttrParameter {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfAttrParameterIsBool($obj) : AlfAttrParameterIsBool {
+    final public static function _AlfAttrParameterIsString($obj) : AlfAttrParameterIsString {
         return AlfProgramming::_()->unused($obj, static::_AlfAttrParameter($obj));
     }
 
-    public function isParameterTypeOk(ReflectionParameter $param, string|null &$shouldType = null) : bool {
+    public function isParameterTypeOk(ReflectionParameter $param, ?string &$shouldType = null) : bool {
         $needParams = [];
 
-        // #[AlfAttrParameterIsBool] AlfBoolGet|bool|null $value = null
+        // #[AlfAttrParameterIsString] AlfStringGet|Stringable|string|null $value = null
         // PHP sorts the parameters! Use the right order by PHP.
-        $needParams[] = AlfBoolGet::class;
-        $needParams[] = 'bool';
+        $needParams[] = AlfStringGet::class;
+        $needParams[] = Stringable::class;
+        $needParams[] = 'string';
         $needParams[] = 'null';
 
         // -

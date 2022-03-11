@@ -6,7 +6,6 @@ use Alf\Attributes\AlfAttrAutoComplete;
 use Alf\Attributes\AlfAttrParameterIsInt;
 use Alf\Attributes\AlfAttrTraitAutoCall;
 use Alf\Services\AlfProgramming;
-use Alf\Types\Scalars\AlfInt;
 
 trait AlfIntSetTrait {
 
@@ -31,6 +30,6 @@ trait AlfIntSetTrait {
     protected function _AlfIntSetTraitClone() : void {
     }
 
-    abstract public function setFromInt(#[AlfAttrParameterIsInt] AlfInt|int|null $value) : static;
+    abstract public function setFromInt(#[AlfAttrParameterIsInt] AlfIntGet|int|null $value) : static;
 
 }

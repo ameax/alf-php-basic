@@ -5,6 +5,7 @@ namespace Alf\Types\Scalars;
 use Alf\AlfBasicTypeScalar;
 use Alf\Attributes\AlfAttrAutoComplete;
 use Alf\Attributes\AlfAttrParameterIsInt;
+use Alf\Interfaces\Integers\AlfIntGet;
 use Alf\Interfaces\Integers\AlfIntWork;
 use Alf\Interfaces\Integers\AlfIntWorkTrait;
 use Alf\Services\AlfProgramming;
@@ -23,7 +24,7 @@ class AlfInt extends AlfBasicTypeScalar implements AlfIntWork {
 
     protected ?int $value = null;
 
-    public function __construct(#[AlfAttrParameterIsInt] AlfInt|int|null $value = null) {
+    public function __construct(#[AlfAttrParameterIsInt] AlfIntGet|int|null $value = null) {
         parent::__construct();
         $this->set($value);
     }
@@ -47,7 +48,7 @@ class AlfInt extends AlfBasicTypeScalar implements AlfIntWork {
 
     /* setter */
 
-    public function set(#[AlfAttrParameterIsInt] AlfInt|int|null $value) : static {
+    public function set(#[AlfAttrParameterIsInt] AlfIntGet|int|null $value) : static {
         $newValue = AlfProgramming::_()->valueToInt($value);
         if (is_null($newValue)) {
             $this->value = null;
@@ -65,7 +66,7 @@ class AlfInt extends AlfBasicTypeScalar implements AlfIntWork {
         return $this->set($this->getEmptyValue());
     }
 
-    public function setFromInt(#[AlfAttrParameterIsInt] AlfInt|int|null $value) : static {
+    public function setFromInt(#[AlfAttrParameterIsInt] AlfIntGet|int|null $value) : static {
         return $this->set($value);
     }
 

@@ -7,6 +7,6 @@ use Alf\Types\Scalars\AlfBool;
 
 interface AlfBoolSet {
 
-    public function setFromBool(#[AlfAttrParameterIsBool] AlfBool|bool|null $value) : static;
+    public function setFromBool(#[AlfAttrParameterIsBool] AlfBoolGet|bool|null $value) : static;
 
 }

@@ -5,6 +5,7 @@ namespace Alf\Types\Scalars;
 use Alf\AlfBasicTypeScalar;
 use Alf\Attributes\AlfAttrAutoComplete;
 use Alf\Attributes\AlfAttrParameterIsBool;
+use Alf\Interfaces\Booleans\AlfBoolGet;
 use Alf\Interfaces\Booleans\AlfBoolWork;
 use Alf\Interfaces\Booleans\AlfBoolWorkTrait;
 use Alf\Services\AlfProgramming;
@@ -23,7 +24,7 @@ class AlfBool extends AlfBasicTypeScalar implements AlfBoolWork {
 
     protected ?bool $value = null;
 
-    public function __construct(#[AlfAttrParameterIsBool] AlfBool|bool|null $value = null) {
+    public function __construct(#[AlfAttrParameterIsBool] AlfBoolGet|bool|null $value = null) {
         parent::__construct();
         $this->set($value);
     }
@@ -47,7 +48,7 @@ class AlfBool extends AlfBasicTypeScalar implements AlfBoolWork {
 
     /* setter */
 
-    public function set(#[AlfAttrParameterIsBool] AlfBool|bool|null $value) : static {
+    public function set(#[AlfAttrParameterIsBool] AlfBoolGet|bool|null $value) : static {
         $newValue = AlfProgramming::_()->valueToBool($value);
         if (is_null($newValue)) {
             $this->value = null;
@@ -65,7 +66,7 @@ class AlfBool extends AlfBasicTypeScalar implements AlfBoolWork {
         return $this->set($this->getEmptyValue());
     }
 
-    public function setFromBool(#[AlfAttrParameterIsBool] AlfBool|bool|null $value) : static {
+    public function setFromBool(#[AlfAttrParameterIsBool] AlfBoolGet|bool|null $value) : static {
         return $this->set($value);
     }
 
