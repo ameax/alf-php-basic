@@ -2,12 +2,13 @@
 
 declare(strict_types = 1);
 
-use Alf\Interfaces\Integers\AlfIntGet;
-use Alf\Interfaces\Integers\AlfIntSet;
-use Alf\Interfaces\Integers\AlfIntWork;
-use Alf\Types\Scalars\AlfInt;
+use Alf\AlfBasicTypeSelect;
+use Alf\Interfaces\Strings\AlfStringGet;
+use Alf\Interfaces\Strings\AlfStringSet;
+use Alf\Interfaces\Strings\AlfStringWork;
+use Alf\Types\Scalars\AlfString;
 
-test('classes extends AlfInt',
+test('classes extends AlfString',
     /** @throws ReflectionException */
     function (string $className) : void {
 
@@ -15,8 +16,8 @@ test('classes extends AlfInt',
         $fullClassName = $reflectionClass->getName();
         $shortName = $reflectionClass->getShortName();
 
-        foreach (getIntValues() as $valueRow) {
-            $inst = AlfInt::_AlfInt(new $fullClassName($valueRow['set']));
+        foreach (getStringValues() as $valueRow) {
+            $inst = AlfString::_AlfString(new $fullClassName($valueRow['set']));
 
             $isNull = ($valueRow[$shortName]['isNull'] ?? $valueRow['isNull'] ?? null);
             $isEmpty = ($valueRow[$shortName]['isEmpty'] ?? $valueRow['isEmpty'] ?? null);
@@ -60,13 +61,13 @@ test('classes extends AlfInt',
                               '(4) '.$shortName.'::setToNull()->isNullOrEmpty()');
 
             // -
-            $inst->setFromInt($valueRow['set']);
+            $inst->setFromString($valueRow['set']);
             $this->assertSame($inst->isNull(), $isNull,
-                              '(5) '.$shortName.'::setFromInt('.($valueRow['set'] ?? '-NULL-').')->isNull()');
+                              '(5) '.$shortName.'::setFromString('.($valueRow['set'] ?? '-NULL-').')->isNull()');
             $this->assertSame($inst->isEmpty(), $isEmpty,
-                              '(5) '.$shortName.'::setFromInt('.($valueRow['set'] ?? '-NULL-').')->isEmpty()');
+                              '(5) '.$shortName.'::setFromString('.($valueRow['set'] ?? '-NULL-').')->isEmpty()');
             $this->assertSame($inst->isNullOrEmpty(), $isNullOrEmpty,
-                              '(5) '.$shortName.'::setFromInt('.($valueRow['set'] ?? '-NULL-').')->isNullOrEmpty()');
+                              '(5) '.$shortName.'::setFromString('.($valueRow['set'] ?? '-NULL-').')->isNullOrEmpty()');
 
             // -
             $inst2 = clone $inst;
@@ -79,18 +80,19 @@ test('classes extends AlfInt',
 
             // -
             $this->assertSame($inst2->get(), $forGet,
-                              '(7) '.$shortName.'::set('.($valueRow['set'] ?? '-NULL-').')->get('.($forGet ?? '-NULL-').')');
+                              '(7) '.$shortName.'::set('.($valueRow['set'] ?? '-NULL-').')->get('.($forGet ?? '-NULL-').') on "'.($inst2->get() ?? '-NULL-').'"');
             $this->assertSame($inst2->getValue(), $forValue,
-                              '(7) '.$shortName.'::set('.($valueRow['set'] ?? '-NULL-').')->getValue('.($forValue ?? '-NULL-').')');
+                              '(7) '.$shortName.'::set('.($valueRow['set'] ?? '-NULL-').')->getValue('.($forValue ?? '-NULL-').') on "'.($inst2->get() ?? '-NULL-').'"');
 
             // -
-            $this->assertSame($inst2->get(), $inst2->getAsInt(),
-                              '(8) '.$shortName.'::get()<>getAsInt()');
+            $this->assertSame($inst2->get(), $inst2->getAsString(),
+                              '(8) '.$shortName.'::get()<>getAsString()');
         }
 
-    })->with(listAlfClassesSubtype(AlfInt::class));
+    })->with(listAlfClassesSubtype(AlfString::class));
 
-test('classes extends AlfIntGet and AlfIntSet',
+
+test('classes extends AlfStringGet and AlfStringSet',
     /** @throws ReflectionException */
     function (string $className) : void {
 
@@ -99,31 +101,41 @@ test('classes extends AlfIntGet and AlfIntSet',
         $shortName = $reflectionClass->getShortName();
 
         $inst = new $fullClassName();
-        if (!is_a($inst, AlfIntWork::class)) {
+        if ((!is_a($inst, AlfStringGet::class)) || (!is_a($inst, AlfStringSet::class))) {
             // autoComplete for phpStorm
             return;
         }
 
-        foreach (getIntValues() as $valueRow) {
+        foreach (getStringValues() as $valueRow) {
             $forSet = $valueRow['set'];
-            $forGet = ($valueRow[$shortName]['get'] ?? $valueRow['get'] ?? null);
+
+            if (is_a($inst, AlfBasicTypeSelect::class)) {
+                $forGet = ($valueRow[$shortName]['get'] ?? $valueRow['AlfBasicTypeSelect']['get'] ?? $valueRow['get'] ?? null);
+            } else {
+                $forGet = ($valueRow[$shortName]['get'] ?? $valueRow['get'] ?? null);
+            }
 
             // -
-            $inst->setFromInt($valueRow['set']);
-            $this->assertSame($forGet, $inst->getAsInt(),
-                              '(1) '.$shortName.'::setFromInt()<>getAsInt()'
-                              .' with set('.($forSet ?? '-NULL-').') and get('.($forGet ?? '-NULL-').')');
+            $inst->setFromString($valueRow['set']);
+            $this->assertSame($forGet, $inst->getAsString(),
+                              '(1) '.$shortName.'::setFromString()<>getAsString()'
+                              .' with set('.($forSet ?? '-NULL-').') and get('.($forGet ?? '-NULL-').') on "'.($inst->getAsString() ?? '-NULL-').'"');
 
             // -
             $inst2 = clone $inst;
-            $this->assertSame($inst2->getAsInt(), $inst->getAsInt(),
+            $this->assertSame($inst2->getAsString(), $inst->getAsString(),
                               '(2) '.$shortName.'::clone<>org'
+                              .' with set('.($forSet ?? '-NULL-').')');
+
+            // -
+            $this->assertSame((string)$inst, $inst->getAsString(),
+                              '(3) '.$shortName.'::org<>(string)'
                               .' with set('.($forSet ?? '-NULL-').')');
         }
 
-    })->with(listAlfClasses2Subtype(AlfIntGet::class, AlfIntSet::class));
+    })->with(listAlfClasses2Subtype(AlfStringGet::class, AlfStringSet::class));
 
-test('classes extends AlfIntWork',
+test('classes extends AlfStringWork',
     /** @throws ReflectionException */
     function (string $className) : void {
 
@@ -132,52 +144,30 @@ test('classes extends AlfIntWork',
         $shortName = $reflectionClass->getShortName();
 
         $inst = new $fullClassName();
-        if (!is_a($inst, AlfIntWork::class)) {
+        if (!is_a($inst, AlfStringWork::class)) {
             // autoComplete for phpStorm
             return;
         }
 
-        foreach (getIntValues() as $valueRow) {
+        foreach (getStringValues() as $valueRow) {
             $forSet = $valueRow['set'];
             $forGet = ($valueRow[$shortName]['get'] ?? $valueRow['get'] ?? null);
-            $forAfterAdd5 = ($valueRow[$shortName]['afterAdd5'] ?? $valueRow['afterAdd5'] ?? null);
-            $forAfterInc = ($valueRow[$shortName]['afterInc'] ?? $valueRow['afterInc'] ?? null);
-            $forAfterSub9 = ($valueRow[$shortName]['afterSub9'] ?? $valueRow['afterSub9'] ?? null);
-            $forAfterDec = ($valueRow[$shortName]['afterDec'] ?? $valueRow['afterDec'] ?? null);
+            $forAfterInvert = ($valueRow[$shortName]['afterInvert'] ?? $valueRow['afterInvert'] ?? null);
 
             // -
-            $inst->setFromInt($valueRow['set']);
-            $this->assertSame($forGet, $inst->getAsInt(),
-                              '(1) '.$shortName.'::setFromInt()<>getAsInt()'
+            $inst->setFromString($valueRow['set']);
+            $this->assertSame($forGet, $inst->getAsString(),
+                              '(1) '.$shortName.'::setFromBoolsetFromString()<>getAsString()'
                               .' with set('.($forSet ?? '-NULL-').') and get('.($forGet ?? '-NULL-').')');
 
             // -
-            $instForAdd5 = clone $inst;
-            $instForAdd5->add(5);
-            $this->assertSame($instForAdd5->getAsInt(), $forAfterAdd5,
-                              '(2) '.$shortName.'('.($forSet ?? '-NULL-').')::add(5) should be '.($forAfterAdd5 ?? '-NULL-')
-                              .' but is '.$instForAdd5->getAsInt());
-
-            // -
-            $instForInc = clone $inst;
-            $instForInc->inc();
-            $this->assertSame($instForInc->getAsInt(), $forAfterInc,
-                              '(3) '.$shortName.'('.($forSet ?? '-NULL-').')::inc() should be '.($forAfterInc ?? '-NULL-')
-                              .' but is '.$instForInc->getAsInt());
-
-            // -
-            $instForSub9 = clone $inst;
-            $instForSub9->sub(9);
-            $this->assertSame($instForSub9->getAsInt(), $forAfterSub9,
-                              '(4) '.$shortName.'('.($forSet ?? '-NULL-').')::sub(9) should be '.($forAfterSub9 ?? '-NULL-')
-                              .' but is '.$instForSub9->getAsInt());
-
-            // -
-            $instForDec = clone $inst;
-            $instForDec->dec();
-            $this->assertSame($instForDec->getAsInt(), $forAfterDec,
-                              '(5) '.$shortName.'('.($forSet ?? '-NULL-').')::dec() should be '.($forAfterDec ?? '-NULL-')
-                              .' but is '.$instForDec->getAsInt());
+            /* ToDo !
+            $instForInvert = clone $inst;
+            $instForInvert->invert();
+            $this->assertSame($instForInvert->getAsBool(), $forAfterInvert,
+                              '(2) '.$shortName.'('.($forSet ?? '-NULL-').')::add(5) should be '.($forAfterInvert ?? '-NULL-')
+                              .' but is '.$instForInvert->getAsBool());
+            */
         }
 
-    })->with(listAlfClassesSubtype(AlfIntWork::class));
+    })->with(listAlfClassesSubtype(AlfStringWork::class));

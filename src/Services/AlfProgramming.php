@@ -74,7 +74,7 @@ final class AlfProgramming extends AlfBasicSingleton {
     }
 
     #[Pure]
-    public function valueToString(#[AlfAttrParameterIsString] AlfStringGet|Stringable|string|null $value) : ?bool {
+    public function valueToString(#[AlfAttrParameterIsString] AlfStringGet|Stringable|string|null $value) : ?string {
         if (is_string($value)) {
             return $value;
         }

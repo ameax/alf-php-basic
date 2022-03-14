@@ -2,6 +2,8 @@
 
 declare(strict_types = 1);
 
+use Alf\Interfaces\Booleans\AlfBoolGet;
+use Alf\Interfaces\Booleans\AlfBoolSet;
 use Alf\Interfaces\Booleans\AlfBoolWork;
 use Alf\Types\Scalars\AlfBool;
 
@@ -88,7 +90,40 @@ test('classes extends AlfBool',
 
     })->with(listAlfClassesSubtype(AlfBool::class));
 
-test('classes extends AlfIntWork',
+test('classes extends AlfBoolGet and AlfBoolSet',
+    /** @throws ReflectionException */
+    function (string $className) : void {
+
+        $reflectionClass = new ReflectionClass($className);
+        $fullClassName = $reflectionClass->getName();
+        $shortName = $reflectionClass->getShortName();
+
+        $inst = new $fullClassName();
+        if ((!is_a($inst, AlfBoolGet::class)) || (!is_a($inst, AlfBoolSet::class))) {
+            // autoComplete for phpStorm
+            return;
+        }
+
+        foreach (getBoolValues() as $valueRow) {
+            $forSet = $valueRow['set'];
+            $forGet = ($valueRow[$shortName]['get'] ?? $valueRow['get'] ?? null);
+
+            // -
+            $inst->setFromBool($valueRow['set']);
+            $this->assertSame($forGet, $inst->getAsBool(),
+                              '(1) '.$shortName.'::setFromBool()<>getAsBool()'
+                              .' with set('.($forSet ?? '-NULL-').') and get('.($forGet ?? '-NULL-').')');
+
+            // -
+            $inst2 = clone $inst;
+            $this->assertSame($inst2->getAsBool(), $inst->getAsBool(),
+                              '(2) '.$shortName.'::clone<>org'
+                              .' with set('.($forSet ?? '-NULL-').')');
+        }
+
+    })->with(listAlfClasses2Subtype(AlfBoolGet::class, AlfBoolSet::class));
+
+test('classes extends AlfBoolWork',
     /** @throws ReflectionException */
     function (string $className) : void {
 
@@ -114,17 +149,12 @@ test('classes extends AlfIntWork',
                               .' with set('.($forSet ?? '-NULL-').') and get('.($forGet ?? '-NULL-').')');
 
             // -
-            $inst2 = clone $inst;
-            $this->assertSame($inst2->getAsBool(), $inst->getAsBool(),
-                              '(2) '.$shortName.'::clone<>org'
-                              .' with set('.($forSet ?? '-NULL-').')');
-
-            // -
-            $instForInvert = clone $inst2;
+            $instForInvert = clone $inst;
             $instForInvert->invert();
             $this->assertSame($instForInvert->getAsBool(), $forAfterInvert,
-                              '(3) '.$shortName.'('.($forSet ?? '-NULL-').')::add(5) should be '.($forAfterInvert ?? '-NULL-')
+                              '(2) '.$shortName.'('.($forSet ?? '-NULL-').')::add(5) should be '.($forAfterInvert ?? '-NULL-')
                               .' but is '.$instForInvert->getAsBool());
         }
 
     })->with(listAlfClassesSubtype(AlfBoolWork::class));
+

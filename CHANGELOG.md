@@ -13,6 +13,8 @@ All notable changes to `alf-php-basic` will be documented in this file.
 - interface: AlfStringSet
 - interface: AlfStringWork
 - attribute: AlfAttrParameterIsString
+- scalar type: AlfString
+- tests
 
 ## 1.1.5 - 2022-03-11
 

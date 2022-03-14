@@ -8,10 +8,7 @@ declare(strict_types = 1);
 // ToDo: Find all files and check if tested
 // ToDo: Test enums: has TypeSelect without "s"-Name
 // ToDo: Test AlfBasicTypeSelect: has enum wird "s"-Name
-// ToDo: Test AlfStringGetSet
-// ToDo: Test AlfStringWork
-// ToDo: extract AlfIntWork SetGetTests to a own test
-// ToDo: extract AlfBoolWork SetGetTests to a own test
+// ToDo: newClass in getXYZValues()
 
 use Alf\AlfBasicAttribute;
 use Alf\AlfBasicClass;
@@ -73,6 +70,7 @@ use Alf\Types\Scalars\AlfInt32U;
 use Alf\Types\Scalars\AlfInt8;
 use Alf\Types\Scalars\AlfInt8U;
 use Alf\Types\Scalars\AlfIntRange;
+use Alf\Types\Scalars\AlfString;
 use Alf\Types\Selects\AlfCharset;
 use JetBrains\PhpStorm\Pure;
 
@@ -155,6 +153,7 @@ function listAlfClasses() : array {
         AlfInt32::class,
         AlfInt32U::class,
         AlfIntRange::class,
+        AlfString::class,
         // Types/Selects
         AlfCharset::class,
     ];
@@ -172,6 +171,35 @@ function listAlfClassesSubtype(string $subTypeOf, bool $andAbstract = false) : a
                 continue;
             }
         } catch (ReflectionException) {
+            continue;
+        }
+
+        $output[] = $className;
+    }
+    return $output;
+}
+
+function listAlfClasses2Subtype(string $subTypeOfOne, string $subTypeOfTwo, bool $andAbstract = false) : array {
+    $output = [];
+    foreach (listAlfClasses() as $className) {
+        $gotTypeOne = false;
+        $gotTypeTwo = false;
+        try {
+            $reflectionClass = new ReflectionClass($className);
+            if ((!$andAbstract) && ($reflectionClass->isAbstract())) {
+                continue;
+            }
+            if (($reflectionClass->isSubclassOf($subTypeOfOne)) || ($reflectionClass->getName() === $subTypeOfOne)) {
+                $gotTypeOne = true;
+            }
+            if (($reflectionClass->isSubclassOf($subTypeOfTwo)) || ($reflectionClass->getName() === $subTypeOfTwo)) {
+                $gotTypeTwo = true;
+            }
+        } catch (ReflectionException) {
+            continue;
+        }
+
+        if ((!$gotTypeOne) || (!$gotTypeTwo)) {
             continue;
         }
 
@@ -208,6 +236,7 @@ function listAlfAll() : array {
     return array_merge(listAlfClasses(), listAlfSingletons(), listAlfInterfaces(), listAlfTraits(), listAlfEnums());
 }
 
+#[Pure]
 function getBoolValues() : array {
     return [
         [
@@ -482,6 +511,56 @@ function getIntValues() : array {
                 'afterInc'  => 4294967295,
                 'afterSub9' => 4294967286,
                 'afterDec'  => 4294967294,
+            ],
+        ],
+    ];
+}
+
+#[Pure]
+function getStringValues() : array {
+    return [
+        [
+            'set'      => null,
+            'isNull'   => true,
+            'isEmpty'  => false,
+            'get'      => '',
+            'getValue' => null,
+        ],
+        [
+            'set'      => '',
+            'isNull'   => false,
+            'isEmpty'  => true,
+            'get'      => '',
+            'getValue' => '',
+        ],
+        [
+            'set'                => 'abc',
+            'isNull'             => false,
+            'isEmpty'            => false,
+            'get'                => 'abc',
+            'getValue'           => 'abc',
+            'AlfBasicTypeSelect' => [
+                'get' => '',
+            ],
+        ],
+        [
+            'set'                => '0',
+            'isNull'             => false,
+            'isEmpty'            => false,
+            'get'                => '0',
+            'getValue'           => '0',
+            'AlfBasicTypeSelect' => [
+                'get' => '',
+            ],
+        ],
+        [
+            'set'                => '1',
+            'isNull'             => false,
+            'isEmpty'            => false,
+            'get'                => '1',
+            'getValue'           => '1',
+            'AlfBasicTypeSelect' => [
+                'get' => '',
             ],
         ],
     ];
