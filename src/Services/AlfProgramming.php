@@ -78,7 +78,7 @@ final class AlfProgramming extends AlfBasicSingleton {
         if (is_string($value)) {
             return $value;
         }
-        if ($this->valueIsNull($value, false)) {
+        if ($this->valueIsNull($value)) {
             return null;
         }
         if (is_a($value, AlfStringGet::class)) {

@@ -5,6 +5,7 @@ declare(strict_types = 1);
 use Alf\Services\AlfProgramming;
 use Alf\Types\Scalars\AlfBool;
 use Alf\Types\Scalars\AlfInt;
+use Alf\Types\Scalars\AlfString;
 
 test('unused',
     function () : void {
@@ -126,5 +127,37 @@ test('valueToBool should be a boolean',
 
         $alfBool->set(false);
         $this->assertFalse(AlfProgramming::_()->valueToBool($alfBool), '(1) AlfBool()->set(false)');
+
+    });
+
+test('valueToString should be null',
+    function () : void {
+
+        $this->assertNull(AlfProgramming::_()->valueToString(null),
+                          '(1) valueToString(null)');
+
+        $alfString = new AlfString();
+        $this->assertNull(AlfProgramming::_()->valueToString($alfString),
+                          '(2) AlfString(null)');
+
+        $alfString->setToNull();
+        $this->assertNull(AlfProgramming::_()->valueToString($alfString),
+                          '(3) AlfString()->setToNull()');
+
+    });
+
+test('valueToString should be a string',
+    function () : void {
+
+        $this->assertSame(AlfProgramming::_()->valueToString('A'), 'A',
+                          '(1) valueToString(A)');
+
+        $alfString = new AlfString('B');
+        $this->assertSame(AlfProgramming::_()->valueToString($alfString), $alfString->getAsString(),
+                          '(2) valueToString(AlfString(B))');
+
+        $dummy = new AlfProgrammingTestDummyForStringable();
+        $this->assertSame(AlfProgramming::_()->valueToString($dummy), 'C',
+                          '(3) valueToString(AlfProgrammingTestDummyForStringable())');
 
     });

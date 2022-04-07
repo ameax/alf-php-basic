@@ -52,11 +52,15 @@ abstract class AlfBasicTypeSelect extends AlfBasicTypeScalar implements AlfStrin
         if (is_null($newValue)) {
             return $this->setToNull();
         }
+        if ($newValue === '') {
+            return $this->setToEmpty();
+        }
         $tryEnumValue = $this->_getEnumValueByString($newValue);
         if (is_null($tryEnumValue)) {
             return $this->setToEmpty();
         }
-        return $this->_setEnumValue($tryEnumValue);
+        $this->_setEnumValue($tryEnumValue);
+        return $this;
     }
 
     /* getter */

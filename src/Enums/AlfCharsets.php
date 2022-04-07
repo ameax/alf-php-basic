@@ -2,6 +2,7 @@
 
 namespace Alf\Enums;
 
+use Alf\Attributes\AlfAttrEnumValue;
 use JetBrains\PhpStorm\Pure;
 
 enum AlfCharsets: string {
@@ -11,6 +12,7 @@ enum AlfCharsets: string {
     case ISO_8859_15 = 'ISO-8859-15';
 
     #[Pure]
+    #[AlfAttrEnumValue]
     public function mysqlName() : string {
         return alfCharsets::getMysqlName($this);
     }
@@ -25,6 +27,7 @@ enum AlfCharsets: string {
     }
 
     #[Pure]
+    #[AlfAttrEnumValue]
     public function mysqlCollate() : string {
         return alfCharsets::getMysqlCollate($this);
     }
@@ -39,6 +42,7 @@ enum AlfCharsets: string {
     }
 
     #[Pure]
+    #[AlfAttrEnumValue]
     public function mysqlCollateCI() : string {
         return alfCharsets::getMysqlCollateCI($this);
     }

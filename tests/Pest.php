@@ -6,9 +6,6 @@ declare(strict_types = 1);
 // expect()->extend('toBeOne', function () { return $this->toBe(1); });
 
 // ToDo: Find all files and check if tested
-// ToDo: Test enums: has TypeSelect without "s"-Name
-// ToDo: Test AlfBasicTypeSelect: has enum wird "s"-Name
-// ToDo: newClass in getXYZValues()
 
 use Alf\AlfBasicAttribute;
 use Alf\AlfBasicClass;
@@ -17,6 +14,7 @@ use Alf\AlfBasicType;
 use Alf\AlfBasicTypeScalar;
 use Alf\AlfBasicTypeSelect;
 use Alf\Attributes\AlfAttrAutoComplete;
+use Alf\Attributes\AlfAttrEnumValue;
 use Alf\Attributes\AlfAttrParameter;
 use Alf\Attributes\AlfAttrParameterIsBool;
 use Alf\Attributes\AlfAttrParameterIsInt;
@@ -72,6 +70,7 @@ use Alf\Types\Scalars\AlfInt8U;
 use Alf\Types\Scalars\AlfIntRange;
 use Alf\Types\Scalars\AlfString;
 use Alf\Types\Selects\AlfCharset;
+use Alf\Types\Selects\AlfColorRGBChannel;
 use JetBrains\PhpStorm\Pure;
 
 #[Pure]
@@ -138,6 +137,7 @@ function listAlfClasses() : array {
         AlfBasicTypeSelect::class,
         // Attributes
         AlfAttrAutoComplete::class,
+        AlfAttrEnumValue::class,
         AlfAttrParameter::class,
         AlfAttrParameterIsBool::class,
         AlfAttrParameterIsInt::class,
@@ -156,7 +156,38 @@ function listAlfClasses() : array {
         AlfString::class,
         // Types/Selects
         AlfCharset::class,
+        AlfColorRGBChannel::class,
     ];
+}
+
+
+#[Pure]
+function listAlfSingletons() : array {
+    return [
+        AlfBasicSingleton::class,
+        // Services
+        AlfCache::class,
+        AlfPhpClassManager::class,
+        AlfProgramming::class,
+    ];
+}
+
+#[Pure]
+function listAlfEnums() : array {
+    return [
+        AlfCharsets::class,
+        AlfColorRGBChannels::class,
+    ];
+}
+
+#[Pure]
+function listAlfClassesAndSingletons() : array {
+    return array_merge(listAlfClasses(), listAlfSingletons());
+}
+
+#[Pure]
+function listAlfAll() : array {
+    return array_merge(listAlfClasses(), listAlfSingletons(), listAlfInterfaces(), listAlfTraits(), listAlfEnums());
 }
 
 function listAlfClassesSubtype(string $subTypeOf, bool $andAbstract = false) : array {
@@ -206,34 +237,6 @@ function listAlfClasses2Subtype(string $subTypeOfOne, string $subTypeOfTwo, bool
         $output[] = $className;
     }
     return $output;
-}
-
-#[Pure]
-function listAlfSingletons() : array {
-    return [
-        AlfBasicSingleton::class,
-        // Services
-        AlfCache::class,
-        AlfPhpClassManager::class,
-        AlfProgramming::class,
-    ];
-}
-
-#[Pure]
-function listAlfClassesAndSingletons() : array {
-    return array_merge(listAlfClasses(), listAlfSingletons());
-}
-
-function listAlfEnums() : array {
-    return [
-        AlfCharsets::class,
-        AlfColorRGBChannels::class,
-    ];
-}
-
-#[Pure]
-function listAlfAll() : array {
-    return array_merge(listAlfClasses(), listAlfSingletons(), listAlfInterfaces(), listAlfTraits(), listAlfEnums());
 }
 
 #[Pure]
@@ -582,6 +585,14 @@ class AlfProgrammingTestDummyForNullIsNotNull {
 
     public function isNull() : bool {
         return false;
+    }
+
+}
+
+class AlfProgrammingTestDummyForStringable {
+
+    public function __toString() : string {
+        return 'C';
     }
 
 }

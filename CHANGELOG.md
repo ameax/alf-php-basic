@@ -2,7 +2,7 @@
 
 All notable changes to `alf-php-basic` will be documented in this file.
 
-## 1.1.6 - XXXX-XX-XX
+## 1.1.6 - 2022-04-07
 
 - AlfProgramming: valueIsNull
 - enum: AlfColorRGBChannels
@@ -14,6 +14,7 @@ All notable changes to `alf-php-basic` will be documented in this file.
 - interface: AlfStringWork
 - attribute: AlfAttrParameterIsString
 - scalar type: AlfString
+- attribute: AlfAttrEnumValue
 - tests
 
 ## 1.1.5 - 2022-03-11
