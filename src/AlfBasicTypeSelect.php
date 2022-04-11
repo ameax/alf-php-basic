@@ -31,7 +31,33 @@ abstract class AlfBasicTypeSelect extends AlfBasicTypeScalar implements AlfStrin
 
     abstract protected function _setToNull() : void;
 
-    abstract protected function _getEnumValueByString(string $search);
+    protected function _getEnumValueByStringExt($value, string $search) : bool {
+        AlfProgramming::_()->unused($value, $search);
+        return false;
+    }
+
+    protected function _getEnumValueByString(string $search) {
+        $enumClass = $this->getEnumClass();
+
+        // -
+        $tryFrom = $enumClass::tryFrom($search);
+        if (!is_null($tryFrom)) {
+            return $tryFrom;
+        }
+
+        // -
+        foreach ($enumClass::cases() as $value) {
+            if ($this->_checkSimpleEnumCase($value->value, $search) || $this->_checkSimpleEnumCase($value->name, $search)) {
+                return $value;
+            }
+            if ($this->_getEnumValueByStringExt($value, $search)) {
+                return $value;
+            }
+        }
+
+        // -
+        return null;
+    }
 
     abstract protected function _setEnumValue($newValue) : void;
 

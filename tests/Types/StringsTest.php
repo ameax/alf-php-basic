@@ -152,22 +152,22 @@ test('classes extends AlfStringWork',
         foreach (getStringValues() as $valueRow) {
             $forSet = $valueRow['set'];
             $forGet = ($valueRow[$shortName]['get'] ?? $valueRow['get'] ?? null);
-            $forAfterInvert = ($valueRow[$shortName]['afterInvert'] ?? $valueRow['afterInvert'] ?? null);
+            $forGetStringLength = ($valueRow[$shortName]['getStringLength'] ?? $valueRow['getStringLength'] ?? null);
+            $forGetStringByteSize = ($valueRow[$shortName]['getStringByteSize'] ?? $valueRow['getStringByteSize'] ?? null);
 
             // -
             $inst->setFromString($valueRow['set']);
             $this->assertSame($forGet, $inst->getAsString(),
-                              '(1) '.$shortName.'::setFromBoolsetFromString()<>getAsString()'
+                              '(1) '.$shortName.'::setFromString()<>getAsString()'
                               .' with set('.($forSet ?? '-NULL-').') and get('.($forGet ?? '-NULL-').')');
 
+
             // -
-            /* ToDo !
-            $instForInvert = clone $inst;
-            $instForInvert->invert();
-            $this->assertSame($instForInvert->getAsBool(), $forAfterInvert,
-                              '(2) '.$shortName.'('.($forSet ?? '-NULL-').')::add(5) should be '.($forAfterInvert ?? '-NULL-')
-                              .' but is '.$instForInvert->getAsBool());
-            */
+            $instForGetter = clone $inst;
+            $this->assertSame($instForGetter->getStringLength(), $forGetStringLength,
+                              '(2) '.$shortName.'('.($forSet ?? '-NULL-').')::getStringLength()<>'.($forGetStringLength ?? '-NULL-'));
+            $this->assertSame($instForGetter->getStringByteSize(), $forGetStringByteSize,
+                              '(2) '.$shortName.'('.($forSet ?? '-NULL-').')::getStringByteSize()<>'.($forGetStringByteSize ?? '-NULL-'));
         }
 
     })->with(listAlfClassesSubtype(AlfStringWork::class));

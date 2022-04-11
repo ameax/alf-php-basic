@@ -49,30 +49,17 @@ class AlfCharset extends AlfBasicTypeSelect {
         $this->set(null);
     }
 
-    protected function _getEnumValueByString(string $search) : ?AlfCharsets {
-        $tryFrom = alfCharsets::tryFrom($search);
-        if (!is_null($tryFrom)) {
-            return $tryFrom;
+    protected function _getEnumValueByStringExt($value, string $search) : bool {
+        if ($this->_checkSimpleEnumCase(alfCharsets::getMysqlName($value), $search)) {
+            return true;
         }
-
-        // -
-        foreach (alfCharsets::cases() as $value) {
-            if ($this->_checkSimpleEnumCase($value->value, $search) || $this->_checkSimpleEnumCase($value->name, $search)) {
-                return $value;
-            }
-            if ($this->_checkSimpleEnumCase(alfCharsets::getMysqlName($value), $search)) {
-                return $value;
-            }
-            if ($this->_checkSimpleEnumCase(alfCharsets::getMysqlCollate($value), $search)) {
-                return $value;
-            }
-            if ($this->_checkSimpleEnumCase(alfCharsets::getMysqlCollateCI($value), $search)) {
-                return $value;
-            }
+        if ($this->_checkSimpleEnumCase(alfCharsets::getMysqlCollate($value), $search)) {
+            return true;
         }
-
-        // -
-        return null;
+        if ($this->_checkSimpleEnumCase(alfCharsets::getMysqlCollateCI($value), $search)) {
+            return true;
+        }
+        return parent::_getEnumValueByStringExt($value, $search);
     }
 
     protected function _setEnumValue($newValue) : void {

@@ -8,12 +8,12 @@ use Alf\Services\AlfProgramming;
 
 trait AlfStringWorkTrait {
 
-    use AlfStringGetTrait, AlfStringSetTrait;
+    use AlfStringReadTrait, AlfStringSetTrait;
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
     final public static function _AlfStringWork($obj) : AlfStringWork {
-        return AlfProgramming::_()->unused($obj, static::_AlfStringGet($obj), static::_AlfStringSet($obj));
+        return AlfProgramming::_()->unused($obj, static::_AlfStringRead($obj), static::_AlfStringSet($obj));
     }
 
     /** @AlfAttrTraitAutoCall */
@@ -29,6 +29,14 @@ trait AlfStringWorkTrait {
     /** @AlfAttrTraitAutoCall */
     #[AlfAttrTraitAutoCall]
     protected function _AlfStringWorkTraitClone() : void {
+    }
+
+    public function getStringLength() : int {
+        return $this->refManipulator()->getStringLength($this->getAsString());
+    }
+
+    public function getStringByteSize() : int {
+        return $this->refManipulator()->getStringByteSize($this->getAsString());
     }
 
 }

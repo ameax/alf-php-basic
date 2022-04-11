@@ -2,6 +2,11 @@
 
 All notable changes to `alf-php-basic` will be documented in this file.
 
+## 1.1.7 - 2022-04-11
+
+- interface: AlfStringRead
+- manipulator: AlfStringManipulator
+
 ## 1.1.6 - 2022-04-07
 
 - AlfProgramming: valueIsNull

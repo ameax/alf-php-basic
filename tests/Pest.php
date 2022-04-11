@@ -36,6 +36,8 @@ use Alf\Interfaces\Integers\AlfIntWork;
 use Alf\Interfaces\Integers\AlfIntWorkTrait;
 use Alf\Interfaces\Strings\AlfStringGet;
 use Alf\Interfaces\Strings\AlfStringGetTrait;
+use Alf\Interfaces\Strings\AlfStringRead;
+use Alf\Interfaces\Strings\AlfStringReadTrait;
 use Alf\Interfaces\Strings\AlfStringSet;
 use Alf\Interfaces\Strings\AlfStringSetTrait;
 use Alf\Interfaces\Strings\AlfStringWork;
@@ -56,6 +58,7 @@ use Alf\Interfaces\Values\AlfNullWork;
 use Alf\Interfaces\Values\AlfNullWorkTrait;
 use Alf\Interfaces\Values\AlfValueGet;
 use Alf\Interfaces\Values\AlfValueGetTrait;
+use Alf\Manipulator\AlfStringManipulator;
 use Alf\Services\AlfCache;
 use Alf\Services\AlfPhpClassManager;
 use Alf\Services\AlfProgramming;
@@ -86,6 +89,7 @@ function listAlfInterfaces() : array {
         AlfIntWork::class,
         // Interfaces/String
         AlfStringGet::class,
+        AlfStringRead::class,
         AlfStringSet::class,
         AlfStringWork::class,
         // Interfaces/Values
@@ -113,6 +117,7 @@ function listAlfTraits() : array {
         AlfIntWorkTrait::class,
         // Interfaces/String
         AlfStringGetTrait::class,
+        AlfStringReadTrait::class,
         AlfStringSetTrait::class,
         AlfStringWorkTrait::class,
         // Interfaces/Values
@@ -143,6 +148,8 @@ function listAlfClasses() : array {
         AlfAttrParameterIsInt::class,
         AlfAttrParameterIsString::class,
         AlfAttrTraitAutoCall::class,
+        // Manipulator
+        AlfStringManipulator::class,
         // Types/Scalars
         AlfBool::class,
         AlfInt::class,
@@ -523,18 +530,22 @@ function getIntValues() : array {
 function getStringValues() : array {
     return [
         [
-            'set'      => null,
-            'isNull'   => true,
-            'isEmpty'  => false,
-            'get'      => '',
-            'getValue' => null,
+            'set'               => null,
+            'isNull'            => true,
+            'isEmpty'           => false,
+            'get'               => '',
+            'getValue'          => null,
+            'getStringLength'   => 0,
+            'getStringByteSize' => 0,
         ],
         [
-            'set'      => '',
-            'isNull'   => false,
-            'isEmpty'  => true,
-            'get'      => '',
-            'getValue' => '',
+            'set'               => '',
+            'isNull'            => false,
+            'isEmpty'           => true,
+            'get'               => '',
+            'getValue'          => '',
+            'getStringLength'   => 0,
+            'getStringByteSize' => 0,
         ],
         [
             'set'                => 'abc',
@@ -542,6 +553,20 @@ function getStringValues() : array {
             'isEmpty'            => false,
             'get'                => 'abc',
             'getValue'           => 'abc',
+            'getStringLength'    => 3,
+            'getStringByteSize'  => 3,
+            'AlfBasicTypeSelect' => [
+                'get' => '',
+            ],
+        ],
+        [
+            'set'                => 'äöü',
+            'isNull'             => false,
+            'isEmpty'            => false,
+            'get'                => 'äöü',
+            'getValue'           => 'äöü',
+            'getStringLength'    => 6,
+            'getStringByteSize'  => 6,
             'AlfBasicTypeSelect' => [
                 'get' => '',
             ],
@@ -552,6 +577,8 @@ function getStringValues() : array {
             'isEmpty'            => false,
             'get'                => '0',
             'getValue'           => '0',
+            'getStringLength'    => 1,
+            'getStringByteSize'  => 1,
             'AlfBasicTypeSelect' => [
                 'get' => '',
             ],
@@ -562,6 +589,8 @@ function getStringValues() : array {
             'isEmpty'            => false,
             'get'                => '1',
             'getValue'           => '1',
+            'getStringLength'    => 1,
+            'getStringByteSize'  => 1,
             'AlfBasicTypeSelect' => [
                 'get' => '',
             ],

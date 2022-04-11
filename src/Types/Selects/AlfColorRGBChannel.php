@@ -48,23 +48,6 @@ class AlfColorRGBChannel extends \Alf\AlfBasicTypeSelect {
         $this->set(null);
     }
 
-    protected function _getEnumValueByString(string $search) : ?AlfColorRGBChannels {
-        $tryFrom = AlfColorRGBChannels::tryFrom($search);
-        if (!is_null($tryFrom)) {
-            return $tryFrom;
-        }
-
-        // -
-        foreach (AlfColorRGBChannels::cases() as $value) {
-            if ($this->_checkSimpleEnumCase($value->value, $search) || $this->_checkSimpleEnumCase($value->name, $search)) {
-                return $value;
-            }
-        }
-
-        // -
-        return null;
-    }
-
     protected function _setEnumValue($newValue) : void {
         $this->set($newValue);
     }
