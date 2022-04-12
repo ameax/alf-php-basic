@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 use Alf\AlfBasicTypeSelect;
 use Alf\Interfaces\Strings\AlfStringGet;
+use Alf\Interfaces\Strings\AlfStringRead;
 use Alf\Interfaces\Strings\AlfStringSet;
 use Alf\Interfaces\Strings\AlfStringWork;
 use Alf\Types\Scalars\AlfString;
@@ -91,7 +92,6 @@ test('classes extends AlfString',
 
     })->with(listAlfClassesSubtype(AlfString::class));
 
-
 test('classes extends AlfStringGet and AlfStringSet',
     /** @throws ReflectionException */
     function (string $className) : void {
@@ -135,6 +135,49 @@ test('classes extends AlfStringGet and AlfStringSet',
 
     })->with(listAlfClasses2Subtype(AlfStringGet::class, AlfStringSet::class));
 
+test('classes extends AlfStringRead and AlfStringSet',
+    /** @throws ReflectionException */
+    function (string $className) : void {
+
+        $reflectionClass = new ReflectionClass($className);
+        $fullClassName = $reflectionClass->getName();
+        $shortName = $reflectionClass->getShortName();
+
+        $inst = new $fullClassName();
+        if ((!is_a($inst, AlfStringRead::class)) || (!is_a($inst, AlfStringSet::class))) {
+            // autoComplete for phpStorm
+            return;
+        }
+
+        foreach (getStringValues() as $valueRow) {
+            $forSet = $valueRow['set'];
+
+            if (is_a($inst, AlfBasicTypeSelect::class)) {
+                $forGet = ($valueRow[$shortName]['get'] ?? $valueRow['AlfBasicTypeSelect']['get'] ?? $valueRow['get'] ?? null);
+            } else {
+                $forGet = ($valueRow[$shortName]['get'] ?? $valueRow['get'] ?? null);
+            }
+
+            // -
+            $forGetStringLength = ($valueRow[$shortName]['getStringLength'] ?? $valueRow['getStringLength'] ?? null);
+            $forGetStringByteSize = ($valueRow[$shortName]['getStringByteSize'] ?? $valueRow['getStringByteSize'] ?? null);
+
+            // -
+            $inst->setFromString($valueRow['set']);
+            $this->assertSame($forGet, $inst->getAsString(),
+                              '(1) '.$shortName.'::setFromString()<>getAsString()'
+                              .' with set('.($forSet ?? '-NULL-').') and get('.($forGet ?? '-NULL-').') on "'.($inst->getAsString() ?? '-NULL-').'"');
+
+            // -
+            $instForGetter = clone $inst;
+            $this->assertSame($instForGetter->getStringLength(), $forGetStringLength,
+                              '(2a) '.$shortName.'('.($forSet ?? '-NULL-').')::getStringLength()='.$instForGetter->getStringLength().'<>'.($forGetStringLength ?? '-NULL-'));
+            $this->assertSame($instForGetter->getStringByteSize(), $forGetStringByteSize,
+                              '(2b) '.$shortName.'('.($forSet ?? '-NULL-').')::getStringByteSize()='.$instForGetter->getStringByteSize().'<>'.($forGetStringByteSize ?? '-NULL-'));
+        }
+
+    })->with(listAlfClasses2Subtype(AlfStringRead::class, AlfStringSet::class));
+
 test('classes extends AlfStringWork',
     /** @throws ReflectionException */
     function (string $className) : void {
@@ -152,8 +195,10 @@ test('classes extends AlfStringWork',
         foreach (getStringValues() as $valueRow) {
             $forSet = $valueRow['set'];
             $forGet = ($valueRow[$shortName]['get'] ?? $valueRow['get'] ?? null);
-            $forGetStringLength = ($valueRow[$shortName]['getStringLength'] ?? $valueRow['getStringLength'] ?? null);
-            $forGetStringByteSize = ($valueRow[$shortName]['getStringByteSize'] ?? $valueRow['getStringByteSize'] ?? null);
+            $isNotASCII = ($valueRow[$shortName]['isNotASCII'] ?? $valueRow['isNotASCII'] ?? null);
+
+            $forAfterUpperCase = ($valueRow[$shortName]['afterUpperCase'] ?? $valueRow['afterUpperCase'] ?? null);
+            $forAfterLowerCase = ($valueRow[$shortName]['afterLowerCase'] ?? $valueRow['afterLowerCase'] ?? null);
 
             // -
             $inst->setFromString($valueRow['set']);
@@ -161,13 +206,23 @@ test('classes extends AlfStringWork',
                               '(1) '.$shortName.'::setFromString()<>getAsString()'
                               .' with set('.($forSet ?? '-NULL-').') and get('.($forGet ?? '-NULL-').')');
 
-
             // -
-            $instForGetter = clone $inst;
-            $this->assertSame($instForGetter->getStringLength(), $forGetStringLength,
-                              '(2) '.$shortName.'('.($forSet ?? '-NULL-').')::getStringLength()<>'.($forGetStringLength ?? '-NULL-'));
-            $this->assertSame($instForGetter->getStringByteSize(), $forGetStringByteSize,
-                              '(2) '.$shortName.'('.($forSet ?? '-NULL-').')::getStringByteSize()<>'.($forGetStringByteSize ?? '-NULL-'));
+            if ($isNotASCII) {
+                $this->assertTrue(true);
+            } else {
+                // -
+                $instForAfterUpperCase = clone $inst;
+                $instForAfterUpperCase->toUpperCase();
+                $this->assertSame($instForAfterUpperCase->getAsString(), $forAfterUpperCase,
+                                  '(2) '.$shortName.'('.($forSet ?? '-NULL-').')::toUpperCase()="'.$instForAfterUpperCase->getAsString().'"<>'.($forAfterUpperCase ?? '-NULL-'));
+
+                // -
+                $instForAfterLowerCase = clone $inst;
+                $instForAfterLowerCase->toLowerCase();
+                $this->assertSame($instForAfterLowerCase->getAsString(), $forAfterLowerCase,
+                                  '(3) '.$shortName.'('.($forSet ?? '-NULL-').')::toLowerCase()="'.$instForAfterLowerCase->getAsString().'"<>'.($forAfterLowerCase ?? '-NULL-'));
+            }
+
         }
 
     })->with(listAlfClassesSubtype(AlfStringWork::class));

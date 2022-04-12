@@ -59,6 +59,7 @@ use Alf\Interfaces\Values\AlfNullWorkTrait;
 use Alf\Interfaces\Values\AlfValueGet;
 use Alf\Interfaces\Values\AlfValueGetTrait;
 use Alf\Manipulator\AlfStringManipulator;
+use Alf\Manipulator\AlfStringWManipulator;
 use Alf\Services\AlfCache;
 use Alf\Services\AlfPhpClassManager;
 use Alf\Services\AlfProgramming;
@@ -72,6 +73,7 @@ use Alf\Types\Scalars\AlfInt8;
 use Alf\Types\Scalars\AlfInt8U;
 use Alf\Types\Scalars\AlfIntRange;
 use Alf\Types\Scalars\AlfString;
+use Alf\Types\Scalars\AlfStringW;
 use Alf\Types\Selects\AlfCharset;
 use Alf\Types\Selects\AlfColorRGBChannel;
 use JetBrains\PhpStorm\Pure;
@@ -150,6 +152,7 @@ function listAlfClasses() : array {
         AlfAttrTraitAutoCall::class,
         // Manipulator
         AlfStringManipulator::class,
+        AlfStringWManipulator::class,
         // Types/Scalars
         AlfBool::class,
         AlfInt::class,
@@ -161,6 +164,7 @@ function listAlfClasses() : array {
         AlfInt32U::class,
         AlfIntRange::class,
         AlfString::class,
+        AlfStringW::class,
         // Types/Selects
         AlfCharset::class,
         AlfColorRGBChannel::class,
@@ -537,6 +541,8 @@ function getStringValues() : array {
             'getValue'          => null,
             'getStringLength'   => 0,
             'getStringByteSize' => 0,
+            'afterUpperCase'    => '',
+            'afterLowerCase'    => '',
         ],
         [
             'set'               => '',
@@ -546,6 +552,8 @@ function getStringValues() : array {
             'getValue'          => '',
             'getStringLength'   => 0,
             'getStringByteSize' => 0,
+            'afterUpperCase'    => '',
+            'afterLowerCase'    => '',
         ],
         [
             'set'                => 'abc',
@@ -555,6 +563,36 @@ function getStringValues() : array {
             'getValue'           => 'abc',
             'getStringLength'    => 3,
             'getStringByteSize'  => 3,
+            'afterUpperCase'     => 'ABC',
+            'afterLowerCase'     => 'abc',
+            'AlfBasicTypeSelect' => [
+                'get' => '',
+            ],
+        ],
+        [
+            'set'                => 'slug-TOKEN-module',
+            'isNull'             => false,
+            'isEmpty'            => false,
+            'get'                => 'slug-TOKEN-module',
+            'getValue'           => 'slug-TOKEN-module',
+            'getStringLength'    => 17,
+            'getStringByteSize'  => 17,
+            'afterUpperCase'     => 'SLUG-TOKEN-MODULE',
+            'afterLowerCase'     => 'slug-token-module',
+            'AlfBasicTypeSelect' => [
+                'get' => '',
+            ],
+        ],
+        [
+            'set'                => 'ONE two Three',
+            'isNull'             => false,
+            'isEmpty'            => false,
+            'get'                => 'ONE two Three',
+            'getValue'           => 'ONE two Three',
+            'getStringLength'    => 13,
+            'getStringByteSize'  => 13,
+            'afterUpperCase'     => 'ONE TWO THREE',
+            'afterLowerCase'     => 'one two three',
             'AlfBasicTypeSelect' => [
                 'get' => '',
             ],
@@ -567,8 +605,34 @@ function getStringValues() : array {
             'getValue'           => 'äöü',
             'getStringLength'    => 6,
             'getStringByteSize'  => 6,
+            'afterUpperCase'     => 'ÄÖÜ',
+            'afterLowerCase'     => 'äöü',
+            'isNotASCII'         => true,
             'AlfBasicTypeSelect' => [
                 'get' => '',
+            ],
+            'AlfStringW'         => [
+                'getStringLength' => 3,
+                'isNotASCII'      => false,
+            ],
+        ],
+        [
+            'set'                => 'Äpfel über ÖSTERREICH', // "apples over austria". Even in German, this phrase is senseless, but it has the requirements for the test.
+            'isNull'             => false,
+            'isEmpty'            => false,
+            'get'                => 'Äpfel über ÖSTERREICH',
+            'getValue'           => 'Äpfel über ÖSTERREICH',
+            'getStringLength'    => 24,
+            'getStringByteSize'  => 24,
+            'afterUpperCase'     => 'ÄPFEL ÜBER ÖSTERREICH',
+            'afterLowerCase'     => 'äpfel über österreich',
+            'isNotASCII'         => true,
+            'AlfBasicTypeSelect' => [
+                'get' => '',
+            ],
+            'AlfStringW'         => [
+                'getStringLength' => 21,
+                'isNotASCII'      => false,
             ],
         ],
         [
@@ -579,6 +643,8 @@ function getStringValues() : array {
             'getValue'           => '0',
             'getStringLength'    => 1,
             'getStringByteSize'  => 1,
+            'afterUpperCase'     => '0',
+            'afterLowerCase'     => '0',
             'AlfBasicTypeSelect' => [
                 'get' => '',
             ],
@@ -591,6 +657,8 @@ function getStringValues() : array {
             'getValue'           => '1',
             'getStringLength'    => 1,
             'getStringByteSize'  => 1,
+            'afterUpperCase'     => '1',
+            'afterLowerCase'     => '1',
             'AlfBasicTypeSelect' => [
                 'get' => '',
             ],

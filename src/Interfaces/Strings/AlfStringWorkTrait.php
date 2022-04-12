@@ -31,12 +31,12 @@ trait AlfStringWorkTrait {
     protected function _AlfStringWorkTraitClone() : void {
     }
 
-    public function getStringLength() : int {
-        return $this->refManipulator()->getStringLength($this->getAsString());
+    public function toUpperCase() : static {
+        return $this->setFromString($this->refManipulator()->getStringAsUpperCase($this->getAsString()));
     }
 
-    public function getStringByteSize() : int {
-        return $this->refManipulator()->getStringByteSize($this->getAsString());
+    public function toLowerCase() : static {
+        return $this->setFromString($this->refManipulator()->getStringAsLowerCase($this->getAsString()));
     }
 
 }

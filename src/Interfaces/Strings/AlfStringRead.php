@@ -8,4 +8,8 @@ interface AlfStringRead extends AlfStringGet {
 
     public function refManipulator() : AlfStringManipulator;
 
+    public function getStringLength() : int;
+
+    public function getStringByteSize() : int;
+
 }

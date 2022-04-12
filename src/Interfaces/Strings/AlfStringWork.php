@@ -4,8 +4,8 @@ namespace Alf\Interfaces\Strings;
 
 interface AlfStringWork extends AlfStringRead, AlfStringSet {
 
-    public function getStringLength() : int;
+    public function toUpperCase() : static;
 
-    public function getStringByteSize() : int;
+    public function toLowerCase() : static;
 
 }

@@ -45,4 +45,12 @@ trait AlfStringReadTrait {
         return $this->stringManipulator;
     }
 
+    public function getStringLength() : int {
+        return $this->refManipulator()->getStringLength($this->getAsString());
+    }
+
+    public function getStringByteSize() : int {
+        return $this->refManipulator()->getStringByteSize($this->getAsString());
+    }
+
 }
