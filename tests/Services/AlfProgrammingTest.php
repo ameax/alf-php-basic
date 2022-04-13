@@ -12,7 +12,7 @@ test('unused',
 
         $firstUnUsed = 5;
         $secondUnUsed = 10;
-        expect(AlfProgramming::_()->unused($firstUnUsed, $secondUnUsed))->toBe(5);
+        $this->assertSame(AlfProgramming::_()->unused($firstUnUsed, $secondUnUsed), 5);
 
     });
 
@@ -20,7 +20,7 @@ test('unusedRef',
     function () : void {
 
         $firstUnUsed = null;
-        expect(AlfProgramming::_()->unusedRef($firstUnUsed))->toBe($firstUnUsed);
+        $this->assertSame(AlfProgramming::_()->unusedRef($firstUnUsed), $firstUnUsed);
 
     });
 

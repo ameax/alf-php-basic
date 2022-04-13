@@ -6,6 +6,7 @@ use Alf\AlfBasicClass;
 use Alf\AlfBasicType;
 use Alf\AlfBasicTypeScalar;
 use Alf\Interfaces\Integers\AlfIntGetTrait;
+use Alf\Interfaces\Integers\AlfIntLikeTrait;
 use Alf\Interfaces\Integers\AlfIntSetTrait;
 use Alf\Interfaces\Integers\AlfIntWorkTrait;
 use Alf\Interfaces\Values\AlfEmptyGetTrait;
@@ -21,8 +22,10 @@ use Alf\Types\Scalars\AlfInt;
 
 test('getParent AlfInt',
     function () : void {
+
         $obj = new AlfInt();
-        expect(AlfPhpClassManager::_()->getParent($obj))->toBe(AlfBasicTypeScalar::class);
+        $this->assertSame(AlfPhpClassManager::_()->getParent($obj), AlfBasicTypeScalar::class);
+
     });
 
 test('listParents AlfInt',
@@ -43,7 +46,7 @@ test('listTraits AlfInt',
         $obj = new AlfInt();
         $traits = AlfPhpClassManager::_()->listTraits($obj);
 
-        $this->assertCount(11, $traits);
+        $this->assertCount(12, $traits);
 
         $this->assertArrayHasKey(AlfNullOrEmptyWorkTrait::class, $traits);
         $this->assertArrayHasKey(AlfNullWorkTrait::class, $traits);
@@ -56,5 +59,6 @@ test('listTraits AlfInt',
         $this->assertArrayHasKey(AlfIntGetTrait::class, $traits);
         $this->assertArrayHasKey(AlfIntSetTrait::class, $traits);
         $this->assertArrayHasKey(AlfIntWorkTrait::class, $traits);
+        $this->assertArrayHasKey(AlfIntLikeTrait::class, $traits);
 
     });

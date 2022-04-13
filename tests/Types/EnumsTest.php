@@ -11,8 +11,12 @@ test('enums got select',
         $reflectionClass = new ReflectionClass($enumName);
         $shortName = $reflectionClass->getShortName();
 
+        if (str_ends_with($shortName, 'ies')) {
+            $shortName = substr($shortName, 0, -3).'ys';
+        }
         $needSelectName = 'Alf\\Types\\Selects\\'.substr($shortName, 0, -1);
-        $this->assertTrue(class_exists($needSelectName), 'Missing select-class for enum '.$shortName);
+
+        $this->assertTrue(class_exists($needSelectName), 'Missing select-class for enum '.$shortName.' = '.$needSelectName);
 
     })->with(listAlfEnums());
 

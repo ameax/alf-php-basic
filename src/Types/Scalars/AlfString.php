@@ -6,21 +6,21 @@ use Alf\AlfBasicTypeScalar;
 use Alf\Attributes\AlfAttrAutoComplete;
 use Alf\Attributes\AlfAttrParameterIsString;
 use Alf\Interfaces\Strings\AlfStringGet;
-use Alf\Interfaces\Strings\AlfStringWork;
-use Alf\Interfaces\Strings\AlfStringWorkTrait;
+use Alf\Interfaces\Strings\AlfStringLike;
+use Alf\Interfaces\Strings\AlfStringLikeTrait;
 use Alf\Services\AlfProgramming;
 use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
 use Stringable;
 
-class AlfString extends AlfBasicTypeScalar implements AlfStringWork {
+class AlfString extends AlfBasicTypeScalar implements AlfStringLike {
 
-    use AlfStringWorkTrait;
+    use AlfStringLikeTrait;
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
     final public static function _AlfString($obj) : AlfString {
-        return AlfProgramming::_()->unused($obj, static::_AlfBasicTypeScalar($obj), static::_AlfStringWork($obj));
+        return AlfProgramming::_()->unused($obj, static::_AlfBasicTypeScalar($obj), static::_AlfStringLike($obj));
     }
 
     protected ?string $value = null;
@@ -37,16 +37,6 @@ class AlfString extends AlfBasicTypeScalar implements AlfStringWork {
         return $this->value;
     }
 
-    #[Pure]
-    public function get() : string {
-        return $this->getValue() ?? $this->getEmptyValue();
-    }
-
-    #[Pure]
-    public function getAsString() : string {
-        return $this->get();
-    }
-
     /* setter */
 
     public function set(#[AlfAttrParameterIsString] AlfStringGet|Stringable|string|null $value) : static {
@@ -57,25 +47,6 @@ class AlfString extends AlfBasicTypeScalar implements AlfStringWork {
         }
         $this->value = $this->_convertValueForSet($newValue);
         return $this;
-    }
-
-    public function setToNull() : static {
-        return $this->set(null);
-    }
-
-    public function setToEmpty() : static {
-        return $this->set($this->getEmptyValue());
-    }
-
-    public function setFromString(#[AlfAttrParameterIsString] AlfStringGet|Stringable|string|null $value) : static {
-        return $this->set($value);
-    }
-
-    /* definitions */
-
-    #[Pure]
-    public function getEmptyValue() : string {
-        return '';
     }
 
     /* class handling */

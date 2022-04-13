@@ -17,7 +17,7 @@ trait AlfCharsetPropertyTrait {
         return AlfProgramming::_()->unused($obj);
     }
 
-    protected ?AlfCharset $propCharset = null;
+    protected AlfCharset $propCharset;
 
     /** @AlfAttrTraitAutoCall */
     #[AlfAttrTraitAutoCall]
@@ -37,13 +37,13 @@ trait AlfCharsetPropertyTrait {
     }
 
     #[Pure]
-    public function refCharset() : ?AlfCharset {
+    public function refCharset() : AlfCharset {
         return $this->propCharset;
     }
 
     #[Pure]
     public function getCharsetValue() : ?AlfCharsets {
-        return $this->refCharset()?->getValue();
+        return $this->refCharset()->getValue();
     }
 
 }

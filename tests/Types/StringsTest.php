@@ -3,11 +3,14 @@
 declare(strict_types = 1);
 
 use Alf\AlfBasicTypeSelect;
+use Alf\Enums\AlfCharsets;
 use Alf\Interfaces\Strings\AlfStringGet;
 use Alf\Interfaces\Strings\AlfStringRead;
 use Alf\Interfaces\Strings\AlfStringSet;
 use Alf\Interfaces\Strings\AlfStringWork;
+use Alf\Manipulator\AlfStringManipulator;
 use Alf\Types\Scalars\AlfString;
+use Alf\Types\Scalars\AlfStringW;
 
 test('classes extends AlfString',
     /** @throws ReflectionException */
@@ -226,3 +229,44 @@ test('classes extends AlfStringWork',
         }
 
     })->with(listAlfClassesSubtype(AlfStringWork::class));
+
+test('AlfStringW charset converter',
+    function () : void {
+
+        $testString = new AlfStringW('äöüß');
+        $tryString = $testString->getAsString();
+        $storeCharset = $testString->refCharset()->getValue();
+        $tryCharset = $testString->refCharset()->getAsString();
+
+        $testString->convertToCharset(AlfCharsets::ISO_8859_15);
+        $this->assertNotSame($tryString, $testString->getAsString(),
+                             '(1a) new string should not be equal old string');
+        $this->assertNotSame($tryCharset, $testString->refCharset()->getAsString(),
+                             '(1b) new charset should not be equal old charset');
+
+        $testString->convertToCharset(AlfCharsets::UTF8);
+        $this->assertSame($tryString, $testString->getAsString(),
+                          '(2a) new string should be equal old string');
+        $this->assertSame($tryCharset, $testString->refCharset()->getAsString(),
+                          '(2b) new charset should be equal old charset');
+
+        // -
+        $testString->convertToCharset(AlfCharsets::ASCII);
+        $this->assertTrue($testString->isNull(), '(3) testString should be NULL');
+
+        // -
+        $testString->setToNull();
+        $testString->convertToCharset($storeCharset);
+        $this->assertTrue($testString->isNull(), '(4) testString should be NULL');
+        $this->assertSame($tryCharset, $testString->refCharset()->getAsString(),
+                          '(2b) new charset should be equal old charset');
+    });
+
+test('AlfStringManipulator invalid charsets',
+    function () : void {
+
+        $manipulator = new AlfStringManipulator();
+        $tryString = $manipulator->convertStringToCharset('abc', 'XYZ');
+        $this->assertNull($tryString);
+
+    });

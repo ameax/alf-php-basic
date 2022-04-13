@@ -104,6 +104,7 @@ test('__debugInfo()',
         }
 
         $debug = $inst->__debugInfo();
-        expect($debug['class'] ?? null)->toBe($reflectionClass->getName());
+
+        $this->assertSame($debug['class'] ?? null, $reflectionClass->getName());
 
     })->with(listAlfClassesAndSingletons());

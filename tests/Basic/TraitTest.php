@@ -10,7 +10,7 @@ test('trait has interface with same name',
     function (string $traitName) : void {
 
         $interfaceName = substr($traitName, 0, -5);
-        expect(interface_exists($interfaceName))->toBeTrue();
+        $this->assertTrue(interface_exists($interfaceName));
 
     })->with(listAlfTraits());
 

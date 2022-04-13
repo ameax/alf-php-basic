@@ -6,7 +6,6 @@ use Alf\Attributes\AlfAttrAutoComplete;
 use Alf\Attributes\AlfAttrParameterIsBool;
 use Alf\Attributes\AlfAttrTraitAutoCall;
 use Alf\Services\AlfProgramming;
-use Alf\Types\Scalars\AlfBool;
 
 trait AlfBoolSetTrait {
 

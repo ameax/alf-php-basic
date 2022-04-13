@@ -3,6 +3,7 @@
 declare(strict_types = 1);
 
 use Alf\AlfBasicSingleton;
+use Alf\Services\AlfProgramming;
 
 test('class must be a instance of AlfBasicSingleton',
     /** @throws ReflectionException */
@@ -10,7 +11,7 @@ test('class must be a instance of AlfBasicSingleton',
 
         $reflection = new ReflectionClass($className);
         $isAlfBasicSingleton = $reflection->isSubclassOf(AlfBasicSingleton::class) || ($className === AlfBasicSingleton::class);
-        expect($isAlfBasicSingleton)->toBeTrue();
+        $this->assertTrue($isAlfBasicSingleton);
 
     })->with(listAlfSingletons());
 
@@ -21,13 +22,13 @@ test('exception if clone',
         $reflectionClass = new ReflectionClass($className);
         if ($reflectionClass->isAbstract()) {
             throw new RuntimeException('abstract class');
-            expect(true)->toBeTrue();
-            return;
         }
 
         $fullClassName = $reflectionClass->getName();
         $inst = AlfBasicSingleton::_AlfBasicSingleton($fullClassName::_());
-        clone $inst;
+        $inst2 = clone $inst;
+        AlfProgramming::_()->unusedRef($inst2);
+        $this->assertTrue(true);
 
     })->with(listAlfSingletons())->throws(RuntimeException::class);
 
@@ -38,13 +39,12 @@ test('exception if serialize',
         $reflectionClass = new ReflectionClass($className);
         if ($reflectionClass->isAbstract()) {
             throw new RuntimeException('abstract class');
-            expect(true)->toBeTrue();
-            return;
         }
 
         $fullClassName = $reflectionClass->getName();
         $inst = AlfBasicSingleton::_AlfBasicSingleton($fullClassName::_());
         serialize($inst);
+        $this->assertTrue(true);
 
     })->with(listAlfSingletons())->throws(RuntimeException::class);
 
@@ -55,8 +55,10 @@ test('exception if call __wakeup()',
         $reflectionClass = new ReflectionClass($className);
         if ($reflectionClass->isAbstract()) {
             throw new RuntimeException('abstract class');
-            expect(true)->toBeTrue();
-            return;
+        }
+
+        if ($this->hasFailed()) {
+            throw new RuntimeException('hasFailed');
         }
 
         $fullClassName = $reflectionClass->getName();
@@ -72,8 +74,10 @@ test('exception if call __sleep()',
         $reflectionClass = new ReflectionClass($className);
         if ($reflectionClass->isAbstract()) {
             throw new RuntimeException('abstract class');
-            expect(true)->toBeTrue();
-            return;
+        }
+
+        if ($this->hasFailed()) {
+            throw new RuntimeException('hasFailed');
         }
 
         $fullClassName = $reflectionClass->getName();
@@ -89,8 +93,10 @@ test('exception if call __serialize()',
         $reflectionClass = new ReflectionClass($className);
         if ($reflectionClass->isAbstract()) {
             throw new RuntimeException('abstract class');
-            expect(true)->toBeTrue();
-            return;
+        }
+
+        if ($this->hasFailed()) {
+            throw new RuntimeException('hasFailed');
         }
 
         $fullClassName = $reflectionClass->getName();
@@ -106,8 +112,10 @@ test('exception if call __unserialize()',
         $reflectionClass = new ReflectionClass($className);
         if ($reflectionClass->isAbstract()) {
             throw new RuntimeException('abstract class');
-            expect(true)->toBeTrue();
-            return;
+        }
+
+        if ($this->hasFailed()) {
+            throw new RuntimeException('hasFailed');
         }
 
         $fullClassName = $reflectionClass->getName();

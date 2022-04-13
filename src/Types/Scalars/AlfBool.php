@@ -6,20 +6,20 @@ use Alf\AlfBasicTypeScalar;
 use Alf\Attributes\AlfAttrAutoComplete;
 use Alf\Attributes\AlfAttrParameterIsBool;
 use Alf\Interfaces\Booleans\AlfBoolGet;
-use Alf\Interfaces\Booleans\AlfBoolWork;
-use Alf\Interfaces\Booleans\AlfBoolWorkTrait;
+use Alf\Interfaces\Booleans\AlfBoolLike;
+use Alf\Interfaces\Booleans\AlfBoolLikeTrait;
 use Alf\Services\AlfProgramming;
 use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
 
-class AlfBool extends AlfBasicTypeScalar implements AlfBoolWork {
+class AlfBool extends AlfBasicTypeScalar implements AlfBoolLike {
 
-    use AlfBoolWorkTrait;
+    use AlfBoolLikeTrait;
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
     final public static function _AlfBool($obj) : AlfBool {
-        return AlfProgramming::_()->unused($obj, static::_AlfBasicTypeScalar($obj), static::_AlfBoolWork($obj));
+        return AlfProgramming::_()->unused($obj, static::_AlfBasicTypeScalar($obj), static::_AlfBoolLike($obj));
     }
 
     protected ?bool $value = null;
@@ -36,16 +36,6 @@ class AlfBool extends AlfBasicTypeScalar implements AlfBoolWork {
         return $this->value;
     }
 
-    #[Pure]
-    public function get() : bool {
-        return $this->getValue() ?? $this->getEmptyValue();
-    }
-
-    #[Pure]
-    public function getAsBool() : bool {
-        return $this->get();
-    }
-
     /* setter */
 
     public function set(#[AlfAttrParameterIsBool] AlfBoolGet|bool|null $value) : static {
@@ -56,25 +46,6 @@ class AlfBool extends AlfBasicTypeScalar implements AlfBoolWork {
         }
         $this->value = $this->_convertValueForSet($newValue);
         return $this;
-    }
-
-    public function setToNull() : static {
-        return $this->set(null);
-    }
-
-    public function setToEmpty() : static {
-        return $this->set($this->getEmptyValue());
-    }
-
-    public function setFromBool(#[AlfAttrParameterIsBool] AlfBoolGet|bool|null $value) : static {
-        return $this->set($value);
-    }
-
-    /* definitions */
-
-    #[Pure]
-    public function getEmptyValue() : bool {
-        return false;
     }
 
     /* class handling */

@@ -37,4 +37,16 @@ trait AlfNullOrEmptyWorkTrait {
         return $this->isNull() || $this->isEmpty();
     }
 
+    #[Pure]
+    public function isEmptyOrNull() : bool {
+        return $this->isEmpty() || $this->isNull();
+    }
+
+    public function setToEmptyIfNull() : static {
+        if ($this->isNull()) {
+            return $this->setToEmpty();
+        }
+        return $this;
+    }
+
 }

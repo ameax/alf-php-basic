@@ -3,6 +3,7 @@
 namespace Alf\Manipulator;
 
 use Alf\Attributes\AlfAttrAutoComplete;
+use Alf\Enums\AlfCharsets;
 use Alf\Interfaces\Properties\AlfCharsetProperty;
 use Alf\Services\AlfProgramming;
 use JetBrains\PhpStorm\Pure;
@@ -22,8 +23,8 @@ class AlfStringWManipulator extends AlfStringManipulator {
     }
 
     #[Pure]
-    final public function getCharsetString() : string {
-        return $this->charsetHandler?->getCharsetValue()?->value ?? 'UTF-8';
+    public function getCharsetString() : string {
+        return $this->charsetHandler?->getCharsetValue()?->value ?? AlfCharsets::UTF8->value;
     }
 
     public function getStringLength(string $str) : int {

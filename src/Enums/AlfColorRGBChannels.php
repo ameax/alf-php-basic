@@ -4,8 +4,8 @@ namespace Alf\Enums;
 
 enum AlfColorRGBChannels: string {
 
-    case R = 'r';
-    case G = 'g';
-    case B = 'b';
+    case RED = 'red';
+    case GREEN = 'green';
+    case BLUE = 'blue';
 
 }

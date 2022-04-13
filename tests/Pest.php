@@ -2,18 +2,15 @@
 
 declare(strict_types = 1);
 
-// uses(Tests\TestCase::class)->in('Feature');
-// expect()->extend('toBeOne', function () { return $this->toBe(1); });
-
-// ToDo: Find all files and check if tested
-
 use Alf\AlfBasicAttribute;
 use Alf\AlfBasicClass;
 use Alf\AlfBasicSingleton;
 use Alf\AlfBasicType;
 use Alf\AlfBasicTypeScalar;
 use Alf\AlfBasicTypeSelect;
+use Alf\AlfBasicTypeStructure;
 use Alf\Attributes\AlfAttrAutoComplete;
+use Alf\Attributes\AlfAttrClassIsRef;
 use Alf\Attributes\AlfAttrEnumValue;
 use Alf\Attributes\AlfAttrParameter;
 use Alf\Attributes\AlfAttrParameterIsBool;
@@ -22,20 +19,28 @@ use Alf\Attributes\AlfAttrParameterIsString;
 use Alf\Attributes\AlfAttrTraitAutoCall;
 use Alf\Enums\AlfCharsets;
 use Alf\Enums\AlfColorRGBChannels;
+use Alf\Enums\AlfCountries;
+use Alf\Enums\AlfLanguageCodes;
 use Alf\Interfaces\Booleans\AlfBoolGet;
 use Alf\Interfaces\Booleans\AlfBoolGetTrait;
+use Alf\Interfaces\Booleans\AlfBoolLike;
+use Alf\Interfaces\Booleans\AlfBoolLikeTrait;
 use Alf\Interfaces\Booleans\AlfBoolSet;
 use Alf\Interfaces\Booleans\AlfBoolSetTrait;
 use Alf\Interfaces\Booleans\AlfBoolWork;
 use Alf\Interfaces\Booleans\AlfBoolWorkTrait;
 use Alf\Interfaces\Integers\AlfIntGet;
 use Alf\Interfaces\Integers\AlfIntGetTrait;
+use Alf\Interfaces\Integers\AlfIntLike;
+use Alf\Interfaces\Integers\AlfIntLikeTrait;
 use Alf\Interfaces\Integers\AlfIntSet;
 use Alf\Interfaces\Integers\AlfIntSetTrait;
 use Alf\Interfaces\Integers\AlfIntWork;
 use Alf\Interfaces\Integers\AlfIntWorkTrait;
 use Alf\Interfaces\Strings\AlfStringGet;
 use Alf\Interfaces\Strings\AlfStringGetTrait;
+use Alf\Interfaces\Strings\AlfStringLike;
+use Alf\Interfaces\Strings\AlfStringLikeTrait;
 use Alf\Interfaces\Strings\AlfStringRead;
 use Alf\Interfaces\Strings\AlfStringReadTrait;
 use Alf\Interfaces\Strings\AlfStringSet;
@@ -63,10 +68,15 @@ use Alf\Manipulator\AlfStringWManipulator;
 use Alf\Services\AlfCache;
 use Alf\Services\AlfPhpClassManager;
 use Alf\Services\AlfProgramming;
+use Alf\Types\Enhanced\Colors\AlfColorRGB;
+use Alf\Types\Enhanced\Colors\AlfColorRGBRef;
+use Alf\Types\Enhanced\Colors\AlfColorRGBValue;
 use Alf\Types\Scalars\AlfBool;
 use Alf\Types\Scalars\AlfInt;
 use Alf\Types\Scalars\AlfInt16;
 use Alf\Types\Scalars\AlfInt16U;
+use Alf\Types\Scalars\AlfInt24;
+use Alf\Types\Scalars\AlfInt24U;
 use Alf\Types\Scalars\AlfInt32;
 use Alf\Types\Scalars\AlfInt32U;
 use Alf\Types\Scalars\AlfInt8;
@@ -76,6 +86,9 @@ use Alf\Types\Scalars\AlfString;
 use Alf\Types\Scalars\AlfStringW;
 use Alf\Types\Selects\AlfCharset;
 use Alf\Types\Selects\AlfColorRGBChannel;
+use Alf\Types\Selects\AlfCountry;
+use Alf\Types\Selects\AlfLanguageCode;
+use Alf\Types\Structures\AlfLanguage;
 use JetBrains\PhpStorm\Pure;
 
 #[Pure]
@@ -83,14 +96,17 @@ function listAlfInterfaces() : array {
     return [
         // Interfaces/Booleans
         AlfBoolGet::class,
+        AlfBoolLike::class,
         AlfBoolSet::class,
         AlfBoolWork::class,
         // Interfaces/Integers
         AlfIntGet::class,
+        AlfIntLike::class,
         AlfIntSet::class,
         AlfIntWork::class,
         // Interfaces/String
         AlfStringGet::class,
+        AlfStringLike::class,
         AlfStringRead::class,
         AlfStringSet::class,
         AlfStringWork::class,
@@ -111,14 +127,17 @@ function listAlfTraits() : array {
     return [
         // Interfaces/Booleans
         AlfBoolGetTrait::class,
+        AlfBoolLikeTrait::class,
         AlfBoolSetTrait::class,
         AlfBoolWorkTrait::class,
         // Interfaces/Integers
         AlfIntGetTrait::class,
+        AlfIntLikeTrait::class,
         AlfIntSetTrait::class,
         AlfIntWorkTrait::class,
         // Interfaces/String
         AlfStringGetTrait::class,
+        AlfStringLikeTrait::class,
         AlfStringReadTrait::class,
         AlfStringSetTrait::class,
         AlfStringWorkTrait::class,
@@ -142,8 +161,10 @@ function listAlfClasses() : array {
         AlfBasicType::class,
         AlfBasicTypeScalar::class,
         AlfBasicTypeSelect::class,
+        AlfBasicTypeStructure::class,
         // Attributes
         AlfAttrAutoComplete::class,
+        AlfAttrClassIsRef::class,
         AlfAttrEnumValue::class,
         AlfAttrParameter::class,
         AlfAttrParameterIsBool::class,
@@ -153,6 +174,10 @@ function listAlfClasses() : array {
         // Manipulator
         AlfStringManipulator::class,
         AlfStringWManipulator::class,
+        // Types/Enhanced
+        AlfColorRGB::class,
+        AlfColorRGBValue::class,
+        AlfColorRGBRef::class,
         // Types/Scalars
         AlfBool::class,
         AlfInt::class,
@@ -160,6 +185,8 @@ function listAlfClasses() : array {
         AlfInt8U::class,
         AlfInt16::class,
         AlfInt16U::class,
+        AlfInt24::class,
+        AlfInt24U::class,
         AlfInt32::class,
         AlfInt32U::class,
         AlfIntRange::class,
@@ -168,6 +195,10 @@ function listAlfClasses() : array {
         // Types/Selects
         AlfCharset::class,
         AlfColorRGBChannel::class,
+        AlfCountry::class,
+        AlfLanguageCode::class,
+        // Type/Structures
+        AlfLanguage::class,
     ];
 }
 
@@ -188,6 +219,8 @@ function listAlfEnums() : array {
     return [
         AlfCharsets::class,
         AlfColorRGBChannels::class,
+        AlfCountries::class,
+        AlfLanguageCodes::class,
     ];
 }
 
@@ -201,7 +234,7 @@ function listAlfAll() : array {
     return array_merge(listAlfClasses(), listAlfSingletons(), listAlfInterfaces(), listAlfTraits(), listAlfEnums());
 }
 
-function listAlfClassesSubtype(string $subTypeOf, bool $andAbstract = false) : array {
+function listAlfClassesSubtype(string $subTypeOf, bool $andAbstract = false, bool $withRef = true) : array {
     $output = [];
     foreach (listAlfClasses() as $className) {
         try {
@@ -212,6 +245,19 @@ function listAlfClassesSubtype(string $subTypeOf, bool $andAbstract = false) : a
             if ((!$reflectionClass->isSubclassOf($subTypeOf)) && ($reflectionClass->getName() !== $subTypeOf)) {
                 continue;
             }
+            if (!$withRef) {
+                $useThisClass = true;
+                foreach ($reflectionClass->getAttributes() as $attributeObject) {
+                    if ($attributeObject->getName() !== AlfAttrClassIsRef::class) {
+                        continue;
+                    }
+                    $useThisClass = false;
+                    break;
+                }
+                if (!$useThisClass) {
+                    continue;
+                }
+            }
         } catch (ReflectionException) {
             continue;
         }
@@ -221,11 +267,12 @@ function listAlfClassesSubtype(string $subTypeOf, bool $andAbstract = false) : a
     return $output;
 }
 
-function listAlfClasses2Subtype(string $subTypeOfOne, string $subTypeOfTwo, bool $andAbstract = false) : array {
+function listAlfClasses2Subtype(string $subTypeOfOne, string $subTypeOfTwo, bool $andAbstract = false, bool $withRef = true) : array {
     $output = [];
     foreach (listAlfClasses() as $className) {
         $gotTypeOne = false;
         $gotTypeTwo = false;
+        $useByRef = true;
         try {
             $reflectionClass = new ReflectionClass($className);
             if ((!$andAbstract) && ($reflectionClass->isAbstract())) {
@@ -237,11 +284,20 @@ function listAlfClasses2Subtype(string $subTypeOfOne, string $subTypeOfTwo, bool
             if (($reflectionClass->isSubclassOf($subTypeOfTwo)) || ($reflectionClass->getName() === $subTypeOfTwo)) {
                 $gotTypeTwo = true;
             }
+            if (!$withRef) {
+                foreach ($reflectionClass->getAttributes() as $attributeObject) {
+                    if ($attributeObject->getName() !== AlfAttrClassIsRef::class) {
+                        continue;
+                    }
+                    $useByRef = false;
+                    break;
+                }
+            }
         } catch (ReflectionException) {
             continue;
         }
 
-        if ((!$gotTypeOne) || (!$gotTypeTwo)) {
+        if ((!$gotTypeOne) || (!$gotTypeTwo) || (!$useByRef)) {
             continue;
         }
 
@@ -282,7 +338,7 @@ function getBoolValues() : array {
 
 #[Pure]
 function getIntValues() : array {
-    return [
+    $output = [
         [
             'set'       => null,
             'isNull'    => true,
@@ -298,6 +354,10 @@ function getIntValues() : array {
                 'afterDec'  => 0,
             ],
             'AlfInt16U' => [
+                'afterSub9' => 0,
+                'afterDec'  => 0,
+            ],
+            'AlfInt24U' => [
                 'afterSub9' => 0,
                 'afterDec'  => 0,
             ],
@@ -324,6 +384,10 @@ function getIntValues() : array {
                 'afterSub9' => 0,
                 'afterDec'  => 0,
             ],
+            'AlfInt24U' => [
+                'afterSub9' => 0,
+                'afterDec'  => 0,
+            ],
             'AlfInt32U' => [
                 'afterSub9' => 0,
                 'afterDec'  => 0,
@@ -343,6 +407,9 @@ function getIntValues() : array {
                 'afterSub9' => 0,
             ],
             'AlfInt16U' => [
+                'afterSub9' => 0,
+            ],
+            'AlfInt24U' => [
                 'afterSub9' => 0,
             ],
             'AlfInt32U' => [
@@ -388,6 +455,15 @@ function getIntValues() : array {
                 'afterSub9' => 0,
                 'afterDec'  => 0,
             ],
+            'AlfInt24U' => [
+                'isEmpty'   => true,
+                'get'       => 0,
+                'getValue'  => 0,
+                'afterAdd5' => 5,
+                'afterInc'  => 1,
+                'afterSub9' => 0,
+                'afterDec'  => 0,
+            ],
             'AlfInt32U' => [
                 'isEmpty'   => true,
                 'get'       => 0,
@@ -408,14 +484,6 @@ function getIntValues() : array {
             'afterInc'  => 501,
             'afterSub9' => 491,
             'afterDec'  => 499,
-            'AlfInt8U'  => [
-                'get'       => 255,
-                'getValue'  => 255,
-                'afterAdd5' => 255,
-                'afterInc'  => 255,
-                'afterSub9' => 246,
-                'afterDec'  => 254,
-            ],
             'AlfInt8'   => [
                 'get'       => 128,
                 'getValue'  => 128,
@@ -423,6 +491,14 @@ function getIntValues() : array {
                 'afterInc'  => 128,
                 'afterSub9' => 119,
                 'afterDec'  => 127,
+            ],
+            'AlfInt8U'  => [
+                'get'       => 255,
+                'getValue'  => 255,
+                'afterAdd5' => 255,
+                'afterInc'  => 255,
+                'afterSub9' => 246,
+                'afterDec'  => 254,
             ],
         ],
         [
@@ -469,6 +545,65 @@ function getIntValues() : array {
             ],
         ],
         [
+            'set'       => 17000000,
+            'isNull'    => false,
+            'isEmpty'   => false,
+            'get'       => 17000000,
+            'getValue'  => 17000000,
+            'afterAdd5' => 17000005,
+            'afterInc'  => 17000001,
+            'afterSub9' => 16999991,
+            'afterDec'  => 16999999,
+            'AlfInt8'   => [
+                'get'       => 128,
+                'getValue'  => 128,
+                'afterAdd5' => 128,
+                'afterInc'  => 128,
+                'afterSub9' => 119,
+                'afterDec'  => 127,
+            ],
+            'AlfInt8U'  => [
+                'get'       => 255,
+                'getValue'  => 255,
+                'afterAdd5' => 255,
+                'afterInc'  => 255,
+                'afterSub9' => 246,
+                'afterDec'  => 254,
+            ],
+            'AlfInt16'  => [
+                'get'       => 32767,
+                'getValue'  => 32767,
+                'afterAdd5' => 32767,
+                'afterInc'  => 32767,
+                'afterSub9' => 32758,
+                'afterDec'  => 32766,
+            ],
+            'AlfInt16U' => [
+                'get'       => 65535,
+                'getValue'  => 65535,
+                'afterAdd5' => 65535,
+                'afterInc'  => 65535,
+                'afterSub9' => 65526,
+                'afterDec'  => 65534,
+            ],
+            'AlfInt24'  => [
+                'get'       => 8388607,
+                'getValue'  => 8388607,
+                'afterAdd5' => 8388607,
+                'afterInc'  => 8388607,
+                'afterSub9' => 8388598,
+                'afterDec'  => 8388606,
+            ],
+            'AlfInt24U' => [
+                'get'       => 16777215,
+                'getValue'  => 16777215,
+                'afterAdd5' => 16777215,
+                'afterInc'  => 16777215,
+                'afterSub9' => 16777206,
+                'afterDec'  => 16777214,
+            ],
+        ],
+        [
             'set'       => 5000000000,
             'isNull'    => false,
             'isEmpty'   => false,
@@ -510,6 +645,22 @@ function getIntValues() : array {
                 'afterSub9' => 65526,
                 'afterDec'  => 65534,
             ],
+            'AlfInt24'  => [
+                'get'       => 8388607,
+                'getValue'  => 8388607,
+                'afterAdd5' => 8388607,
+                'afterInc'  => 8388607,
+                'afterSub9' => 8388598,
+                'afterDec'  => 8388606,
+            ],
+            'AlfInt24U' => [
+                'get'       => 16777215,
+                'getValue'  => 16777215,
+                'afterAdd5' => 16777215,
+                'afterInc'  => 16777215,
+                'afterSub9' => 16777206,
+                'afterDec'  => 16777214,
+            ],
             'AlfInt32'  => [
                 'get'       => 2147483647,
                 'getValue'  => 2147483647,
@@ -528,6 +679,15 @@ function getIntValues() : array {
             ],
         ],
     ];
+    foreach (array_keys($output) as $inx) {
+        if (isset($output[$inx]['AlfInt24U'])) {
+            $output[$inx]['AlfColorRGB'] = $output[$inx]['AlfInt24U'];
+        }
+        if (isset($output[$inx]['AlfInt8U'])) {
+            $output[$inx]['AlfColorRGBValue'] = $output[$inx]['AlfInt8U'];
+        }
+    }
+    return $output;
 }
 
 #[Pure]

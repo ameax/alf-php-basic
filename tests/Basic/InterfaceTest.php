@@ -6,6 +6,6 @@ test('interface has a trait with same name',
     function (string $interfaceName) : void {
 
         $needTraitName = $interfaceName.'Trait';
-        expect(trait_exists($needTraitName))->toBeTrue();
+        $this->assertTrue(trait_exists($needTraitName));
 
     })->with(listAlfInterfaces());

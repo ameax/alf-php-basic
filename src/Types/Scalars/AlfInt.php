@@ -6,20 +6,20 @@ use Alf\AlfBasicTypeScalar;
 use Alf\Attributes\AlfAttrAutoComplete;
 use Alf\Attributes\AlfAttrParameterIsInt;
 use Alf\Interfaces\Integers\AlfIntGet;
-use Alf\Interfaces\Integers\AlfIntWork;
-use Alf\Interfaces\Integers\AlfIntWorkTrait;
+use Alf\Interfaces\Integers\AlfIntLike;
+use Alf\Interfaces\Integers\AlfIntLikeTrait;
 use Alf\Services\AlfProgramming;
 use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
 
-class AlfInt extends AlfBasicTypeScalar implements AlfIntWork {
+class AlfInt extends AlfBasicTypeScalar implements AlfIntLike {
 
-    use AlfIntWorkTrait;
+    use AlfIntLikeTrait;
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
     final public static function _AlfInt($obj) : AlfInt {
-        return AlfProgramming::_()->unused($obj, static::_AlfBasicTypeScalar($obj), static::_AlfIntWork($obj));
+        return AlfProgramming::_()->unused($obj, static::_AlfBasicTypeScalar($obj), static::_AlfIntLike($obj));
     }
 
     protected ?int $value = null;
@@ -36,16 +36,6 @@ class AlfInt extends AlfBasicTypeScalar implements AlfIntWork {
         return $this->value;
     }
 
-    #[Pure]
-    public function get() : int {
-        return $this->getValue() ?? $this->getEmptyValue();
-    }
-
-    #[Pure]
-    public function getAsInt() : int {
-        return $this->get();
-    }
-
     /* setter */
 
     public function set(#[AlfAttrParameterIsInt] AlfIntGet|int|null $value) : static {
@@ -56,25 +46,6 @@ class AlfInt extends AlfBasicTypeScalar implements AlfIntWork {
         }
         $this->value = $this->_convertValueForSet($newValue);
         return $this;
-    }
-
-    public function setToNull() : static {
-        return $this->set(null);
-    }
-
-    public function setToEmpty() : static {
-        return $this->set($this->getEmptyValue());
-    }
-
-    public function setFromInt(#[AlfAttrParameterIsInt] AlfIntGet|int|null $value) : static {
-        return $this->set($value);
-    }
-
-    /* definitions */
-
-    #[Pure]
-    public function getEmptyValue() : int {
-        return 0;
     }
 
     /* class handling */

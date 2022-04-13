@@ -14,7 +14,10 @@ test('select got enums',
         $shortName = $reflectionClass->getShortName();
 
         $needEnumName = 'Alf\\Enums\\'.$shortName.'s';
-        $this->assertTrue(enum_exists($needEnumName), 'Missing enum for select-class '.$shortName);
+        if (str_ends_with($needEnumName, 'ys')) {
+            $needEnumName = substr($needEnumName, 0, -2).'ies';
+        }
+        $this->assertTrue(enum_exists($needEnumName), 'Missing enum for select-class '.$shortName.' = '.$needEnumName);
 
         // -
         $obj = AlfBasicTypeSelect::_AlfBasicTypeSelect(new $selectName());

@@ -2,7 +2,24 @@
 
 All notable changes to `alf-php-basic` will be documented in this file.
 
-## 1.1.8 - XXXX-XX-XX
+## 1.2.0 - 2022-04-13
+
+- scalar type: AlfInt24
+- scalar type: AlfInt24U
+- enhanced type: AlfColorRGB
+- enhanced type: AlfColorRGBValue
+- enhanced type: AlfColorRGBRef
+- interface: AlfIntLike
+- interface: AlfBoolLike
+- interface: AlfStringLike
+- AlfColorRGBChannels: enum names to long names (e.g. "r" to "red")
+- enum: AlfCountries
+- select: AlfCountry
+- enum: AlfLanguageCodes
+- select: AlfLanguageCode
+- structure: AlfLanguage
+
+## 1.1.8 - 2022-04-12
 
 - manipulator: AlfStringWManipulator
 - interface: AlfCharsetProperty
