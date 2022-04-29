@@ -2,7 +2,7 @@
 
 All notable changes to `alf-php-basic` will be documented in this file.
 
-## 1.3.0 - XXXX-XX-XX
+## 1.3.0 - 2022-04-29
 
 - AlfException
 - AlfExceptionRuntime

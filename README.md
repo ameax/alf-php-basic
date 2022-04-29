@@ -17,15 +17,22 @@ composer require ameax/alf-php-basic
 ## Usage
 
 ```php
+
 use Alf\Types\Scalars\AlfInt;
+use Alf\Exceptions\AlfException;
 require_once('./vendor/autoload.php');
 
-$foo = new AlfInt(5);
-print_r($foo);
+try {
+    $foo = new AlfInt(5);
+    print_r($foo);
 
-eval('$x = new Alf\Types\Scalars\AlfInt(3);');
-$bar = AlfInt::_AlfInt($x); // autocomplete for programmers e.g. phpStorm or Netbeans
-var_dump($bar->isEmpty());
+    eval('$x = new Alf\Types\Scalars\AlfInt(3);');
+    $bar = AlfInt::_AlfInt($x); // autocomplete for programmers e.g. phpStorm or Netbeans
+    var_dump($bar->isEmpty());
+} catch(AlfException $exception) {
+    var_dump($exception);
+}
+
 ```
 
 ## Testing
