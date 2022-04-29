@@ -2,6 +2,7 @@
 
 declare(strict_types = 1);
 
+use Alf\AlfBasicTypeSelect;
 use Alf\Interfaces\Values\AlfNullOrEmptyWork;
 
 test('interface AlfNullOrEmpty',
@@ -135,5 +136,13 @@ test('interface AlfNullOrEmpty',
         $this->assertTrue($inst2->isEmptyOrNull(),
                           '(6b) ->isEmptyOrNull()');
 
+        // -
+        if ($reflectionClass->isSubclassOf(AlfBasicTypeSelect::class)) {
+            $this->assertSame($inst2->getValue() ?? '', $inst2->getEmptyValue(),
+                              '(7ts) getValue("'.($inst2->getValue() ?? '-NULL-').'") <> getEmptyValue("'.($inst2->getEmptyValue() ?? '-NULL_').'"))');
+        } else {
+            $this->assertSame($inst2->getValue(), $inst2->getEmptyValue(),
+                              '(7va) getValue("'.($inst2->getValue() ?? '-NULL-').'") <> getEmptyValue("'.($inst2->getEmptyValue() ?? '-NULL_').'"))');
+        }
 
     })->with(listAlfClassesSubtype(AlfNullOrEmptyWork::class, false, false));

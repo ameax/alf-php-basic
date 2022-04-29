@@ -2,6 +2,22 @@
 
 All notable changes to `alf-php-basic` will be documented in this file.
 
+## 1.3.0 - XXXX-XX-XX
+
+- AlfException
+- AlfExceptionRuntime
+- AlfBasicTypeStructure implements AlfNullOrEmptyWork
+- rename select: AlfCharset to AlfCharEncoding
+- rename enum: AlfCharsets to AlfCharEncodings
+- rename interface: AlfCharsetProperty to AlfCharEncodingProperty
+- interface: AlfCharGet
+- interface: AlfCharSet
+- interface: AlfCharRead
+- interface: AlfCharWork
+- interface: AlfCharLike
+- scalar: AlfChar
+- scalar: AlfCharW
+
 ## 1.2.0 - 2022-04-13
 
 - scalar type: AlfInt24

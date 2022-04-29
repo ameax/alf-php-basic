@@ -4,19 +4,16 @@ namespace Alf\Interfaces\Strings;
 
 use Alf\Attributes\AlfAttrAutoComplete;
 use Alf\Attributes\AlfAttrTraitAutoCall;
-use Alf\Manipulator\AlfStringManipulator;
 use Alf\Services\AlfProgramming;
 
 trait AlfStringReadTrait {
 
-    use AlfStringGetTrait;
-
-    private ?AlfStringManipulator $stringManipulator = null;
+    use AlfStringGetTrait, AlfCharReadTrait;
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
     final public static function _AlfStringRead($obj) : AlfStringRead {
-        return AlfProgramming::_()->unused($obj, static::_AlfStringGet($obj));
+        return AlfProgramming::_()->unused($obj, static::_AlfStringGet($obj), static::_AlfCharRead($obj));
     }
 
     /** @AlfAttrTraitAutoCall */
@@ -32,25 +29,6 @@ trait AlfStringReadTrait {
     /** @AlfAttrTraitAutoCall */
     #[AlfAttrTraitAutoCall]
     protected function _AlfStringReadTraitClone() : void {
-    }
-
-    protected function getManipulatorClass() : AlfStringManipulator {
-        return new AlfStringManipulator();
-    }
-
-    public function refManipulator() : AlfStringManipulator {
-        if (is_null($this->stringManipulator)) {
-            $this->stringManipulator = $this->getManipulatorClass();
-        }
-        return $this->stringManipulator;
-    }
-
-    public function getStringLength() : int {
-        return $this->refManipulator()->getStringLength($this->getAsString());
-    }
-
-    public function getStringByteSize() : int {
-        return $this->refManipulator()->getStringByteSize($this->getAsString());
     }
 
 }

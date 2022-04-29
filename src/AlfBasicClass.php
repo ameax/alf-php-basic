@@ -7,6 +7,11 @@ use Alf\Services\AlfPhpClassManager;
 use Alf\Services\AlfProgramming;
 use JetBrains\PhpStorm\ArrayShape;
 
+// https://www.php.net/manual/de/class.stringable
+// https://www.php.net/manual/de/class.countable.php
+// https://www.php.net/manual/de/class.arrayaccess.php
+// https://www.php.net/manual/de/class.serializable.php
+
 abstract class AlfBasicClass {
 
     /** @AlfAttrAutoComplete */

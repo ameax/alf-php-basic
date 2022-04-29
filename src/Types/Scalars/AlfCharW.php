@@ -11,14 +11,14 @@ use Alf\Manipulator\AlfStringWManipulator;
 use Alf\Services\AlfProgramming;
 use JetBrains\PhpStorm\ArrayShape;
 
-class AlfStringW extends AlfString implements AlfCharEncodingProperty {
+class AlfCharW extends AlfChar implements AlfCharEncodingProperty {
 
     use AlfCharEncodingPropertyTrait;
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfStringW($obj) : AlfStringW {
-        return AlfProgramming::_()->unused($obj, static::_AlfString($obj), static::_AlfCharEncodingProperty($obj));
+    final public static function _AlfCharW($obj) : AlfCharW {
+        return AlfProgramming::_()->unused($obj, static::_AlfChar($obj), static::_AlfCharEncodingProperty($obj));
     }
 
     protected function getManipulatorClass() : AlfStringManipulator {

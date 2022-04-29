@@ -4,6 +4,7 @@ namespace Alf;
 
 use Alf\Attributes\AlfAttrAutoComplete;
 use Alf\Attributes\AlfAttrParameterIsString;
+use Alf\Interfaces\Strings\AlfCharGet;
 use Alf\Interfaces\Strings\AlfStringGet;
 use Alf\Interfaces\Strings\AlfStringGetTrait;
 use Alf\Interfaces\Strings\AlfStringSet;
@@ -73,7 +74,7 @@ abstract class AlfBasicTypeSelect extends AlfBasicTypeScalar implements AlfStrin
         return $this;
     }
 
-    public function setFromString(#[AlfAttrParameterIsString] AlfStringGet|Stringable|string|null $value) : static {
+    public function setFromString(#[AlfAttrParameterIsString] AlfCharGet|AlfStringGet|Stringable|string|null $value) : static {
         $newValue = AlfProgramming::_()->valueToString($value);
         if (is_null($newValue)) {
             return $this->setToNull();

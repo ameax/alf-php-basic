@@ -2,6 +2,7 @@
 
 namespace Alf\Attributes;
 
+use Alf\Interfaces\Strings\AlfCharGet;
 use Alf\Interfaces\Strings\AlfStringGet;
 use Alf\Services\AlfProgramming;
 use Attribute;
@@ -20,8 +21,9 @@ class AlfAttrParameterIsString extends AlfAttrParameter {
     public function isParameterTypeOk(ReflectionParameter $param, ?string &$shouldType = null) : bool {
         $needParams = [];
 
-        // #[AlfAttrParameterIsString] AlfStringGet|Stringable|string|null $value = null
+        // #[AlfAttrParameterIsString] AlfCharGet|AlfStringGet|Stringable|string|null $value = null
         // PHP sorts the parameters! Use the right order by PHP.
+        $needParams[] = AlfCharGet::class;
         $needParams[] = AlfStringGet::class;
         $needParams[] = Stringable::class;
         $needParams[] = 'string';

@@ -4,7 +4,7 @@ namespace Alf\Manipulator;
 
 use Alf\AlfBasicClass;
 use Alf\Attributes\AlfAttrAutoComplete;
-use Alf\Enums\AlfCharsets;
+use Alf\Enums\AlfCharEncodings;
 use Alf\Services\AlfProgramming;
 use JetBrains\PhpStorm\Pure;
 use ValueError;
@@ -19,7 +19,7 @@ class AlfStringManipulator extends AlfBasicClass {
 
     #[Pure]
     public function getCharsetString() : string {
-        return AlfCharsets::ASCII->value;
+        return AlfCharEncodings::ASCII->value;
     }
 
     public function getStringLength(string $str) : int {
@@ -40,7 +40,15 @@ class AlfStringManipulator extends AlfBasicClass {
         return strtolower($str);
     }
 
-    public function convertStringToCharset(string $str, string $toEncoding, string|null $fromEncoding = null) : ?string {
+    public function getCharsFromLeft(string $str, int $count) : string {
+        return substr($str, 0, $count);
+    }
+
+    public function getCharFirst(string $str) : string {
+        return $this->getCharsFromLeft($str, 1);
+    }
+
+    public function convertStringToEncoding(string $str, string $toEncoding, string|null $fromEncoding = null) : ?string {
         $fromEncoding = $fromEncoding ?? $this->getCharsetString();
         try {
             $tryValue = mb_convert_encoding($str, $toEncoding, $fromEncoding);

@@ -9,6 +9,7 @@ use Alf\Attributes\AlfAttrParameterIsInt;
 use Alf\Attributes\AlfAttrParameterIsString;
 use Alf\Interfaces\Booleans\AlfBoolGet;
 use Alf\Interfaces\Integers\AlfIntGet;
+use Alf\Interfaces\Strings\AlfCharGet;
 use Alf\Interfaces\Strings\AlfStringGet;
 use Alf\Interfaces\Values\AlfNullWork;
 use JetBrains\PhpStorm\Pure;
@@ -74,14 +75,14 @@ final class AlfProgramming extends AlfBasicSingleton {
     }
 
     #[Pure]
-    public function valueToString(#[AlfAttrParameterIsString] AlfStringGet|Stringable|string|null $value) : ?string {
+    public function valueToString(#[AlfAttrParameterIsString] AlfCharGet|AlfStringGet|Stringable|string|null $value) : ?string {
         if (is_string($value)) {
             return $value;
         }
         if ($this->valueIsNull($value)) {
             return null;
         }
-        if (is_a($value, AlfStringGet::class)) {
+        if (is_a($value, AlfCharGet::class) || is_a($value, AlfStringGet::class)) {
             return $value->getAsString();
         }
         return (string)$value;

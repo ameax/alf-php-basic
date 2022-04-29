@@ -5,6 +5,7 @@ declare(strict_types = 1);
 use Alf\AlfBasicClass;
 use Alf\AlfBasicSingleton;
 use Alf\Attributes\AlfAttrAutoComplete;
+use Alf\Exceptions\AlfException;
 
 test('autocomplete function',
     /** @throws ReflectionException */
@@ -99,6 +100,8 @@ test('__debugInfo()',
         $fullClassName = $reflectionClass->getName();
         if ($reflectionClass->isSubclassOf(AlfBasicSingleton::class)) {
             $inst = AlfBasicSingleton::_AlfBasicSingleton($fullClassName::_());
+        } elseif ($reflectionClass->isSubclassOf(AlfException::class)) {
+            $inst = AlfException::_AlfException(new $fullClassName(__METHOD__));
         } else {
             $inst = AlfBasicClass::_AlfBasicClass(new $fullClassName());
         }

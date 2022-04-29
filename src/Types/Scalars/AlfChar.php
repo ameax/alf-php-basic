@@ -6,22 +6,22 @@ use Alf\AlfBasicTypeScalar;
 use Alf\Attributes\AlfAttrAutoComplete;
 use Alf\Attributes\AlfAttrParameterIsString;
 use Alf\Interfaces\Strings\AlfCharGet;
+use Alf\Interfaces\Strings\AlfCharLike;
+use Alf\Interfaces\Strings\AlfCharLikeTrait;
 use Alf\Interfaces\Strings\AlfStringGet;
-use Alf\Interfaces\Strings\AlfStringLike;
-use Alf\Interfaces\Strings\AlfStringLikeTrait;
 use Alf\Services\AlfProgramming;
 use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
 use Stringable;
 
-class AlfString extends AlfBasicTypeScalar implements AlfStringLike {
+class AlfChar extends AlfBasicTypeScalar implements AlfCharLike {
 
-    use AlfStringLikeTrait;
+    use AlfCharLikeTrait;
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfString($obj) : AlfString {
-        return AlfProgramming::_()->unused($obj, static::_AlfBasicTypeScalar($obj), static::_AlfStringLike($obj));
+    final public static function _AlfChar($obj) : AlfChar {
+        return AlfProgramming::_()->unused($obj, static::_AlfBasicTypeScalar($obj), static::_AlfCharLike($obj));
     }
 
     protected ?string $value = null;
@@ -46,7 +46,7 @@ class AlfString extends AlfBasicTypeScalar implements AlfStringLike {
             $this->value = null;
             return $this;
         }
-        $this->value = $this->_convertValueForSet($newValue);
+        $this->value = $this->refManipulator()->getCharFirst($this->_convertValueForSet($newValue));
         return $this;
     }
 

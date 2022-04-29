@@ -3,9 +3,13 @@
 namespace Alf;
 
 use Alf\Attributes\AlfAttrAutoComplete;
+use Alf\Interfaces\Values\AlfNullOrEmptyWork;
+use Alf\Interfaces\Values\AlfNullOrEmptyWorkTrait;
 use Alf\Services\AlfProgramming;
 
-abstract class AlfBasicTypeStructure extends AlfBasicType {
+abstract class AlfBasicTypeStructure extends AlfBasicType implements AlfNullOrEmptyWork {
+
+    use AlfNullOrEmptyWorkTrait;
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]

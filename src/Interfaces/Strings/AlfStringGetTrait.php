@@ -5,14 +5,15 @@ namespace Alf\Interfaces\Strings;
 use Alf\Attributes\AlfAttrAutoComplete;
 use Alf\Attributes\AlfAttrTraitAutoCall;
 use Alf\Services\AlfProgramming;
-use JetBrains\PhpStorm\Pure;
 
 trait AlfStringGetTrait {
+
+    use AlfCharGetTrait;
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
     final public static function _AlfStringGet($obj) : AlfStringGet {
-        return AlfProgramming::_()->unused($obj);
+        return AlfProgramming::_()->unused($obj, static::_AlfCharGet($obj));
     }
 
     /** @AlfAttrTraitAutoCall */
@@ -28,14 +29,6 @@ trait AlfStringGetTrait {
     /** @AlfAttrTraitAutoCall */
     #[AlfAttrTraitAutoCall]
     protected function _AlfStringGetTraitClone() : void {
-    }
-
-    #[Pure]
-    abstract public function getAsString() : string;
-
-    #[Pure]
-    public function __toString() : string {
-        return $this->getAsString();
     }
 
 }

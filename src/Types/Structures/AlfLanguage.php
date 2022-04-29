@@ -67,4 +67,34 @@ class AlfLanguage extends AlfBasicTypeStructure implements AlfStringGet {
         return $output;
     }
 
+    #[Pure]
+    public function getValue() : ?string {
+        return $this->getAsString();
+    }
+
+    #[Pure]
+    public function getEmptyValue() : string {
+        return '';
+    }
+
+    public function setToEmpty() : static {
+        $this->refLanguageCode()->setToEmpty();
+        $this->refCountry()->setToNull();
+        return $this;
+    }
+
+    public function setToNull() : static {
+        $this->refLanguageCode()->setToNull();
+        $this->refCountry()->setToNull();
+        return $this;
+    }
+
+    public function isEmpty() : bool {
+        return $this->refLanguageCode()->isEmpty();
+    }
+
+    public function isNull() : bool {
+        return $this->refLanguageCode()->isNull();
+    }
+
 }

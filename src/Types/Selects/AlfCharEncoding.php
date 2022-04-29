@@ -4,25 +4,25 @@ namespace Alf\Types\Selects;
 
 use Alf\AlfBasicTypeSelect;
 use Alf\Attributes\AlfAttrAutoComplete;
-use Alf\Enums\AlfCharsets;
+use Alf\Enums\AlfCharEncodings;
 use Alf\Services\AlfProgramming;
 use JetBrains\PhpStorm\Pure;
 
-class AlfCharset extends AlfBasicTypeSelect {
+class AlfCharEncoding extends AlfBasicTypeSelect {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfCharset($obj) : AlfCharset {
+    final public static function _AlfCharEncoding($obj) : AlfCharEncoding {
         return AlfProgramming::_()->unused($obj, static::_AlfBasicTypeSelect($obj));
     }
 
-    protected ?AlfCharsets $value = null;
+    protected ?AlfCharEncodings $value = null;
 
     public function getEnumClass() : string {
-        return AlfCharsets::class;
+        return AlfCharEncodings::class;
     }
 
-    public function __construct(AlfCharsets|null $value = null) {
+    public function __construct(AlfCharEncodings|null $value = null) {
         parent::__construct();
         $this->set($value);
     }
@@ -30,13 +30,13 @@ class AlfCharset extends AlfBasicTypeSelect {
     /* getter */
 
     #[Pure]
-    public function getValue() : ?AlfCharsets {
+    public function getValue() : ?AlfCharEncodings {
         return $this->value;
     }
 
     /* setter */
 
-    public function set(AlfCharsets|null $value) : static {
+    public function set(AlfCharEncodings|null $value) : static {
         if (is_null($value)) {
             $this->value = null;
             return $this;
@@ -50,13 +50,13 @@ class AlfCharset extends AlfBasicTypeSelect {
     }
 
     protected function _getEnumValueByStringExt($value, string $search) : bool {
-        if ($this->_checkSimpleEnumCase(alfCharsets::getMysqlName($value), $search)) {
+        if ($this->_checkSimpleEnumCase(AlfCharEncodings::getMysqlName($value), $search)) {
             return true;
         }
-        if ($this->_checkSimpleEnumCase(alfCharsets::getMysqlCollate($value), $search)) {
+        if ($this->_checkSimpleEnumCase(AlfCharEncodings::getMysqlCollate($value), $search)) {
             return true;
         }
-        if ($this->_checkSimpleEnumCase(alfCharsets::getMysqlCollateCI($value), $search)) {
+        if ($this->_checkSimpleEnumCase(AlfCharEncodings::getMysqlCollateCI($value), $search)) {
             return true;
         }
         return parent::_getEnumValueByStringExt($value, $search);
@@ -69,7 +69,7 @@ class AlfCharset extends AlfBasicTypeSelect {
     /* class handling */
 
     #[Pure]
-    protected function _convertValueForSet(AlfCharsets $value) : ?AlfCharsets {
+    protected function _convertValueForSet(AlfCharEncodings $value) : ?AlfCharEncodings {
         return $value;
     }
 

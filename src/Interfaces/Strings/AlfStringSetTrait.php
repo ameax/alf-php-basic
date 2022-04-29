@@ -10,10 +10,12 @@ use Stringable;
 
 trait AlfStringSetTrait {
 
+    use AlfCharSetTrait;
+
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
     final public static function _AlfStringSet($obj) : AlfStringSet {
-        return AlfProgramming::_()->unused($obj);
+        return AlfProgramming::_()->unused($obj, static::_AlfCharSet($obj));
     }
 
     /** @AlfAttrTraitAutoCall */
@@ -30,7 +32,5 @@ trait AlfStringSetTrait {
     #[AlfAttrTraitAutoCall]
     protected function _AlfStringSetTraitClone() : void {
     }
-
-    abstract public function setFromString(#[AlfAttrParameterIsString] AlfStringGet|Stringable|string|null $value) : static;
 
 }

@@ -8,12 +8,14 @@ use Alf\Services\AlfProgramming;
 
 trait AlfStringWorkTrait {
 
-    use AlfStringReadTrait, AlfStringSetTrait;
+    use AlfStringReadTrait, AlfStringSetTrait, AlfCharWorkTrait;
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
     final public static function _AlfStringWork($obj) : AlfStringWork {
-        return AlfProgramming::_()->unused($obj, static::_AlfStringRead($obj), static::_AlfStringSet($obj));
+        return AlfProgramming::_()->unused($obj,
+                                           static::_AlfStringRead($obj), static::_AlfStringSet($obj),
+                                           static::_AlfCharWork($obj));
     }
 
     /** @AlfAttrTraitAutoCall */
@@ -29,14 +31,6 @@ trait AlfStringWorkTrait {
     /** @AlfAttrTraitAutoCall */
     #[AlfAttrTraitAutoCall]
     protected function _AlfStringWorkTraitClone() : void {
-    }
-
-    public function toUpperCase() : static {
-        return $this->setFromString($this->refManipulator()->getStringAsUpperCase($this->getAsString()));
-    }
-
-    public function toLowerCase() : static {
-        return $this->setFromString($this->refManipulator()->getStringAsLowerCase($this->getAsString()));
     }
 
 }

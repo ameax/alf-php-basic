@@ -8,6 +8,7 @@ use Alf\Enums\AlfColorRGBChannels;
 use Alf\Interfaces\Integers\AlfIntGet;
 use Alf\Services\AlfProgramming;
 use Alf\Types\Scalars\AlfInt24U;
+use JetBrains\PhpStorm\Pure;
 
 class AlfColorRGB extends AlfInt24U {
 
@@ -38,6 +39,7 @@ class AlfColorRGB extends AlfInt24U {
         return $this->setRGBInt($useGray, $useGray, $useGray);
     }
 
+    #[Pure]
     public function getRed() : AlfColorRGBValue {
         if ($this->isNull()) {
             return new AlfColorRGBValue();
@@ -56,6 +58,7 @@ class AlfColorRGB extends AlfInt24U {
         return $this->setRGBInt($useRed, $useGreen, $useBlue);
     }
 
+    #[Pure]
     public function getGreen() : AlfColorRGBValue {
         if ($this->isNull()) {
             return new AlfColorRGBValue();
@@ -74,6 +77,7 @@ class AlfColorRGB extends AlfInt24U {
         return $this->setRGBInt($useRed, $useGreen, $useBlue);
     }
 
+    #[Pure]
     public function getBlue() : AlfColorRGBValue {
         if ($this->isNull()) {
             return new AlfColorRGBValue();

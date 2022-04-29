@@ -3,10 +3,10 @@
 namespace Alf;
 
 use Alf\Attributes\AlfAttrAutoComplete;
+use Alf\Exceptions\AlfExceptionRuntime;
 use Alf\Services\AlfProgramming;
 use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
-use RuntimeException;
 
 abstract class AlfBasicSingleton {
 
@@ -39,42 +39,42 @@ abstract class AlfBasicSingleton {
     public function __destruct() { }
 
     /**
-     * @throws RuntimeException
+     * @throws AlfExceptionRuntime
      */
     final public function __clone() : void {
-        throw new RuntimeException(__METHOD__);
+        throw new AlfExceptionRuntime(__METHOD__);
     }
 
     /**
-     * @throws RuntimeException
+     * @throws AlfExceptionRuntime
      */
     final public function __wakeup() : void {
-        throw new RuntimeException(__METHOD__);
+        throw new AlfExceptionRuntime(__METHOD__);
     }
 
     /**
-     * @throws RuntimeException
+     * @throws AlfExceptionRuntime
      */
     final public function __sleep() : array {
-        throw new RuntimeException(__METHOD__);
+        throw new AlfExceptionRuntime(__METHOD__);
     }
 
     /**
-     * @throws RuntimeException
+     * @throws AlfExceptionRuntime
      */
     final public function __serialize() : array {
-        throw new RuntimeException(__METHOD__);
+        throw new AlfExceptionRuntime(__METHOD__);
     }
 
     /**
-     * @throws RuntimeException
+     * @throws AlfExceptionRuntime
      */
     final public function __unserialize(array $data) : void {
-        throw new RuntimeException(__METHOD__);
+        throw new AlfExceptionRuntime(__METHOD__);
     }
 
     #[ArrayShape(['class' => "string"])]
-    public function __debugInfo() : ?array {
+    public function __debugInfo() : array {
         return [
             'class' => static::class,
         ];

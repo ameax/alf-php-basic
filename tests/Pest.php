@@ -17,10 +17,12 @@ use Alf\Attributes\AlfAttrParameterIsBool;
 use Alf\Attributes\AlfAttrParameterIsInt;
 use Alf\Attributes\AlfAttrParameterIsString;
 use Alf\Attributes\AlfAttrTraitAutoCall;
-use Alf\Enums\AlfCharsets;
+use Alf\Enums\AlfCharEncodings;
 use Alf\Enums\AlfColorRGBChannels;
 use Alf\Enums\AlfCountries;
 use Alf\Enums\AlfLanguageCodes;
+use Alf\Exceptions\AlfException;
+use Alf\Exceptions\AlfExceptionRuntime;
 use Alf\Interfaces\Booleans\AlfBoolGet;
 use Alf\Interfaces\Booleans\AlfBoolGetTrait;
 use Alf\Interfaces\Booleans\AlfBoolLike;
@@ -37,6 +39,16 @@ use Alf\Interfaces\Integers\AlfIntSet;
 use Alf\Interfaces\Integers\AlfIntSetTrait;
 use Alf\Interfaces\Integers\AlfIntWork;
 use Alf\Interfaces\Integers\AlfIntWorkTrait;
+use Alf\Interfaces\Strings\AlfCharGet;
+use Alf\Interfaces\Strings\AlfCharGetTrait;
+use Alf\Interfaces\Strings\AlfCharLike;
+use Alf\Interfaces\Strings\AlfCharLikeTrait;
+use Alf\Interfaces\Strings\AlfCharRead;
+use Alf\Interfaces\Strings\AlfCharReadTrait;
+use Alf\Interfaces\Strings\AlfCharSet;
+use Alf\Interfaces\Strings\AlfCharSetTrait;
+use Alf\Interfaces\Strings\AlfCharWork;
+use Alf\Interfaces\Strings\AlfCharWorkTrait;
 use Alf\Interfaces\Strings\AlfStringGet;
 use Alf\Interfaces\Strings\AlfStringGetTrait;
 use Alf\Interfaces\Strings\AlfStringLike;
@@ -72,6 +84,8 @@ use Alf\Types\Enhanced\Colors\AlfColorRGB;
 use Alf\Types\Enhanced\Colors\AlfColorRGBRef;
 use Alf\Types\Enhanced\Colors\AlfColorRGBValue;
 use Alf\Types\Scalars\AlfBool;
+use Alf\Types\Scalars\AlfChar;
+use Alf\Types\Scalars\AlfCharW;
 use Alf\Types\Scalars\AlfInt;
 use Alf\Types\Scalars\AlfInt16;
 use Alf\Types\Scalars\AlfInt16U;
@@ -84,7 +98,7 @@ use Alf\Types\Scalars\AlfInt8U;
 use Alf\Types\Scalars\AlfIntRange;
 use Alf\Types\Scalars\AlfString;
 use Alf\Types\Scalars\AlfStringW;
-use Alf\Types\Selects\AlfCharset;
+use Alf\Types\Selects\AlfCharEncoding;
 use Alf\Types\Selects\AlfColorRGBChannel;
 use Alf\Types\Selects\AlfCountry;
 use Alf\Types\Selects\AlfLanguageCode;
@@ -105,6 +119,11 @@ function listAlfInterfaces() : array {
         AlfIntSet::class,
         AlfIntWork::class,
         // Interfaces/String
+        AlfCharGet::class,
+        AlfCharLike::class,
+        AlfCharRead::class,
+        AlfCharSet::class,
+        AlfCharWork::class,
         AlfStringGet::class,
         AlfStringLike::class,
         AlfStringRead::class,
@@ -136,6 +155,11 @@ function listAlfTraits() : array {
         AlfIntSetTrait::class,
         AlfIntWorkTrait::class,
         // Interfaces/String
+        AlfCharGetTrait::class,
+        AlfCharLikeTrait::class,
+        AlfCharReadTrait::class,
+        AlfCharSetTrait::class,
+        AlfCharWorkTrait::class,
         AlfStringGetTrait::class,
         AlfStringLikeTrait::class,
         AlfStringReadTrait::class,
@@ -180,6 +204,8 @@ function listAlfClasses() : array {
         AlfColorRGBRef::class,
         // Types/Scalars
         AlfBool::class,
+        AlfChar::class,
+        AlfCharW::class,
         AlfInt::class,
         AlfInt8::class,
         AlfInt8U::class,
@@ -193,7 +219,7 @@ function listAlfClasses() : array {
         AlfString::class,
         AlfStringW::class,
         // Types/Selects
-        AlfCharset::class,
+        AlfCharEncoding::class,
         AlfColorRGBChannel::class,
         AlfCountry::class,
         AlfLanguageCode::class,
@@ -217,21 +243,28 @@ function listAlfSingletons() : array {
 #[Pure]
 function listAlfEnums() : array {
     return [
-        AlfCharsets::class,
+        AlfCharEncodings::class,
         AlfColorRGBChannels::class,
         AlfCountries::class,
         AlfLanguageCodes::class,
     ];
 }
 
+function listAlfExceptions() : array {
+    return [
+        AlfException::class,
+        AlfExceptionRuntime::class,
+    ];
+}
+
 #[Pure]
 function listAlfClassesAndSingletons() : array {
-    return array_merge(listAlfClasses(), listAlfSingletons());
+    return array_merge(listAlfClasses(), listAlfSingletons(), listAlfExceptions());
 }
 
 #[Pure]
 function listAlfAll() : array {
-    return array_merge(listAlfClasses(), listAlfSingletons(), listAlfInterfaces(), listAlfTraits(), listAlfEnums());
+    return array_merge(listAlfClasses(), listAlfSingletons(), listAlfInterfaces(), listAlfTraits(), listAlfEnums(), listAlfExceptions());
 }
 
 function listAlfClassesSubtype(string $subTypeOf, bool $andAbstract = false, bool $withRef = true) : array {
@@ -728,6 +761,20 @@ function getStringValues() : array {
             'AlfBasicTypeSelect' => [
                 'get' => '',
             ],
+            'AlfChar'            => [
+                'get'               => 'a',
+                'getStringLength'   => 1,
+                'getStringByteSize' => 1,
+                'afterUpperCase'    => 'A',
+                'afterLowerCase'    => 'a',
+            ],
+            'AlfCharW'           => [
+                'get'               => 'a',
+                'getStringLength'   => 1,
+                'getStringByteSize' => 1,
+                'afterUpperCase'    => 'A',
+                'afterLowerCase'    => 'a',
+            ],
         ],
         [
             'set'                => 'slug-TOKEN-module',
@@ -742,6 +789,20 @@ function getStringValues() : array {
             'AlfBasicTypeSelect' => [
                 'get' => '',
             ],
+            'AlfChar'            => [
+                'get'               => 's',
+                'getStringLength'   => 1,
+                'getStringByteSize' => 1,
+                'afterUpperCase'    => 'S',
+                'afterLowerCase'    => 's',
+            ],
+            'AlfCharW'           => [
+                'get'               => 's',
+                'getStringLength'   => 1,
+                'getStringByteSize' => 1,
+                'afterUpperCase'    => 'S',
+                'afterLowerCase'    => 's',
+            ],
         ],
         [
             'set'                => 'ONE two Three',
@@ -755,6 +816,20 @@ function getStringValues() : array {
             'afterLowerCase'     => 'one two three',
             'AlfBasicTypeSelect' => [
                 'get' => '',
+            ],
+            'AlfChar'            => [
+                'get'               => 'O',
+                'getStringLength'   => 1,
+                'getStringByteSize' => 1,
+                'afterUpperCase'    => 'O',
+                'afterLowerCase'    => 'o',
+            ],
+            'AlfCharW'           => [
+                'get'               => 'O',
+                'getStringLength'   => 1,
+                'getStringByteSize' => 1,
+                'afterUpperCase'    => 'O',
+                'afterLowerCase'    => 'o',
             ],
         ],
         [
@@ -775,6 +850,18 @@ function getStringValues() : array {
                 'getStringLength' => 3,
                 'isNotASCII'      => false,
             ],
+            'AlfChar'            => [
+                'getStringLength'   => 1,
+                'getStringByteSize' => 1,
+            ],
+            'AlfCharW'           => [
+                'get'               => 'ä',
+                'isNotASCII'        => false,
+                'getStringLength'   => 1,
+                'getStringByteSize' => 2,
+                'afterUpperCase'    => 'Ä',
+                'afterLowerCase'    => 'ä',
+            ],
         ],
         [
             'set'                => 'Äpfel über ÖSTERREICH', // "apples over austria". Even in German, this phrase is senseless, but it has the requirements for the test.
@@ -793,6 +880,18 @@ function getStringValues() : array {
             'AlfStringW'         => [
                 'getStringLength' => 21,
                 'isNotASCII'      => false,
+            ],
+            'AlfChar'            => [
+                'getStringLength'   => 1,
+                'getStringByteSize' => 1,
+            ],
+            'AlfCharW'           => [
+                'get'               => 'Ä',
+                'isNotASCII'        => false,
+                'getStringLength'   => 1,
+                'getStringByteSize' => 2,
+                'afterUpperCase'    => 'Ä',
+                'afterLowerCase'    => 'ä',
             ],
         ],
         [
@@ -849,7 +948,7 @@ class AlfProgrammingTestDummyForNullIsNotNull {
 class AlfProgrammingTestDummyForStringable {
 
     public function __toString() : string {
-        return 'C';
+        return 'X';
     }
 
 }
