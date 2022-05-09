@@ -8,16 +8,13 @@ use Alf\Interfaces\Strings\AlfCharGet;
 use Alf\Interfaces\Strings\AlfCharRead;
 use Alf\Interfaces\Strings\AlfCharSet;
 use Alf\Interfaces\Strings\AlfCharWork;
-use Alf\Interfaces\Strings\AlfStringGet;
-use Alf\Interfaces\Strings\AlfStringRead;
-use Alf\Interfaces\Strings\AlfStringSet;
-use Alf\Interfaces\Strings\AlfStringWork;
 use Alf\Manipulator\AlfStringManipulator;
+use Alf\Types\Scalars\AlfChar;
 use Alf\Types\Scalars\AlfCharW;
 use Alf\Types\Scalars\AlfString;
 use Alf\Types\Scalars\AlfStringW;
 
-test('classes extends AlfString',
+test('classes extends AlfChar',
     /** @throws ReflectionException */
     function (string $className) : void {
 
@@ -26,13 +23,14 @@ test('classes extends AlfString',
         $shortName = $reflectionClass->getShortName();
 
         foreach (getStringValues() as $valueRow) {
-            $inst = AlfString::_AlfString(new $fullClassName($valueRow['set']));
+            $inst = AlfChar::_AlfChar(new $fullClassName($valueRow['set']));
 
             $isNull = ($valueRow[$shortName]['isNull'] ?? $valueRow['isNull'] ?? null);
             $isEmpty = ($valueRow[$shortName]['isEmpty'] ?? $valueRow['isEmpty'] ?? null);
             $isNullOrEmpty = $isNull || $isEmpty;
             $forGet = ($valueRow[$shortName]['get'] ?? $valueRow['get'] ?? null);
             $forValue = ($valueRow[$shortName]['getValue'] ?? $valueRow['getValue'] ?? null);
+            $isNotASCII = ($valueRow[$shortName]['isNotASCII'] ?? $valueRow['isNotASCII'] ?? null);
 
             // -
             $this->assertSame($inst->isNull(), $isNull,
@@ -88,17 +86,21 @@ test('classes extends AlfString',
                               '(6) '.$shortName.'::clone('.($valueRow['set'] ?? '-NULL-').')->isNullOrEmpty()');
 
             // -
-            $this->assertSame($inst2->get(), $forGet,
-                              '(7) '.$shortName.'::set('.($valueRow['set'] ?? '-NULL-').')->get('.($forGet ?? '-NULL-').') on "'.($inst2->get() ?? '-NULL-').'"');
-            $this->assertSame($inst2->getValue(), $forValue,
-                              '(7) '.$shortName.'::set('.($valueRow['set'] ?? '-NULL-').')->getValue('.($forValue ?? '-NULL-').') on "'.($inst2->get() ?? '-NULL-').'"');
+            if (!$isNotASCII) {
+                $this->assertSame($inst2->get(), $forGet,
+                                  '(7) '.$shortName.'::set('.($valueRow['set'] ?? '-NULL-').')->get('.($forGet ?? '-NULL-').') on "'.($inst2->get() ?? '-NULL-').'"');
+                $this->assertSame($inst2->getValue(), $forValue,
+                                  '(7) '.$shortName.'::set('.($valueRow['set'] ?? '-NULL-').')->getValue('.($forValue ?? '-NULL-').') on "'.($inst2->get() ?? '-NULL-').'"');
+            }
 
             // -
-            $this->assertSame($inst2->get(), $inst2->getAsString(),
-                              '(8) '.$shortName.'::get()<>getAsString()');
+            if (!$isNotASCII) {
+                $this->assertSame($inst2->get(), $inst2->getAsString(),
+                                  '(8) '.$shortName.'::get()<>getAsString()');
+            }
         }
 
-    })->with(listAlfClassesSubtype(AlfString::class));
+    })->with(listAlfClassesSubtype(AlfChar::class));
 
 test('classes extends AlfCharGet and AlfCharSet',
     /** @throws ReflectionException */
@@ -217,6 +219,7 @@ test('classes extends AlfCharWork',
             $forSet = $valueRow['set'];
             $forGet = ($valueRow[$shortName]['get'] ?? $valueRow['get'] ?? null);
             $isNotASCII = ($valueRow[$shortName]['isNotASCII'] ?? $valueRow['isNotASCII'] ?? null);
+            $humanString = ($valueRow[$shortName]['getAsHumanString'] ?? $valueRow['getAsHumanString'] ?? null);
 
             $forAfterUpperCase = ($valueRow[$shortName]['afterUpperCase'] ?? $valueRow['afterUpperCase'] ?? null);
             $forAfterLowerCase = ($valueRow[$shortName]['afterLowerCase'] ?? $valueRow['afterLowerCase'] ?? null);
@@ -231,6 +234,10 @@ test('classes extends AlfCharWork',
                 $this->assertSame($forGet, $inst->getAsString(),
                                   '(1) '.$shortName.'::setFromString()<>getAsString()'
                                   .' with set('.($forSet ?? '-NULL-').') and get('.($forGet ?? '-NULL-').') = "'.($inst->getAsString() ?? '-NULL-').'"');
+
+                // -
+                $this->assertSame($inst->getAsHumanString(), $humanString,
+                                  '(h) human string is different: "'.($humanString ?? '-NULL-').'" and "'.($inst->getAsHumanString() ?? '-NULL-').'"');
 
                 // -
                 $instForAfterUpperCase = clone $inst;

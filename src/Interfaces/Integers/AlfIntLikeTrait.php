@@ -5,7 +5,9 @@ namespace Alf\Interfaces\Integers;
 use Alf\Attributes\AlfAttrAutoComplete;
 use Alf\Attributes\AlfAttrParameterIsInt;
 use Alf\Attributes\AlfAttrTraitAutoCall;
+use Alf\Services\AlfEnvironment;
 use Alf\Services\AlfProgramming;
+use Alf\Types\Scalars\AlfStringMarkup;
 use JetBrains\PhpStorm\Pure;
 
 trait AlfIntLikeTrait {
@@ -46,6 +48,16 @@ trait AlfIntLikeTrait {
     #[Pure]
     public function getAsInt() : int {
         return $this->get();
+    }
+
+    public function getAsHumanAlfStringMarkup() : AlfStringMarkup {
+        if ($this->isNull()) {
+            return new AlfStringMarkup();
+        }
+        $asString = number_format($this->getAsInt(), 0,
+                                  AlfEnvironment::_()->refHumanNumbersDecimalSeparator(),
+                                  AlfEnvironment::_()->refHumanNumbersThousandsSeparator());
+        return new AlfStringMarkup($asString);
     }
 
     /* setter */

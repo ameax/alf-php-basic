@@ -20,17 +20,25 @@ abstract class AlfBasicSingleton {
 
     public static function _() : static {
         if (!isset(static::$_instances[static::getInstanceName()])) {
-            static::$_instances[static::getInstanceName()] = new static();
+            static::$_instances[static::getInstanceName()] = static::getInstanceObject();
         }
         return static::$_instances[static::getInstanceName()];
     }
 
+    protected static function _reset() : void {
+        unset(static::$_instances[static::getInstanceName()]);
+    }
+
     #[Pure]
-    final protected static function getInstanceName() : string {
+    protected static function getInstanceName() : string {
         return static::class;
     }
 
-    final private function __construct() {
+    protected static function getInstanceObject() : static {
+        return new static();
+    }
+
+    final protected function __construct() {
         $this->cTor();
     }
 

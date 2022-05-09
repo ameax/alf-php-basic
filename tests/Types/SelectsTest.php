@@ -30,16 +30,22 @@ test('select got enums',
             $this->assertSame($obj->getValue(), $caseValue, '(1) set!==getValue: "'.($caseValue?->name ?? '-NULL->name-').'"');
 
             // -
+            $this->assertSame($obj->isNull() ? null : $obj->getAsString(), $obj->getAsHumanString(),
+                              '(h1) getAsString()!==getAsHumanString('.($obj->getAsHumanString() ?? '-NULL-').')');
+
+            // -
             $obj->setToNull();
             $this->assertTrue($obj->isNull(), '(2a) not null but should be!');
             $this->assertFalse($obj->isEmpty(), '(2b) is empty but should not be, should be null!');
             $this->assertTrue($obj->isNullOrEmpty(), '(2c) not nullOrEmpty but should be!');
+            $this->assertNull($obj->getAsHumanString(), '(h2) getAsHumanString('.($obj->getAsHumanString() ?? '-NULL-').') is not null');
 
             // -
             $obj->setToEmpty();
             $this->assertTrue($obj->isEmpty(), '(3a) not empty but should be!');
             $this->assertFalse($obj->isNull(), '(3b) is null but should not be, should be empty!');
             $this->assertTrue($obj->isNullOrEmpty(), '(3c) not nullOrEmpty but should be!');
+            $this->assertSame('', $obj->getAsHumanString(), '(h3) getAsHumanString('.($obj->getAsHumanString() ?? '-NULL-').') is not an empty sting');
 
             // -
             $obj->set($caseValue);

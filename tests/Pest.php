@@ -2,6 +2,8 @@
 
 declare(strict_types = 1);
 
+// TODO: AlfColorRGB: human data
+
 use Alf\AlfBasicAttribute;
 use Alf\AlfBasicClass;
 use Alf\AlfBasicSingleton;
@@ -65,6 +67,8 @@ use Alf\Interfaces\Values\AlfEmptySet;
 use Alf\Interfaces\Values\AlfEmptySetTrait;
 use Alf\Interfaces\Values\AlfEmptyWork;
 use Alf\Interfaces\Values\AlfEmptyWorkTrait;
+use Alf\Interfaces\Values\AlfHumanData;
+use Alf\Interfaces\Values\AlfHumanDataTrait;
 use Alf\Interfaces\Values\AlfNullGet;
 use Alf\Interfaces\Values\AlfNullGetTrait;
 use Alf\Interfaces\Values\AlfNullOrEmptyWork;
@@ -78,6 +82,7 @@ use Alf\Interfaces\Values\AlfValueGetTrait;
 use Alf\Manipulator\AlfStringManipulator;
 use Alf\Manipulator\AlfStringWManipulator;
 use Alf\Services\AlfCache;
+use Alf\Services\AlfEnvironment;
 use Alf\Services\AlfPhpClassManager;
 use Alf\Services\AlfProgramming;
 use Alf\Types\Enhanced\Colors\AlfColorRGB;
@@ -97,6 +102,7 @@ use Alf\Types\Scalars\AlfInt8;
 use Alf\Types\Scalars\AlfInt8U;
 use Alf\Types\Scalars\AlfIntRange;
 use Alf\Types\Scalars\AlfString;
+use Alf\Types\Scalars\AlfStringMarkup;
 use Alf\Types\Scalars\AlfStringW;
 use Alf\Types\Selects\AlfCharEncoding;
 use Alf\Types\Selects\AlfColorRGBChannel;
@@ -133,6 +139,7 @@ function listAlfInterfaces() : array {
         AlfEmptyGet::class,
         AlfEmptySet::class,
         AlfEmptyWork::class,
+        AlfHumanData::class,
         AlfNullGet::class,
         AlfNullOrEmptyWork::class,
         AlfNullSet::class,
@@ -169,6 +176,7 @@ function listAlfTraits() : array {
         AlfEmptyGetTrait::class,
         AlfEmptySetTrait::class,
         AlfEmptyWorkTrait::class,
+        AlfHumanDataTrait::class,
         AlfNullGetTrait::class,
         AlfNullOrEmptyWorkTrait::class,
         AlfNullSetTrait::class,
@@ -217,6 +225,7 @@ function listAlfClasses() : array {
         AlfInt32U::class,
         AlfIntRange::class,
         AlfString::class,
+        AlfStringMarkup::class,
         AlfStringW::class,
         // Types/Selects
         AlfCharEncoding::class,
@@ -235,6 +244,7 @@ function listAlfSingletons() : array {
         AlfBasicSingleton::class,
         // Services
         AlfCache::class,
+        AlfEnvironment::class,
         AlfPhpClassManager::class,
         AlfProgramming::class,
     ];
@@ -343,28 +353,31 @@ function listAlfClasses2Subtype(string $subTypeOfOne, string $subTypeOfTwo, bool
 function getBoolValues() : array {
     return [
         [
-            'set'         => null,
-            'isNull'      => true,
-            'isEmpty'     => false,
-            'get'         => false,
-            'getValue'    => null,
-            'afterInvert' => true,
+            'set'              => null,
+            'isNull'           => true,
+            'isEmpty'          => false,
+            'get'              => false,
+            'getValue'         => null,
+            'getAsHumanString' => null,
+            'afterInvert'      => true,
         ],
         [
-            'set'         => false,
-            'isNull'      => false,
-            'isEmpty'     => true,
-            'get'         => false,
-            'getValue'    => false,
-            'afterInvert' => true,
+            'set'              => false,
+            'isNull'           => false,
+            'isEmpty'          => true,
+            'get'              => false,
+            'getValue'         => false,
+            'getAsHumanString' => 'no',
+            'afterInvert'      => true,
         ],
         [
-            'set'         => true,
-            'isNull'      => false,
-            'isEmpty'     => false,
-            'get'         => true,
-            'getValue'    => true,
-            'afterInvert' => false,
+            'set'              => true,
+            'isNull'           => false,
+            'isEmpty'          => false,
+            'get'              => true,
+            'getValue'         => true,
+            'getAsHumanString' => 'yes',
+            'afterInvert'      => false,
         ],
     ];
 }
@@ -373,348 +386,415 @@ function getBoolValues() : array {
 function getIntValues() : array {
     $output = [
         [
-            'set'       => null,
-            'isNull'    => true,
-            'isEmpty'   => false,
-            'get'       => 0,
-            'getValue'  => null,
-            'afterAdd5' => 5,
-            'afterInc'  => 1,
-            'afterSub9' => -9,
-            'afterDec'  => -1,
-            'AlfInt8U'  => [
+            'set'              => null,
+            'isNull'           => true,
+            'isEmpty'          => false,
+            'get'              => 0,
+            'getValue'         => null,
+            'getAsHumanString' => null,
+            'afterAdd5'        => 5,
+            'afterInc'         => 1,
+            'afterSub9'        => -9,
+            'afterDec'         => -1,
+            'AlfInt8U'         => [
                 'afterSub9' => 0,
                 'afterDec'  => 0,
             ],
-            'AlfInt16U' => [
+            'AlfInt16U'        => [
                 'afterSub9' => 0,
                 'afterDec'  => 0,
             ],
-            'AlfInt24U' => [
+            'AlfInt24U'        => [
                 'afterSub9' => 0,
                 'afterDec'  => 0,
             ],
-            'AlfInt32U' => [
-                'afterSub9' => 0,
-                'afterDec'  => 0,
-            ],
-        ],
-        [
-            'set'       => 0,
-            'isNull'    => false,
-            'isEmpty'   => true,
-            'get'       => 0,
-            'getValue'  => 0,
-            'afterAdd5' => 5,
-            'afterInc'  => 1,
-            'afterSub9' => -9,
-            'afterDec'  => -1,
-            'AlfInt8U'  => [
-                'afterSub9' => 0,
-                'afterDec'  => 0,
-            ],
-            'AlfInt16U' => [
-                'afterSub9' => 0,
-                'afterDec'  => 0,
-            ],
-            'AlfInt24U' => [
-                'afterSub9' => 0,
-                'afterDec'  => 0,
-            ],
-            'AlfInt32U' => [
+            'AlfInt32U'        => [
                 'afterSub9' => 0,
                 'afterDec'  => 0,
             ],
         ],
         [
-            'set'       => 5,
-            'isNull'    => false,
-            'isEmpty'   => false,
-            'get'       => 5,
-            'getValue'  => 5,
-            'afterAdd5' => 10,
-            'afterInc'  => 6,
-            'afterSub9' => -4,
-            'afterDec'  => 4,
-            'AlfInt8U'  => [
-                'afterSub9' => 0,
-            ],
-            'AlfInt16U' => [
-                'afterSub9' => 0,
-            ],
-            'AlfInt24U' => [
-                'afterSub9' => 0,
-            ],
-            'AlfInt32U' => [
-                'afterSub9' => 0,
-            ],
-        ],
-        [
-            'set'       => 25,
-            'isNull'    => false,
-            'isEmpty'   => false,
-            'get'       => 25,
-            'getValue'  => 25,
-            'afterAdd5' => 30,
-            'afterInc'  => 26,
-            'afterSub9' => 16,
-            'afterDec'  => 24,
-        ],
-        [
-            'set'       => -7,
-            'isNull'    => false,
-            'isEmpty'   => false,
-            'get'       => -7,
-            'getValue'  => -7,
-            'afterAdd5' => -2,
-            'afterInc'  => -6,
-            'afterSub9' => -16,
-            'afterDec'  => -8,
-            'AlfInt8U'  => [
-                'isEmpty'   => true,
-                'get'       => 0,
-                'getValue'  => 0,
-                'afterAdd5' => 5,
-                'afterInc'  => 1,
+            'set'              => 0,
+            'isNull'           => false,
+            'isEmpty'          => true,
+            'get'              => 0,
+            'getValue'         => 0,
+            'getAsHumanString' => '0',
+            'afterAdd5'        => 5,
+            'afterInc'         => 1,
+            'afterSub9'        => -9,
+            'afterDec'         => -1,
+            'AlfInt8U'         => [
                 'afterSub9' => 0,
                 'afterDec'  => 0,
             ],
-            'AlfInt16U' => [
-                'isEmpty'   => true,
-                'get'       => 0,
-                'getValue'  => 0,
-                'afterAdd5' => 5,
-                'afterInc'  => 1,
+            'AlfInt16U'        => [
                 'afterSub9' => 0,
                 'afterDec'  => 0,
             ],
-            'AlfInt24U' => [
-                'isEmpty'   => true,
-                'get'       => 0,
-                'getValue'  => 0,
-                'afterAdd5' => 5,
-                'afterInc'  => 1,
+            'AlfInt24U'        => [
                 'afterSub9' => 0,
                 'afterDec'  => 0,
             ],
-            'AlfInt32U' => [
-                'isEmpty'   => true,
-                'get'       => 0,
-                'getValue'  => 0,
-                'afterAdd5' => 5,
-                'afterInc'  => 1,
+            'AlfInt32U'        => [
                 'afterSub9' => 0,
                 'afterDec'  => 0,
             ],
-        ],
-        [
-            'set'       => 500,
-            'isNull'    => false,
-            'isEmpty'   => false,
-            'get'       => 500,
-            'getValue'  => 500,
-            'afterAdd5' => 505,
-            'afterInc'  => 501,
-            'afterSub9' => 491,
-            'afterDec'  => 499,
-            'AlfInt8'   => [
-                'get'       => 128,
-                'getValue'  => 128,
-                'afterAdd5' => 128,
-                'afterInc'  => 128,
-                'afterSub9' => 119,
-                'afterDec'  => 127,
-            ],
-            'AlfInt8U'  => [
-                'get'       => 255,
-                'getValue'  => 255,
-                'afterAdd5' => 255,
-                'afterInc'  => 255,
-                'afterSub9' => 246,
-                'afterDec'  => 254,
+            'AlfColorRGB'      => [
+                'getAsHumanString' => 'rgb(0,0,0)',
             ],
         ],
         [
-            'set'       => 70000,
-            'isNull'    => false,
-            'isEmpty'   => false,
-            'get'       => 70000,
-            'getValue'  => 70000,
-            'afterAdd5' => 70005,
-            'afterInc'  => 70001,
-            'afterSub9' => 69991,
-            'afterDec'  => 69999,
-            'AlfInt8'   => [
-                'get'       => 128,
-                'getValue'  => 128,
-                'afterAdd5' => 128,
-                'afterInc'  => 128,
-                'afterSub9' => 119,
-                'afterDec'  => 127,
+            'set'              => 5,
+            'isNull'           => false,
+            'isEmpty'          => false,
+            'get'              => 5,
+            'getValue'         => 5,
+            'getAsHumanString' => '5',
+            'afterAdd5'        => 10,
+            'afterInc'         => 6,
+            'afterSub9'        => -4,
+            'afterDec'         => 4,
+            'AlfInt8U'         => [
+                'afterSub9' => 0,
             ],
-            'AlfInt8U'  => [
-                'get'       => 255,
-                'getValue'  => 255,
-                'afterAdd5' => 255,
-                'afterInc'  => 255,
-                'afterSub9' => 246,
-                'afterDec'  => 254,
+            'AlfInt16U'        => [
+                'afterSub9' => 0,
             ],
-            'AlfInt16'  => [
-                'get'       => 32767,
-                'getValue'  => 32767,
-                'afterAdd5' => 32767,
-                'afterInc'  => 32767,
-                'afterSub9' => 32758,
-                'afterDec'  => 32766,
+            'AlfInt24U'        => [
+                'afterSub9' => 0,
             ],
-            'AlfInt16U' => [
-                'get'       => 65535,
-                'getValue'  => 65535,
-                'afterAdd5' => 65535,
-                'afterInc'  => 65535,
-                'afterSub9' => 65526,
-                'afterDec'  => 65534,
+            'AlfInt32U'        => [
+                'afterSub9' => 0,
+            ],
+            'AlfColorRGB'      => [
+                'getAsHumanString' => 'rgb(0,0,5)',
             ],
         ],
         [
-            'set'       => 17000000,
-            'isNull'    => false,
-            'isEmpty'   => false,
-            'get'       => 17000000,
-            'getValue'  => 17000000,
-            'afterAdd5' => 17000005,
-            'afterInc'  => 17000001,
-            'afterSub9' => 16999991,
-            'afterDec'  => 16999999,
-            'AlfInt8'   => [
-                'get'       => 128,
-                'getValue'  => 128,
-                'afterAdd5' => 128,
-                'afterInc'  => 128,
-                'afterSub9' => 119,
-                'afterDec'  => 127,
-            ],
-            'AlfInt8U'  => [
-                'get'       => 255,
-                'getValue'  => 255,
-                'afterAdd5' => 255,
-                'afterInc'  => 255,
-                'afterSub9' => 246,
-                'afterDec'  => 254,
-            ],
-            'AlfInt16'  => [
-                'get'       => 32767,
-                'getValue'  => 32767,
-                'afterAdd5' => 32767,
-                'afterInc'  => 32767,
-                'afterSub9' => 32758,
-                'afterDec'  => 32766,
-            ],
-            'AlfInt16U' => [
-                'get'       => 65535,
-                'getValue'  => 65535,
-                'afterAdd5' => 65535,
-                'afterInc'  => 65535,
-                'afterSub9' => 65526,
-                'afterDec'  => 65534,
-            ],
-            'AlfInt24'  => [
-                'get'       => 8388607,
-                'getValue'  => 8388607,
-                'afterAdd5' => 8388607,
-                'afterInc'  => 8388607,
-                'afterSub9' => 8388598,
-                'afterDec'  => 8388606,
-            ],
-            'AlfInt24U' => [
-                'get'       => 16777215,
-                'getValue'  => 16777215,
-                'afterAdd5' => 16777215,
-                'afterInc'  => 16777215,
-                'afterSub9' => 16777206,
-                'afterDec'  => 16777214,
+            'set'              => 25,
+            'isNull'           => false,
+            'isEmpty'          => false,
+            'get'              => 25,
+            'getValue'         => 25,
+            'getAsHumanString' => '25',
+            'afterAdd5'        => 30,
+            'afterInc'         => 26,
+            'afterSub9'        => 16,
+            'afterDec'         => 24,
+            'AlfColorRGB'      => [
+                'getAsHumanString' => 'rgb(0,0,25)',
             ],
         ],
         [
-            'set'       => 5000000000,
-            'isNull'    => false,
-            'isEmpty'   => false,
-            'get'       => 5000000000,
-            'getValue'  => 5000000000,
-            'afterAdd5' => 5000000005,
-            'afterInc'  => 5000000001,
-            'afterSub9' => 4999999991,
-            'afterDec'  => 4999999999,
-            'AlfInt8'   => [
-                'get'       => 128,
-                'getValue'  => 128,
-                'afterAdd5' => 128,
-                'afterInc'  => 128,
-                'afterSub9' => 119,
-                'afterDec'  => 127,
+            'set'              => -7,
+            'isNull'           => false,
+            'isEmpty'          => false,
+            'get'              => -7,
+            'getValue'         => -7,
+            'getAsHumanString' => '-7',
+            'afterAdd5'        => -2,
+            'afterInc'         => -6,
+            'afterSub9'        => -16,
+            'afterDec'         => -8,
+            'AlfInt8U'         => [
+                'isEmpty'          => true,
+                'get'              => 0,
+                'getValue'         => 0,
+                'getAsHumanString' => '0',
+                'afterAdd5'        => 5,
+                'afterInc'         => 1,
+                'afterSub9'        => 0,
+                'afterDec'         => 0,
             ],
-            'AlfInt8U'  => [
-                'get'       => 255,
-                'getValue'  => 255,
-                'afterAdd5' => 255,
-                'afterInc'  => 255,
-                'afterSub9' => 246,
-                'afterDec'  => 254,
+            'AlfInt16U'        => [
+                'isEmpty'          => true,
+                'get'              => 0,
+                'getValue'         => 0,
+                'getAsHumanString' => '0',
+                'afterAdd5'        => 5,
+                'afterInc'         => 1,
+                'afterSub9'        => 0,
+                'afterDec'         => 0,
             ],
-            'AlfInt16'  => [
-                'get'       => 32767,
-                'getValue'  => 32767,
-                'afterAdd5' => 32767,
-                'afterInc'  => 32767,
-                'afterSub9' => 32758,
-                'afterDec'  => 32766,
+            'AlfInt24U'        => [
+                'isEmpty'          => true,
+                'get'              => 0,
+                'getValue'         => 0,
+                'getAsHumanString' => '0',
+                'afterAdd5'        => 5,
+                'afterInc'         => 1,
+                'afterSub9'        => 0,
+                'afterDec'         => 0,
             ],
-            'AlfInt16U' => [
-                'get'       => 65535,
-                'getValue'  => 65535,
-                'afterAdd5' => 65535,
-                'afterInc'  => 65535,
-                'afterSub9' => 65526,
-                'afterDec'  => 65534,
+            'AlfInt32U'        => [
+                'isEmpty'          => true,
+                'get'              => 0,
+                'getValue'         => 0,
+                'getAsHumanString' => '0',
+                'afterAdd5'        => 5,
+                'afterInc'         => 1,
+                'afterSub9'        => 0,
+                'afterDec'         => 0,
             ],
-            'AlfInt24'  => [
-                'get'       => 8388607,
-                'getValue'  => 8388607,
-                'afterAdd5' => 8388607,
-                'afterInc'  => 8388607,
-                'afterSub9' => 8388598,
-                'afterDec'  => 8388606,
+            'AlfColorRGB'      => [
+                'getAsHumanString' => 'rgb(0,0,0)',
             ],
-            'AlfInt24U' => [
-                'get'       => 16777215,
-                'getValue'  => 16777215,
-                'afterAdd5' => 16777215,
-                'afterInc'  => 16777215,
-                'afterSub9' => 16777206,
-                'afterDec'  => 16777214,
+        ],
+        [
+            'set'              => 500,
+            'isNull'           => false,
+            'isEmpty'          => false,
+            'get'              => 500,
+            'getValue'         => 500,
+            'getAsHumanString' => '500',
+            'afterAdd5'        => 505,
+            'afterInc'         => 501,
+            'afterSub9'        => 491,
+            'afterDec'         => 499,
+            'AlfInt8'          => [
+                'get'              => 128,
+                'getValue'         => 128,
+                'getAsHumanString' => '128',
+                'afterAdd5'        => 128,
+                'afterInc'         => 128,
+                'afterSub9'        => 119,
+                'afterDec'         => 127,
             ],
-            'AlfInt32'  => [
-                'get'       => 2147483647,
-                'getValue'  => 2147483647,
-                'afterAdd5' => 2147483647,
-                'afterInc'  => 2147483647,
-                'afterSub9' => 2147483638,
-                'afterDec'  => 2147483646,
+            'AlfInt8U'         => [
+                'get'              => 255,
+                'getValue'         => 255,
+                'getAsHumanString' => '255',
+                'afterAdd5'        => 255,
+                'afterInc'         => 255,
+                'afterSub9'        => 246,
+                'afterDec'         => 254,
             ],
-            'AlfInt32U' => [
-                'get'       => 4294967295,
-                'getValue'  => 4294967295,
-                'afterAdd5' => 4294967295,
-                'afterInc'  => 4294967295,
-                'afterSub9' => 4294967286,
-                'afterDec'  => 4294967294,
+            'AlfColorRGB'      => [
+                'getAsHumanString' => 'rgb(0,1,244)',
+            ],
+
+        ],
+        [
+            'set'              => 70000,
+            'isNull'           => false,
+            'isEmpty'          => false,
+            'get'              => 70000,
+            'getValue'         => 70000,
+            'getAsHumanString' => '70,000',
+            'afterAdd5'        => 70005,
+            'afterInc'         => 70001,
+            'afterSub9'        => 69991,
+            'afterDec'         => 69999,
+            'AlfInt8'          => [
+                'get'              => 128,
+                'getValue'         => 128,
+                'getAsHumanString' => '128',
+                'afterAdd5'        => 128,
+                'afterInc'         => 128,
+                'afterSub9'        => 119,
+                'afterDec'         => 127,
+            ],
+            'AlfInt8U'         => [
+                'get'              => 255,
+                'getValue'         => 255,
+                'getAsHumanString' => '255',
+                'afterAdd5'        => 255,
+                'afterInc'         => 255,
+                'afterSub9'        => 246,
+                'afterDec'         => 254,
+            ],
+            'AlfInt16'         => [
+                'get'              => 32767,
+                'getValue'         => 32767,
+                'getAsHumanString' => '32,767',
+                'afterAdd5'        => 32767,
+                'afterInc'         => 32767,
+                'afterSub9'        => 32758,
+                'afterDec'         => 32766,
+            ],
+            'AlfInt16U'        => [
+                'get'              => 65535,
+                'getValue'         => 65535,
+                'getAsHumanString' => '65,535',
+                'afterAdd5'        => 65535,
+                'afterInc'         => 65535,
+                'afterSub9'        => 65526,
+                'afterDec'         => 65534,
+            ],
+            'AlfColorRGB'      => [
+                'getAsHumanString' => 'rgb(1,17,112)',
+            ],
+        ],
+        [
+            'set'              => 17000000,
+            'isNull'           => false,
+            'isEmpty'          => false,
+            'get'              => 17000000,
+            'getValue'         => 17000000,
+            'getAsHumanString' => '17,000,000',
+            'afterAdd5'        => 17000005,
+            'afterInc'         => 17000001,
+            'afterSub9'        => 16999991,
+            'afterDec'         => 16999999,
+            'AlfInt8'          => [
+                'get'              => 128,
+                'getValue'         => 128,
+                'getAsHumanString' => '128',
+                'afterAdd5'        => 128,
+                'afterInc'         => 128,
+                'afterSub9'        => 119,
+                'afterDec'         => 127,
+            ],
+            'AlfInt8U'         => [
+                'get'              => 255,
+                'getValue'         => 255,
+                'getAsHumanString' => '255',
+                'afterAdd5'        => 255,
+                'afterInc'         => 255,
+                'afterSub9'        => 246,
+                'afterDec'         => 254,
+            ],
+            'AlfInt16'         => [
+                'get'              => 32767,
+                'getValue'         => 32767,
+                'getAsHumanString' => '32,767',
+                'afterAdd5'        => 32767,
+                'afterInc'         => 32767,
+                'afterSub9'        => 32758,
+                'afterDec'         => 32766,
+            ],
+            'AlfInt16U'        => [
+                'get'              => 65535,
+                'getValue'         => 65535,
+                'getAsHumanString' => '65,535',
+                'afterAdd5'        => 65535,
+                'afterInc'         => 65535,
+                'afterSub9'        => 65526,
+                'afterDec'         => 65534,
+            ],
+            'AlfInt24'         => [
+                'get'              => 8388607,
+                'getValue'         => 8388607,
+                'getAsHumanString' => '8,388,607',
+                'afterAdd5'        => 8388607,
+                'afterInc'         => 8388607,
+                'afterSub9'        => 8388598,
+                'afterDec'         => 8388606,
+            ],
+            'AlfInt24U'        => [
+                'get'              => 16777215,
+                'getValue'         => 16777215,
+                'getAsHumanString' => '16,777,215',
+                'afterAdd5'        => 16777215,
+                'afterInc'         => 16777215,
+                'afterSub9'        => 16777206,
+                'afterDec'         => 16777214,
+            ],
+            'AlfColorRGB'      => [
+                'getAsHumanString' => 'rgb(255,255,255)',
+            ],
+        ],
+        [
+            'set'              => 5000000000,
+            'isNull'           => false,
+            'isEmpty'          => false,
+            'get'              => 5000000000,
+            'getValue'         => 5000000000,
+            'getAsHumanString' => '5,000,000,000',
+            'afterAdd5'        => 5000000005,
+            'afterInc'         => 5000000001,
+            'afterSub9'        => 4999999991,
+            'afterDec'         => 4999999999,
+            'AlfInt8'          => [
+                'get'              => 128,
+                'getValue'         => 128,
+                'getAsHumanString' => '128',
+                'afterAdd5'        => 128,
+                'afterInc'         => 128,
+                'afterSub9'        => 119,
+                'afterDec'         => 127,
+            ],
+            'AlfInt8U'         => [
+                'get'              => 255,
+                'getValue'         => 255,
+                'getAsHumanString' => '255',
+                'afterAdd5'        => 255,
+                'afterInc'         => 255,
+                'afterSub9'        => 246,
+                'afterDec'         => 254,
+            ],
+            'AlfInt16'         => [
+                'get'              => 32767,
+                'getValue'         => 32767,
+                'getAsHumanString' => '32,767',
+                'afterAdd5'        => 32767,
+                'afterInc'         => 32767,
+                'afterSub9'        => 32758,
+                'afterDec'         => 32766,
+            ],
+            'AlfInt16U'        => [
+                'get'              => 65535,
+                'getValue'         => 65535,
+                'getAsHumanString' => '65,535',
+                'afterAdd5'        => 65535,
+                'afterInc'         => 65535,
+                'afterSub9'        => 65526,
+                'afterDec'         => 65534,
+            ],
+            'AlfInt24'         => [
+                'get'              => 8388607,
+                'getValue'         => 8388607,
+                'getAsHumanString' => '8,388,607',
+                'afterAdd5'        => 8388607,
+                'afterInc'         => 8388607,
+                'afterSub9'        => 8388598,
+                'afterDec'         => 8388606,
+            ],
+            'AlfInt24U'        => [
+                'get'              => 16777215,
+                'getValue'         => 16777215,
+                'getAsHumanString' => '16,777,215',
+                'afterAdd5'        => 16777215,
+                'afterInc'         => 16777215,
+                'afterSub9'        => 16777206,
+                'afterDec'         => 16777214,
+            ],
+            'AlfInt32'         => [
+                'get'              => 2147483647,
+                'getValue'         => 2147483647,
+                'getAsHumanString' => '2,147,483,647',
+                'afterAdd5'        => 2147483647,
+                'afterInc'         => 2147483647,
+                'afterSub9'        => 2147483638,
+                'afterDec'         => 2147483646,
+            ],
+            'AlfInt32U'        => [
+                'get'              => 4294967295,
+                'getValue'         => 4294967295,
+                'getAsHumanString' => '4,294,967,295',
+                'afterAdd5'        => 4294967295,
+                'afterInc'         => 4294967295,
+                'afterSub9'        => 4294967286,
+                'afterDec'         => 4294967294,
+            ],
+            'AlfColorRGB'      => [
+                'getAsHumanString' => 'rgb(255,255,255)',
             ],
         ],
     ];
     foreach (array_keys($output) as $inx) {
         if (isset($output[$inx]['AlfInt24U'])) {
+            $storeHumanValue = null;
+            $hasHumanValue = false;
+            if ((isset($output[$inx]['AlfColorRGB'])) && (array_key_exists('getAsHumanString', $output[$inx]['AlfColorRGB']))) {
+                $storeHumanValue = $output[$inx]['AlfColorRGB']['getAsHumanString'];
+                $hasHumanValue = true;
+            }
             $output[$inx]['AlfColorRGB'] = $output[$inx]['AlfInt24U'];
+            if ($hasHumanValue) {
+                $output[$inx]['AlfColorRGB']['getAsHumanString'] = $storeHumanValue;
+            }
         }
         if (isset($output[$inx]['AlfInt8U'])) {
             $output[$inx]['AlfColorRGBValue'] = $output[$inx]['AlfInt8U'];
@@ -732,6 +812,7 @@ function getStringValues() : array {
             'isEmpty'           => false,
             'get'               => '',
             'getValue'          => null,
+            'getAsHumanString'  => null,
             'getStringLength'   => 0,
             'getStringByteSize' => 0,
             'afterUpperCase'    => '',
@@ -743,6 +824,7 @@ function getStringValues() : array {
             'isEmpty'           => true,
             'get'               => '',
             'getValue'          => '',
+            'getAsHumanString'  => '',
             'getStringLength'   => 0,
             'getStringByteSize' => 0,
             'afterUpperCase'    => '',
@@ -754,6 +836,7 @@ function getStringValues() : array {
             'isEmpty'            => false,
             'get'                => 'abc',
             'getValue'           => 'abc',
+            'getAsHumanString'   => 'abc',
             'getStringLength'    => 3,
             'getStringByteSize'  => 3,
             'afterUpperCase'     => 'ABC',
@@ -763,6 +846,8 @@ function getStringValues() : array {
             ],
             'AlfChar'            => [
                 'get'               => 'a',
+                'getValue'          => 'a',
+                'getAsHumanString'  => 'a',
                 'getStringLength'   => 1,
                 'getStringByteSize' => 1,
                 'afterUpperCase'    => 'A',
@@ -770,6 +855,8 @@ function getStringValues() : array {
             ],
             'AlfCharW'           => [
                 'get'               => 'a',
+                'getValue'          => 'a',
+                'getAsHumanString'  => 'a',
                 'getStringLength'   => 1,
                 'getStringByteSize' => 1,
                 'afterUpperCase'    => 'A',
@@ -782,6 +869,7 @@ function getStringValues() : array {
             'isEmpty'            => false,
             'get'                => 'slug-TOKEN-module',
             'getValue'           => 'slug-TOKEN-module',
+            'getAsHumanString'   => 'slug-TOKEN-module',
             'getStringLength'    => 17,
             'getStringByteSize'  => 17,
             'afterUpperCase'     => 'SLUG-TOKEN-MODULE',
@@ -791,6 +879,8 @@ function getStringValues() : array {
             ],
             'AlfChar'            => [
                 'get'               => 's',
+                'getValue'          => 's',
+                'getAsHumanString'  => 's',
                 'getStringLength'   => 1,
                 'getStringByteSize' => 1,
                 'afterUpperCase'    => 'S',
@@ -798,6 +888,8 @@ function getStringValues() : array {
             ],
             'AlfCharW'           => [
                 'get'               => 's',
+                'getValue'          => 's',
+                'getAsHumanString'  => 's',
                 'getStringLength'   => 1,
                 'getStringByteSize' => 1,
                 'afterUpperCase'    => 'S',
@@ -810,6 +902,7 @@ function getStringValues() : array {
             'isEmpty'            => false,
             'get'                => 'ONE two Three',
             'getValue'           => 'ONE two Three',
+            'getAsHumanString'   => 'ONE two Three',
             'getStringLength'    => 13,
             'getStringByteSize'  => 13,
             'afterUpperCase'     => 'ONE TWO THREE',
@@ -819,6 +912,8 @@ function getStringValues() : array {
             ],
             'AlfChar'            => [
                 'get'               => 'O',
+                'getValue'          => 'O',
+                'getAsHumanString'  => 'O',
                 'getStringLength'   => 1,
                 'getStringByteSize' => 1,
                 'afterUpperCase'    => 'O',
@@ -826,6 +921,8 @@ function getStringValues() : array {
             ],
             'AlfCharW'           => [
                 'get'               => 'O',
+                'getValue'          => 'O',
+                'getAsHumanString'  => 'O',
                 'getStringLength'   => 1,
                 'getStringByteSize' => 1,
                 'afterUpperCase'    => 'O',
@@ -838,15 +935,22 @@ function getStringValues() : array {
             'isEmpty'            => false,
             'get'                => 'äöü',
             'getValue'           => 'äöü',
+            'getAsHumanString'   => 'äöü',
             'getStringLength'    => 6,
             'getStringByteSize'  => 6,
             'afterUpperCase'     => 'ÄÖÜ',
             'afterLowerCase'     => 'äöü',
             'isNotASCII'         => true,
             'AlfBasicTypeSelect' => [
-                'get' => '',
+                'get'              => '',
+                'getValue'         => '',
+                'getAsHumanString' => '',
             ],
             'AlfStringW'         => [
+                'getStringLength' => 3,
+                'isNotASCII'      => false,
+            ],
+            'AlfStringMarkup'    => [
                 'getStringLength' => 3,
                 'isNotASCII'      => false,
             ],
@@ -856,6 +960,8 @@ function getStringValues() : array {
             ],
             'AlfCharW'           => [
                 'get'               => 'ä',
+                'getValue'          => 'ä',
+                'getAsHumanString'  => 'ä',
                 'isNotASCII'        => false,
                 'getStringLength'   => 1,
                 'getStringByteSize' => 2,
@@ -869,15 +975,22 @@ function getStringValues() : array {
             'isEmpty'            => false,
             'get'                => 'Äpfel über ÖSTERREICH',
             'getValue'           => 'Äpfel über ÖSTERREICH',
+            'getAsHumanString'   => 'Äpfel über ÖSTERREICH',
             'getStringLength'    => 24,
             'getStringByteSize'  => 24,
             'afterUpperCase'     => 'ÄPFEL ÜBER ÖSTERREICH',
             'afterLowerCase'     => 'äpfel über österreich',
             'isNotASCII'         => true,
             'AlfBasicTypeSelect' => [
-                'get' => '',
+                'get'              => '',
+                'getValue'         => '',
+                'getAsHumanString' => '',
             ],
             'AlfStringW'         => [
+                'getStringLength' => 21,
+                'isNotASCII'      => false,
+            ],
+            'AlfStringMarkup'    => [
                 'getStringLength' => 21,
                 'isNotASCII'      => false,
             ],
@@ -887,6 +1000,8 @@ function getStringValues() : array {
             ],
             'AlfCharW'           => [
                 'get'               => 'Ä',
+                'getValue'          => 'Ä',
+                'getAsHumanString'  => 'Ä',
                 'isNotASCII'        => false,
                 'getStringLength'   => 1,
                 'getStringByteSize' => 2,
@@ -900,6 +1015,7 @@ function getStringValues() : array {
             'isEmpty'            => false,
             'get'                => '0',
             'getValue'           => '0',
+            'getAsHumanString'   => '0',
             'getStringLength'    => 1,
             'getStringByteSize'  => 1,
             'afterUpperCase'     => '0',
@@ -914,6 +1030,7 @@ function getStringValues() : array {
             'isEmpty'            => false,
             'get'                => '1',
             'getValue'           => '1',
+            'getAsHumanString'   => '1',
             'getStringLength'    => 1,
             'getStringByteSize'  => 1,
             'afterUpperCase'     => '1',
@@ -949,6 +1066,14 @@ class AlfProgrammingTestDummyForStringable {
 
     public function __toString() : string {
         return 'X';
+    }
+
+}
+
+class AlfEnvironmentOwnTest extends AlfEnvironment {
+
+    public function refHumanNumbersDecimalSeparator() : AlfCharW {
+        return new AlfCharW('ß');
     }
 
 }

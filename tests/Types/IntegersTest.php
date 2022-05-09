@@ -109,13 +109,14 @@ test('classes extends AlfIntLike',
         $shortName = $reflectionClass->getShortName();
 
         foreach (getIntValues() as $valueRow) {
-            $inst = AlfInt::_AlfInt(new $fullClassName($valueRow['set']));
+            $inst = AlfInt::_AlfIntLike(new $fullClassName($valueRow['set']));
 
             $isNull = ($valueRow[$shortName]['isNull'] ?? $valueRow['isNull'] ?? null);
             $isEmpty = ($valueRow[$shortName]['isEmpty'] ?? $valueRow['isEmpty'] ?? null);
             $isNullOrEmpty = $isNull || $isEmpty;
             $forGet = ($valueRow[$shortName]['get'] ?? $valueRow['get'] ?? null);
             $forValue = ($valueRow[$shortName]['getValue'] ?? $valueRow['getValue'] ?? null);
+            $humanString = ($valueRow[$shortName]['getAsHumanString'] ?? $valueRow['getAsHumanString'] ?? null);
 
             // -
             $this->assertSame($inst->isNull(), $isNull,
@@ -124,6 +125,10 @@ test('classes extends AlfIntLike',
                               '(1) '.$shortName.'::cTor('.($valueRow['set'] ?? '-NULL-').')->isEmpty()');
             $this->assertSame($inst->isNullOrEmpty(), $isNullOrEmpty,
                               '(1) '.$shortName.'::cTor('.($valueRow['set'] ?? '-NULL-').')->isNullOrEmpty()');
+
+            // -
+            $this->assertSame($inst->getAsHumanString(), $humanString,
+                              '(h) human string is different: "'.($humanString ?? '-NULL-').'" and "'.($inst->getAsHumanString() ?? '-NULL-').'"');
 
             // -
             $inst->setToNull();

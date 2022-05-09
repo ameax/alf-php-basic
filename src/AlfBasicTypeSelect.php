@@ -10,6 +10,7 @@ use Alf\Interfaces\Strings\AlfStringGetTrait;
 use Alf\Interfaces\Strings\AlfStringSet;
 use Alf\Interfaces\Strings\AlfStringSetTrait;
 use Alf\Services\AlfProgramming;
+use Alf\Types\Scalars\AlfStringMarkup;
 use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
 use Stringable;
@@ -116,6 +117,13 @@ abstract class AlfBasicTypeSelect extends AlfBasicTypeScalar implements AlfStrin
     #[Pure]
     final public function getAsString() : string {
         return $this->getValue()?->value ?? $this->getEmptyValue();
+    }
+
+    public function getAsHumanAlfStringMarkup() : AlfStringMarkup {
+        if ($this->isNull()) {
+            return new AlfStringMarkup();
+        }
+        return new AlfStringMarkup($this->getAsString());
     }
 
     /* definitions */

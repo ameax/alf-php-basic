@@ -2,6 +2,12 @@
 
 All notable changes to `alf-php-basic` will be documented in this file.
 
+## 1.3.1 - 2022-05-09
+
+- service: AlfEnvironment
+- scalar: AlfStringMarkup
+- interface: AlfHumanData
+
 ## 1.3.0 - 2022-04-29
 
 - AlfException

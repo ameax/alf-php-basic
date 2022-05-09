@@ -5,7 +5,9 @@ namespace Alf\Interfaces\Booleans;
 use Alf\Attributes\AlfAttrAutoComplete;
 use Alf\Attributes\AlfAttrParameterIsBool;
 use Alf\Attributes\AlfAttrTraitAutoCall;
+use Alf\Services\AlfEnvironment;
 use Alf\Services\AlfProgramming;
+use Alf\Types\Scalars\AlfStringMarkup;
 use JetBrains\PhpStorm\Pure;
 
 trait AlfBoolLikeTrait {
@@ -48,6 +50,15 @@ trait AlfBoolLikeTrait {
         return $this->get();
     }
 
+    public function getAsHumanAlfStringMarkup() : AlfStringMarkup {
+        if ($this->isNull()) {
+            return new AlfStringMarkup();
+        }
+        return new AlfStringMarkup($this->getAsBool()
+                                       ? AlfEnvironment::_()->refHumanTextYes()
+                                       : AlfEnvironment::_()->refHumanTextNo());
+    }
+
     /* setter */
 
     abstract public function set(#[AlfAttrParameterIsBool] AlfBoolGet|bool|null $value) : static;
@@ -70,4 +81,5 @@ trait AlfBoolLikeTrait {
     public function getEmptyValue() : bool {
         return false;
     }
+
 }

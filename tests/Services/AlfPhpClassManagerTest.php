@@ -12,6 +12,7 @@ use Alf\Interfaces\Integers\AlfIntWorkTrait;
 use Alf\Interfaces\Values\AlfEmptyGetTrait;
 use Alf\Interfaces\Values\AlfEmptySetTrait;
 use Alf\Interfaces\Values\AlfEmptyWorkTrait;
+use Alf\Interfaces\Values\AlfHumanDataTrait;
 use Alf\Interfaces\Values\AlfNullGetTrait;
 use Alf\Interfaces\Values\AlfNullOrEmptyWorkTrait;
 use Alf\Interfaces\Values\AlfNullSetTrait;
@@ -30,6 +31,7 @@ test('getParent AlfInt',
 
 test('listParents AlfInt',
     function () : void {
+
         $obj = new AlfInt();
         $parents = AlfPhpClassManager::_()->listParents($obj);
 
@@ -43,10 +45,11 @@ test('listParents AlfInt',
 
 test('listTraits AlfInt',
     function () : void {
+
         $obj = new AlfInt();
         $traits = AlfPhpClassManager::_()->listTraits($obj);
 
-        $this->assertCount(12, $traits);
+        $this->assertCount(13, $traits);
 
         $this->assertArrayHasKey(AlfNullOrEmptyWorkTrait::class, $traits);
         $this->assertArrayHasKey(AlfNullWorkTrait::class, $traits);
@@ -60,5 +63,6 @@ test('listTraits AlfInt',
         $this->assertArrayHasKey(AlfIntSetTrait::class, $traits);
         $this->assertArrayHasKey(AlfIntWorkTrait::class, $traits);
         $this->assertArrayHasKey(AlfIntLikeTrait::class, $traits);
+        $this->assertArrayHasKey(AlfHumanDataTrait::class, $traits);
 
     });

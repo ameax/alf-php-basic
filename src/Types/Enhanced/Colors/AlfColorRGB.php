@@ -8,6 +8,7 @@ use Alf\Enums\AlfColorRGBChannels;
 use Alf\Interfaces\Integers\AlfIntGet;
 use Alf\Services\AlfProgramming;
 use Alf\Types\Scalars\AlfInt24U;
+use Alf\Types\Scalars\AlfStringMarkup;
 use JetBrains\PhpStorm\Pure;
 
 class AlfColorRGB extends AlfInt24U {
@@ -94,7 +95,16 @@ class AlfColorRGB extends AlfInt24U {
         $useGreen = $this->getGreen()->getAsInt();
         $useBlue = (new AlfColorRGBValue($blue))->getAsInt();
         return $this->setRGBInt($useRed, $useGreen, $useBlue);
+    }
 
+    public function getAsHumanAlfStringMarkup() : AlfStringMarkup {
+        if ($this->isNull()) {
+            return new AlfStringMarkup();
+        }
+        // TODO: Make it better for humans!
+        return new AlfStringMarkup('rgb('.$this->getRed()->getAsHumanString()
+                                   .','.$this->refGreen()->getAsHumanString()
+                                   .','.$this->refBlue()->getAsHumanString().')');
     }
 
 }

@@ -15,11 +15,11 @@ use Alf\Interfaces\Values\AlfNullWork;
 use JetBrains\PhpStorm\Pure;
 use Stringable;
 
-final class AlfProgramming extends AlfBasicSingleton {
+class AlfProgramming extends AlfBasicSingleton {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    public static function _AlfProgramming($obj) : AlfProgramming {
+    final public static function _AlfProgramming($obj) : AlfProgramming {
         return AlfProgramming::_()->unused($obj, AlfProgramming::_AlfBasicSingleton($obj));
     }
 

@@ -5,7 +5,9 @@ namespace Alf\Interfaces\Strings;
 use Alf\Attributes\AlfAttrAutoComplete;
 use Alf\Attributes\AlfAttrParameterIsString;
 use Alf\Attributes\AlfAttrTraitAutoCall;
+use Alf\Services\AlfEnvironment;
 use Alf\Services\AlfProgramming;
+use Alf\Types\Scalars\AlfStringMarkup;
 use JetBrains\PhpStorm\Pure;
 use Stringable;
 
@@ -47,6 +49,13 @@ trait AlfCharLikeTrait {
     #[Pure]
     public function getAsString() : string {
         return $this->get();
+    }
+
+    public function getAsHumanAlfStringMarkup() : AlfStringMarkup {
+        if ($this->isNull()) {
+            return new AlfStringMarkup();
+        }
+        return new AlfStringMarkup($this->getAsString());
     }
 
     /* setter */

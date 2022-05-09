@@ -8,6 +8,8 @@ use Alf\Attributes\AlfAttrParameterIsInt;
 use Alf\Interfaces\Integers\AlfIntGet;
 use Alf\Interfaces\Integers\AlfIntLike;
 use Alf\Interfaces\Integers\AlfIntLikeTrait;
+use Alf\Interfaces\Values\AlfHumanData;
+use Alf\Interfaces\Values\AlfHumanDataTrait;
 use Alf\Services\AlfProgramming;
 use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
