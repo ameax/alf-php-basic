@@ -3,6 +3,7 @@
 namespace Alf\Interfaces\Integers;
 
 use Alf\Attributes\AlfAttrParameterIsInt;
+use Alf\Types\Scalars\AlfStringMarkup;
 use JetBrains\PhpStorm\Pure;
 
 interface AlfIntLike extends AlfIntWork {
@@ -17,6 +18,11 @@ interface AlfIntLike extends AlfIntWork {
 
     #[Pure]
     public function getAsInt() : int;
+
+    #[Pure]
+    public function getAsString() : string;
+
+    public function getAsHumanAlfStringMarkup() : AlfStringMarkup;
 
     /* setter */
 

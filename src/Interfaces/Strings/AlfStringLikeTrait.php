@@ -15,7 +15,7 @@ trait AlfStringLikeTrait {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfStringLike($obj) : AlfStringLike {
+    public static function _AlfStringLike($obj) : AlfStringLike {
         return AlfProgramming::_()->unused($obj, static::_AlfStringWork($obj), static::_AlfCharLike($obj));
     }
 

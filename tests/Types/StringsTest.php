@@ -11,7 +11,6 @@ use Alf\Interfaces\Strings\AlfCharWork;
 use Alf\Manipulator\AlfStringManipulator;
 use Alf\Types\Scalars\AlfChar;
 use Alf\Types\Scalars\AlfCharW;
-use Alf\Types\Scalars\AlfString;
 use Alf\Types\Scalars\AlfStringW;
 
 test('classes extends AlfChar',
@@ -317,3 +316,5 @@ test('AlfStringManipulator invalid charsets',
         $this->assertNull($tryString);
 
     });
+
+

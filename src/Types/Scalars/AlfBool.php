@@ -18,7 +18,7 @@ class AlfBool extends AlfBasicTypeScalar implements AlfBoolLike {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfBool($obj) : AlfBool {
+    public static function _AlfBool($obj) : AlfBool {
         return AlfProgramming::_()->unused($obj, static::_AlfBasicTypeScalar($obj), static::_AlfBoolLike($obj));
     }
 

@@ -20,7 +20,7 @@ class AlfChar extends AlfBasicTypeScalar implements AlfCharLike {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfChar($obj) : AlfChar {
+    public static function _AlfChar($obj) : AlfChar {
         return AlfProgramming::_()->unused($obj, static::_AlfBasicTypeScalar($obj), static::_AlfCharLike($obj));
     }
 

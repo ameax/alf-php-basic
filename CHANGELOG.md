@@ -2,6 +2,11 @@
 
 All notable changes to `alf-php-basic` will be documented in this file.
 
+## 1.3.2 - 2022-05-12
+
+- scalar types are new AlfStringGet
+- Alf[String|Char]Get, Alf[String|Char]Read: getAsHtml___() functions
+
 ## 1.3.1 - 2022-05-09
 
 - service: AlfEnvironment

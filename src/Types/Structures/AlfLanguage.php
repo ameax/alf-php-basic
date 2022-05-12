@@ -20,7 +20,7 @@ class AlfLanguage extends AlfBasicTypeStructure implements AlfStringGet {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfLanguage($obj) : AlfLanguage {
+    public static function _AlfLanguage($obj) : AlfLanguage {
         return AlfProgramming::_()->unused($obj, static::_AlfBasicTypeStructure($obj));
     }
 

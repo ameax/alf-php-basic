@@ -13,7 +13,7 @@ trait AlfNullOrEmptyWorkTrait {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfNullOrEmptyWork($obj) : AlfNullOrEmptyWork {
+    public static function _AlfNullOrEmptyWork($obj) : AlfNullOrEmptyWork {
         return AlfProgramming::_()->unused($obj, static::_AlfNullWork($obj), static::_AlfEmptyWork($obj));
     }
 

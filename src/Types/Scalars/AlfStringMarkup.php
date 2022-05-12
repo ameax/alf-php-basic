@@ -9,7 +9,7 @@ class AlfStringMarkup extends AlfStringW {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfStringMarkup($obj) : AlfStringMarkup {
+    public static function _AlfStringMarkup($obj) : AlfStringMarkup {
         return AlfProgramming::_()->unused($obj, static::_AlfStringW($obj));
     }
 

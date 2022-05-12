@@ -15,7 +15,7 @@ class AlfColorRGB extends AlfInt24U {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfColorRGB($obj) : AlfColorRGB {
+    public static function _AlfColorRGB($obj) : AlfColorRGB {
         return AlfProgramming::_()->unused($obj, static::_AlfInt24U($obj));
     }
 
@@ -97,14 +97,22 @@ class AlfColorRGB extends AlfInt24U {
         return $this->setRGBInt($useRed, $useGreen, $useBlue);
     }
 
+    #[Pure]
+    public function getAsString() : string {
+        if ($this->isNull()) {
+            return '';
+        }
+        return 'rgb('.$this->getRed()->getAsHumanString()
+               .','.$this->refGreen()->getAsHumanString()
+               .','.$this->refBlue()->getAsHumanString().')';
+    }
+
     public function getAsHumanAlfStringMarkup() : AlfStringMarkup {
         if ($this->isNull()) {
             return new AlfStringMarkup();
         }
         // TODO: Make it better for humans!
-        return new AlfStringMarkup('rgb('.$this->getRed()->getAsHumanString()
-                                   .','.$this->refGreen()->getAsHumanString()
-                                   .','.$this->refBlue()->getAsHumanString().')');
+        return new AlfStringMarkup((string)$this);
     }
 
 }

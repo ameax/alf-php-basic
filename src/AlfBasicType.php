@@ -9,7 +9,7 @@ abstract class AlfBasicType extends AlfBasicClass {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfBasicType($obj) : AlfBasicType {
+    public static function _AlfBasicType($obj) : AlfBasicType {
         return AlfProgramming::_()->unused($obj, static::_AlfBasicClass($obj));
     }
 

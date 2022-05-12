@@ -16,7 +16,7 @@ abstract class AlfBasicClass {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfBasicClass($obj) : AlfBasicClass {
+    public static function _AlfBasicClass($obj) : AlfBasicClass {
         return AlfProgramming::_()->unused($obj);
     }
 

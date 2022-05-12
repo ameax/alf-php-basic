@@ -25,7 +25,7 @@ class AlfEnvironment extends AlfBasicSingleton {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfEnvironment($obj) : AlfEnvironment {
+    public static function _AlfEnvironment($obj) : AlfEnvironment {
         return AlfProgramming::_()->unused($obj, static::_AlfBasicSingleton($obj));
     }
 

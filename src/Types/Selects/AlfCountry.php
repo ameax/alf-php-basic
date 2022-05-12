@@ -12,7 +12,7 @@ class AlfCountry extends AlfBasicTypeSelect {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfCountry($obj) : AlfCountry {
+    public static function _AlfCountry($obj) : AlfCountry {
         return AlfProgramming::_()->unused($obj, static::_AlfBasicTypeSelect($obj));
     }
 

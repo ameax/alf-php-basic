@@ -11,7 +11,7 @@ trait AlfBoolGetTrait {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfBoolGet($obj) : AlfBoolGet {
+    public static function _AlfBoolGet($obj) : AlfBoolGet {
         return AlfProgramming::_()->unused($obj);
     }
 

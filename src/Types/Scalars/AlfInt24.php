@@ -10,7 +10,7 @@ class AlfInt24 extends AlfIntRange {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfInt24($obj) : AlfInt24 {
+    public static function _AlfInt24($obj) : AlfInt24 {
         return AlfProgramming::_()->unused($obj, static::_AlfIntRange($obj));
     }
 

@@ -11,7 +11,7 @@ class AlfAttrClassIsRef extends AlfBasicAttribute {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfAttrClassIsRef($obj) : AlfAttrClassIsRef {
+    public static function _AlfAttrClassIsRef($obj) : AlfAttrClassIsRef {
         return AlfProgramming::_()->unused($obj, static::_AlfBasicAttribute($obj));
     }
 

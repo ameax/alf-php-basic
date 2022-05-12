@@ -12,7 +12,7 @@ trait AlfBoolWorkTrait {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfBoolWork($obj) : AlfBoolWork {
+    public static function _AlfBoolWork($obj) : AlfBoolWork {
         return AlfProgramming::_()->unused($obj, static::_AlfBoolGet($obj), static::_AlfBoolSet($obj));
     }
 

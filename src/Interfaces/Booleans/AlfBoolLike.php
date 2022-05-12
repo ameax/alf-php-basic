@@ -3,6 +3,7 @@
 namespace Alf\Interfaces\Booleans;
 
 use Alf\Attributes\AlfAttrParameterIsBool;
+use Alf\Types\Scalars\AlfStringMarkup;
 use JetBrains\PhpStorm\Pure;
 
 interface AlfBoolLike extends AlfBoolWork {
@@ -17,6 +18,11 @@ interface AlfBoolLike extends AlfBoolWork {
 
     #[Pure]
     public function getAsBool() : bool;
+
+    #[Pure]
+    public function getAsString() : string;
+
+    public function getAsHumanAlfStringMarkup() : AlfStringMarkup;
 
     /* setter */
 

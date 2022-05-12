@@ -13,7 +13,7 @@ abstract class AlfBasicTypeStructure extends AlfBasicType implements AlfNullOrEm
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfBasicTypeStructure($obj) : AlfBasicTypeStructure {
+    public static function _AlfBasicTypeStructure($obj) : AlfBasicTypeStructure {
         return AlfProgramming::_()->unused($obj, static::_AlfBasicType($obj));
     }
 

@@ -12,7 +12,7 @@ class AlfCharEncoding extends AlfBasicTypeSelect {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfCharEncoding($obj) : AlfCharEncoding {
+    public static function _AlfCharEncoding($obj) : AlfCharEncoding {
         return AlfProgramming::_()->unused($obj, static::_AlfBasicTypeSelect($obj));
     }
 

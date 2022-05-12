@@ -15,7 +15,7 @@ abstract class AlfBasicTypeScalar extends AlfBasicType implements AlfNullOrEmpty
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfBasicTypeScalar($obj) : AlfBasicTypeScalar {
+    public static function _AlfBasicTypeScalar($obj) : AlfBasicTypeScalar {
         return AlfProgramming::_()->unused($obj,
                                            static::_AlfBasicType($obj),
                                            static::_AlfNullOrEmptyWork($obj),

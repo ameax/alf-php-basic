@@ -10,7 +10,7 @@ trait AlfNullSetTrait {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfNullSet($obj) : AlfNullSet {
+    public static function _AlfNullSet($obj) : AlfNullSet {
         return AlfProgramming::_()->unused($obj);
     }
 

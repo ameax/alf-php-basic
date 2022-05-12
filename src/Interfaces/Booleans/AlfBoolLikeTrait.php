@@ -16,7 +16,7 @@ trait AlfBoolLikeTrait {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfBoolLike($obj) : AlfBoolLike {
+    public static function _AlfBoolLike($obj) : AlfBoolLike {
         return AlfProgramming::_()->unused($obj, static::_AlfBoolWork($obj));
     }
 
@@ -48,6 +48,14 @@ trait AlfBoolLikeTrait {
     #[Pure]
     public function getAsBool() : bool {
         return $this->get();
+    }
+
+    #[Pure]
+    public function getAsString() : string {
+        if ($this->isNull()) {
+            return '';
+        }
+        return $this->getAsBool() ? '1' : '0';
     }
 
     public function getAsHumanAlfStringMarkup() : AlfStringMarkup {

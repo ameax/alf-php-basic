@@ -4,15 +4,18 @@ namespace Alf\Interfaces\Values;
 
 use Alf\Attributes\AlfAttrAutoComplete;
 use Alf\Attributes\AlfAttrTraitAutoCall;
+use Alf\Interfaces\Strings\AlfStringGetTrait;
 use Alf\Services\AlfProgramming;
 use Alf\Types\Scalars\AlfStringMarkup;
 
 trait AlfHumanDataTrait {
 
+    use AlfStringGetTrait;
+
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfHumanData($obj) : AlfHumanData {
-        return AlfProgramming::_()->unused($obj);
+    public static function _AlfHumanData($obj) : AlfHumanData {
+        return AlfProgramming::_()->unused($obj, static::_AlfStringGet($obj));
     }
 
     /** @AlfAttrTraitAutoCall */
@@ -30,7 +33,9 @@ trait AlfHumanDataTrait {
     protected function _AlfHumanDataTraitClone() : void {
     }
 
-    abstract public function getAsHumanAlfStringMarkup() : AlfStringMarkup;
+    public function getAsHumanAlfStringMarkup() : AlfStringMarkup {
+        return new AlfStringMarkup($this->getAsString());
+    }
 
     public function getAsHumanString() : ?string {
         $obj = $this->getAsHumanAlfStringMarkup();

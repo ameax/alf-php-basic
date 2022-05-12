@@ -17,7 +17,7 @@ class AlfStringW extends AlfString implements AlfCharEncodingProperty {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfStringW($obj) : AlfStringW {
+    public static function _AlfStringW($obj) : AlfStringW {
         return AlfProgramming::_()->unused($obj, static::_AlfString($obj), static::_AlfCharEncodingProperty($obj));
     }
 

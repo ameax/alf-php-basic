@@ -358,6 +358,7 @@ function getBoolValues() : array {
             'isEmpty'          => false,
             'get'              => false,
             'getValue'         => null,
+            'getAsString'      => '',
             'getAsHumanString' => null,
             'afterInvert'      => true,
         ],
@@ -367,6 +368,7 @@ function getBoolValues() : array {
             'isEmpty'          => true,
             'get'              => false,
             'getValue'         => false,
+            'getAsString'      => '0',
             'getAsHumanString' => 'no',
             'afterInvert'      => true,
         ],
@@ -376,6 +378,7 @@ function getBoolValues() : array {
             'isEmpty'          => false,
             'get'              => true,
             'getValue'         => true,
+            'getAsString'      => '1',
             'getAsHumanString' => 'yes',
             'afterInvert'      => false,
         ],
@@ -391,6 +394,7 @@ function getIntValues() : array {
             'isEmpty'          => false,
             'get'              => 0,
             'getValue'         => null,
+            'getAsString'      => '',
             'getAsHumanString' => null,
             'afterAdd5'        => 5,
             'afterInc'         => 1,
@@ -419,6 +423,7 @@ function getIntValues() : array {
             'isEmpty'          => true,
             'get'              => 0,
             'getValue'         => 0,
+            'getAsString'      => '0',
             'getAsHumanString' => '0',
             'afterAdd5'        => 5,
             'afterInc'         => 1,
@@ -441,6 +446,7 @@ function getIntValues() : array {
                 'afterDec'  => 0,
             ],
             'AlfColorRGB'      => [
+                'getAsString'      => 'rgb(0,0,0)',
                 'getAsHumanString' => 'rgb(0,0,0)',
             ],
         ],
@@ -450,6 +456,7 @@ function getIntValues() : array {
             'isEmpty'          => false,
             'get'              => 5,
             'getValue'         => 5,
+            'getAsString'      => '5',
             'getAsHumanString' => '5',
             'afterAdd5'        => 10,
             'afterInc'         => 6,
@@ -468,6 +475,7 @@ function getIntValues() : array {
                 'afterSub9' => 0,
             ],
             'AlfColorRGB'      => [
+                'getAsString'      => 'rgb(0,0,5)',
                 'getAsHumanString' => 'rgb(0,0,5)',
             ],
         ],
@@ -477,12 +485,14 @@ function getIntValues() : array {
             'isEmpty'          => false,
             'get'              => 25,
             'getValue'         => 25,
+            'getAsString'      => '25',
             'getAsHumanString' => '25',
             'afterAdd5'        => 30,
             'afterInc'         => 26,
             'afterSub9'        => 16,
             'afterDec'         => 24,
             'AlfColorRGB'      => [
+                'getAsString'      => 'rgb(0,0,25)',
                 'getAsHumanString' => 'rgb(0,0,25)',
             ],
         ],
@@ -492,6 +502,7 @@ function getIntValues() : array {
             'isEmpty'          => false,
             'get'              => -7,
             'getValue'         => -7,
+            'getAsString'      => '-7',
             'getAsHumanString' => '-7',
             'afterAdd5'        => -2,
             'afterInc'         => -6,
@@ -501,6 +512,7 @@ function getIntValues() : array {
                 'isEmpty'          => true,
                 'get'              => 0,
                 'getValue'         => 0,
+                'getAsString'      => '0',
                 'getAsHumanString' => '0',
                 'afterAdd5'        => 5,
                 'afterInc'         => 1,
@@ -511,6 +523,7 @@ function getIntValues() : array {
                 'isEmpty'          => true,
                 'get'              => 0,
                 'getValue'         => 0,
+                'getAsString'      => '0',
                 'getAsHumanString' => '0',
                 'afterAdd5'        => 5,
                 'afterInc'         => 1,
@@ -521,6 +534,7 @@ function getIntValues() : array {
                 'isEmpty'          => true,
                 'get'              => 0,
                 'getValue'         => 0,
+                'getAsString'      => '0',
                 'getAsHumanString' => '0',
                 'afterAdd5'        => 5,
                 'afterInc'         => 1,
@@ -531,6 +545,7 @@ function getIntValues() : array {
                 'isEmpty'          => true,
                 'get'              => 0,
                 'getValue'         => 0,
+                'getAsString'      => '0',
                 'getAsHumanString' => '0',
                 'afterAdd5'        => 5,
                 'afterInc'         => 1,
@@ -538,6 +553,7 @@ function getIntValues() : array {
                 'afterDec'         => 0,
             ],
             'AlfColorRGB'      => [
+                'getAsString'      => 'rgb(0,0,0)',
                 'getAsHumanString' => 'rgb(0,0,0)',
             ],
         ],
@@ -547,6 +563,7 @@ function getIntValues() : array {
             'isEmpty'          => false,
             'get'              => 500,
             'getValue'         => 500,
+            'getAsString'      => '500',
             'getAsHumanString' => '500',
             'afterAdd5'        => 505,
             'afterInc'         => 501,
@@ -555,6 +572,7 @@ function getIntValues() : array {
             'AlfInt8'          => [
                 'get'              => 128,
                 'getValue'         => 128,
+                'getAsString'      => '128',
                 'getAsHumanString' => '128',
                 'afterAdd5'        => 128,
                 'afterInc'         => 128,
@@ -564,6 +582,7 @@ function getIntValues() : array {
             'AlfInt8U'         => [
                 'get'              => 255,
                 'getValue'         => 255,
+                'getAsString'      => '255',
                 'getAsHumanString' => '255',
                 'afterAdd5'        => 255,
                 'afterInc'         => 255,
@@ -571,6 +590,7 @@ function getIntValues() : array {
                 'afterDec'         => 254,
             ],
             'AlfColorRGB'      => [
+                'getAsString'      => 'rgb(0,1,244)',
                 'getAsHumanString' => 'rgb(0,1,244)',
             ],
 
@@ -581,6 +601,7 @@ function getIntValues() : array {
             'isEmpty'          => false,
             'get'              => 70000,
             'getValue'         => 70000,
+            'getAsString'      => '70000',
             'getAsHumanString' => '70,000',
             'afterAdd5'        => 70005,
             'afterInc'         => 70001,
@@ -589,6 +610,7 @@ function getIntValues() : array {
             'AlfInt8'          => [
                 'get'              => 128,
                 'getValue'         => 128,
+                'getAsString'      => '128',
                 'getAsHumanString' => '128',
                 'afterAdd5'        => 128,
                 'afterInc'         => 128,
@@ -598,6 +620,7 @@ function getIntValues() : array {
             'AlfInt8U'         => [
                 'get'              => 255,
                 'getValue'         => 255,
+                'getAsString'      => '255',
                 'getAsHumanString' => '255',
                 'afterAdd5'        => 255,
                 'afterInc'         => 255,
@@ -607,6 +630,7 @@ function getIntValues() : array {
             'AlfInt16'         => [
                 'get'              => 32767,
                 'getValue'         => 32767,
+                'getAsString'      => '32767',
                 'getAsHumanString' => '32,767',
                 'afterAdd5'        => 32767,
                 'afterInc'         => 32767,
@@ -616,6 +640,7 @@ function getIntValues() : array {
             'AlfInt16U'        => [
                 'get'              => 65535,
                 'getValue'         => 65535,
+                'getAsString'      => '65535',
                 'getAsHumanString' => '65,535',
                 'afterAdd5'        => 65535,
                 'afterInc'         => 65535,
@@ -623,6 +648,7 @@ function getIntValues() : array {
                 'afterDec'         => 65534,
             ],
             'AlfColorRGB'      => [
+                'getAsString'      => 'rgb(1,17,112)',
                 'getAsHumanString' => 'rgb(1,17,112)',
             ],
         ],
@@ -632,6 +658,7 @@ function getIntValues() : array {
             'isEmpty'          => false,
             'get'              => 17000000,
             'getValue'         => 17000000,
+            'getAsString'      => '17000000',
             'getAsHumanString' => '17,000,000',
             'afterAdd5'        => 17000005,
             'afterInc'         => 17000001,
@@ -640,6 +667,7 @@ function getIntValues() : array {
             'AlfInt8'          => [
                 'get'              => 128,
                 'getValue'         => 128,
+                'getAsString'      => '128',
                 'getAsHumanString' => '128',
                 'afterAdd5'        => 128,
                 'afterInc'         => 128,
@@ -649,6 +677,7 @@ function getIntValues() : array {
             'AlfInt8U'         => [
                 'get'              => 255,
                 'getValue'         => 255,
+                'getAsString'      => '255',
                 'getAsHumanString' => '255',
                 'afterAdd5'        => 255,
                 'afterInc'         => 255,
@@ -658,6 +687,7 @@ function getIntValues() : array {
             'AlfInt16'         => [
                 'get'              => 32767,
                 'getValue'         => 32767,
+                'getAsString'      => '32767',
                 'getAsHumanString' => '32,767',
                 'afterAdd5'        => 32767,
                 'afterInc'         => 32767,
@@ -667,6 +697,7 @@ function getIntValues() : array {
             'AlfInt16U'        => [
                 'get'              => 65535,
                 'getValue'         => 65535,
+                'getAsString'      => '65535',
                 'getAsHumanString' => '65,535',
                 'afterAdd5'        => 65535,
                 'afterInc'         => 65535,
@@ -676,6 +707,7 @@ function getIntValues() : array {
             'AlfInt24'         => [
                 'get'              => 8388607,
                 'getValue'         => 8388607,
+                'getAsString'      => '8388607',
                 'getAsHumanString' => '8,388,607',
                 'afterAdd5'        => 8388607,
                 'afterInc'         => 8388607,
@@ -685,6 +717,7 @@ function getIntValues() : array {
             'AlfInt24U'        => [
                 'get'              => 16777215,
                 'getValue'         => 16777215,
+                'getAsString'      => '16777215',
                 'getAsHumanString' => '16,777,215',
                 'afterAdd5'        => 16777215,
                 'afterInc'         => 16777215,
@@ -692,6 +725,7 @@ function getIntValues() : array {
                 'afterDec'         => 16777214,
             ],
             'AlfColorRGB'      => [
+                'getAsString'      => 'rgb(255,255,255)',
                 'getAsHumanString' => 'rgb(255,255,255)',
             ],
         ],
@@ -701,6 +735,7 @@ function getIntValues() : array {
             'isEmpty'          => false,
             'get'              => 5000000000,
             'getValue'         => 5000000000,
+            'getAsString'      => '5000000000',
             'getAsHumanString' => '5,000,000,000',
             'afterAdd5'        => 5000000005,
             'afterInc'         => 5000000001,
@@ -709,6 +744,7 @@ function getIntValues() : array {
             'AlfInt8'          => [
                 'get'              => 128,
                 'getValue'         => 128,
+                'getAsString'      => '128',
                 'getAsHumanString' => '128',
                 'afterAdd5'        => 128,
                 'afterInc'         => 128,
@@ -718,6 +754,7 @@ function getIntValues() : array {
             'AlfInt8U'         => [
                 'get'              => 255,
                 'getValue'         => 255,
+                'getAsString'      => '255',
                 'getAsHumanString' => '255',
                 'afterAdd5'        => 255,
                 'afterInc'         => 255,
@@ -727,6 +764,7 @@ function getIntValues() : array {
             'AlfInt16'         => [
                 'get'              => 32767,
                 'getValue'         => 32767,
+                'getAsString'      => '32767',
                 'getAsHumanString' => '32,767',
                 'afterAdd5'        => 32767,
                 'afterInc'         => 32767,
@@ -736,6 +774,7 @@ function getIntValues() : array {
             'AlfInt16U'        => [
                 'get'              => 65535,
                 'getValue'         => 65535,
+                'getAsString'      => '65535',
                 'getAsHumanString' => '65,535',
                 'afterAdd5'        => 65535,
                 'afterInc'         => 65535,
@@ -745,6 +784,7 @@ function getIntValues() : array {
             'AlfInt24'         => [
                 'get'              => 8388607,
                 'getValue'         => 8388607,
+                'getAsString'      => '8388607',
                 'getAsHumanString' => '8,388,607',
                 'afterAdd5'        => 8388607,
                 'afterInc'         => 8388607,
@@ -754,6 +794,7 @@ function getIntValues() : array {
             'AlfInt24U'        => [
                 'get'              => 16777215,
                 'getValue'         => 16777215,
+                'getAsString'      => '16777215',
                 'getAsHumanString' => '16,777,215',
                 'afterAdd5'        => 16777215,
                 'afterInc'         => 16777215,
@@ -763,6 +804,7 @@ function getIntValues() : array {
             'AlfInt32'         => [
                 'get'              => 2147483647,
                 'getValue'         => 2147483647,
+                'getAsString'      => '2147483647',
                 'getAsHumanString' => '2,147,483,647',
                 'afterAdd5'        => 2147483647,
                 'afterInc'         => 2147483647,
@@ -772,6 +814,7 @@ function getIntValues() : array {
             'AlfInt32U'        => [
                 'get'              => 4294967295,
                 'getValue'         => 4294967295,
+                'getAsString'      => '4294967295',
                 'getAsHumanString' => '4,294,967,295',
                 'afterAdd5'        => 4294967295,
                 'afterInc'         => 4294967295,
@@ -779,21 +822,37 @@ function getIntValues() : array {
                 'afterDec'         => 4294967294,
             ],
             'AlfColorRGB'      => [
+                'getAsString'      => 'rgb(255,255,255)',
                 'getAsHumanString' => 'rgb(255,255,255)',
             ],
         ],
     ];
     foreach (array_keys($output) as $inx) {
         if (isset($output[$inx]['AlfInt24U'])) {
+            $storeStringValue = null;
+            $hasStringValue = false;
+            if ((isset($output[$inx]['AlfColorRGB'])) && (array_key_exists('getAsString', $output[$inx]['AlfColorRGB']))) {
+                $storeStringValue = $output[$inx]['AlfColorRGB']['getAsString'];
+                $hasStringValue = true;
+            }
+
+            // -
             $storeHumanValue = null;
             $hasHumanValue = false;
             if ((isset($output[$inx]['AlfColorRGB'])) && (array_key_exists('getAsHumanString', $output[$inx]['AlfColorRGB']))) {
                 $storeHumanValue = $output[$inx]['AlfColorRGB']['getAsHumanString'];
                 $hasHumanValue = true;
             }
+
+            // -
             $output[$inx]['AlfColorRGB'] = $output[$inx]['AlfInt24U'];
+
+            // -
             if ($hasHumanValue) {
                 $output[$inx]['AlfColorRGB']['getAsHumanString'] = $storeHumanValue;
+            }
+            if ($hasStringValue) {
+                $output[$inx]['AlfColorRGB']['getAsString'] = $storeStringValue;
             }
         }
         if (isset($output[$inx]['AlfInt8U'])) {

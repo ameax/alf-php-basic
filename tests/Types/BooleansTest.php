@@ -92,6 +92,7 @@ test('classes extends AlfBoolLike',
             $isNullOrEmpty = $isNull || $isEmpty;
             $forGet = ($valueRow[$shortName]['get'] ?? $valueRow['get'] ?? null);
             $forValue = ($valueRow[$shortName]['getValue'] ?? $valueRow['getValue'] ?? null);
+            $asString = ($valueRow[$shortName]['getAsString'] ?? $valueRow['getAsString'] ?? null);
             $humanString = ($valueRow[$shortName]['getAsHumanString'] ?? $valueRow['getAsHumanString'] ?? null);
 
             // -
@@ -105,6 +106,8 @@ test('classes extends AlfBoolLike',
             // -
             $this->assertSame($inst->getAsHumanString(), $humanString,
                               '(h) human string is different: "'.($humanString ?? '-NULL-').'" and "'.($inst->getAsHumanString() ?? '-NULL-').'"');
+            $this->assertSame($inst->getAsString(), $asString,
+                              '(s) string is different: "'.($asString ?? '-NULL-').'" and "'.($inst->getAsString() ?? '-NULL-').'"');
 
             // -
             $inst->setToNull();

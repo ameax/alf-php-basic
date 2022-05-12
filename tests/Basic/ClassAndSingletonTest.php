@@ -36,7 +36,7 @@ test('autocomplete function',
         // -
         $this->assertTrue($foundMethod->isStatic(), 'method '.$className.'::'.$needFunctionName.'() is not static!');
         $this->assertTrue($foundMethod->isPublic(), 'method '.$className.'::'.$needFunctionName.'() is not public!');
-        $this->assertTrue($foundMethod->isFinal() || $reflectionClass->isFinal(), 'method '.$className.'::'.$needFunctionName.'() is not final!');
+        $this->assertFalse($foundMethod->isFinal(), 'method '.$className.'::'.$needFunctionName.'() is final!');
         $this->assertSame(count($foundMethod->getParameters()), 1, 'the method '.$className.'::'.$needFunctionName.'() must have only 1 parameter!');
         if ($this->hasFailed()) {
             return;

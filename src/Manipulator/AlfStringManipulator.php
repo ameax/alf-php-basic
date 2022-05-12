@@ -13,7 +13,7 @@ class AlfStringManipulator extends AlfBasicClass {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfStringManipulator($obj) : AlfStringManipulator {
+    public static function _AlfStringManipulator($obj) : AlfStringManipulator {
         return AlfProgramming::_()->unused($obj, static::_AlfBasicClass($obj));
     }
 
@@ -67,6 +67,14 @@ class AlfStringManipulator extends AlfBasicClass {
 
         // -
         return $tryValue;
+    }
+
+    public function convertNewLines(string $str) : string {
+        return str_replace(["\r\n", "\r"], ["\n", "\n"], $str);
+    }
+
+    public function getAsHtmlString(string $str, string $nlTo = '<br>') : string {
+        return str_replace(["\n", '<br>', '&NewLine;'], $nlTo, htmlspecialchars($this->convertNewLines($str), ENT_QUOTES | ENT_DISALLOWED | ENT_HTML5));
     }
 
 }

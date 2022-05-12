@@ -12,7 +12,7 @@ class AlfLanguageCode extends AlfBasicTypeSelect {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfLanguageCode($obj) : AlfLanguageCode {
+    public static function _AlfLanguageCode($obj) : AlfLanguageCode {
         return AlfProgramming::_()->unused($obj, static::_AlfBasicTypeSelect($obj));
     }
 

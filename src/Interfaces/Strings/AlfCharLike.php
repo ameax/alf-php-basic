@@ -3,6 +3,7 @@
 namespace Alf\Interfaces\Strings;
 
 use Alf\Attributes\AlfAttrParameterIsString;
+use Alf\Types\Scalars\AlfStringMarkup;
 use JetBrains\PhpStorm\Pure;
 use Stringable;
 
@@ -18,6 +19,8 @@ interface AlfCharLike extends AlfCharWork {
 
     #[Pure]
     public function getAsString() : string;
+
+    public function getAsHumanAlfStringMarkup() : AlfStringMarkup;
 
     /* setter */
 

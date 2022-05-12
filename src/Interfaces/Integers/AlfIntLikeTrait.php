@@ -16,7 +16,7 @@ trait AlfIntLikeTrait {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfIntLike($obj) : AlfIntLike {
+    public static function _AlfIntLike($obj) : AlfIntLike {
         return AlfProgramming::_()->unused($obj, static::_AlfIntWork($obj));
     }
 
@@ -48,6 +48,11 @@ trait AlfIntLikeTrait {
     #[Pure]
     public function getAsInt() : int {
         return $this->get();
+    }
+
+    #[Pure]
+    public function getAsString() : string {
+        return (string)($this->getValue() ?? '');
     }
 
     public function getAsHumanAlfStringMarkup() : AlfStringMarkup {

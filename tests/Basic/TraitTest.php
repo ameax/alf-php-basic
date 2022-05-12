@@ -68,7 +68,7 @@ test('trait has auto-trait-functions with attributes',
 
     })->with(listAlfTraits());
 
-test('trait has an autocomplete interface function',
+test('trait and the autocomplete interface function',
     /** @throws ReflectionException */
     function (string $traitName) : void {
 
@@ -98,7 +98,7 @@ test('trait has an autocomplete interface function',
         // -
         $this->assertTrue($foundMethod->isStatic(), 'method '.$traitName.'::'.$needFunctionName.'() is not static!');
         $this->assertTrue($foundMethod->isPublic(), 'method '.$traitName.'::'.$needFunctionName.'() is not public!');
-        $this->assertTrue($foundMethod->isFinal(), 'method '.$traitName.'::'.$needFunctionName.'() is not final!');
+        $this->assertFalse($foundMethod->isFinal(), 'method '.$traitName.'::'.$needFunctionName.'() is final!');
         $this->assertSame(count($foundMethod->getParameters()), 1, 'the method '.$traitName.'::'.$needFunctionName.'() must have only 1 parameter!');
         if ($this->hasFailed()) {
             return;

@@ -12,7 +12,7 @@ class AlfColorRGBChannel extends AlfBasicTypeSelect {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfColorRGBChannel($obj) : AlfColorRGBChannel {
+    public static function _AlfColorRGBChannel($obj) : AlfColorRGBChannel {
         return AlfProgramming::_()->unused($obj, static::_AlfBasicTypeSelect($obj));
     }
 

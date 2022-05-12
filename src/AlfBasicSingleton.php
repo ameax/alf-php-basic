@@ -12,7 +12,7 @@ abstract class AlfBasicSingleton {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfBasicSingleton($obj) : AlfBasicSingleton {
+    public static function _AlfBasicSingleton($obj) : AlfBasicSingleton {
         return AlfProgramming::_()->unused($obj);
     }
 

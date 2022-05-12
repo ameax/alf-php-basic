@@ -13,7 +13,7 @@ trait AlfIntWorkTrait {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfIntWork($obj) : AlfIntWork {
+    public static function _AlfIntWork($obj) : AlfIntWork {
         return AlfProgramming::_()->unused($obj, static::_AlfIntGet($obj), static::_AlfIntSet($obj));
     }
 

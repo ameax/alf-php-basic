@@ -15,7 +15,7 @@ trait AlfCharReadTrait {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfCharRead($obj) : AlfCharRead {
+    public static function _AlfCharRead($obj) : AlfCharRead {
         return AlfProgramming::_()->unused($obj, static::_AlfCharGet($obj));
     }
 
@@ -55,6 +55,10 @@ trait AlfCharReadTrait {
 
     public function count() : int {
         return $this->getStringByteSize();
+    }
+
+    protected function refHtmlStringManipulator() : AlfStringManipulator {
+        return $this->refManipulator();
     }
 
 }

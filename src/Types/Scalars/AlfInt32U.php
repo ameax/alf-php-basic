@@ -10,7 +10,7 @@ class AlfInt32U extends AlfIntRange {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfInt32U($obj) : AlfInt32U {
+    public static function _AlfInt32U($obj) : AlfInt32U {
         return AlfProgramming::_()->unused($obj, static::_AlfIntRange($obj));
     }
 

@@ -21,7 +21,7 @@ class AlfColorRGBRef extends AlfBasicTypeScalar implements AlfIntLike {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfColorRGBRef($obj) : AlfColorRGBRef {
+    public static function _AlfColorRGBRef($obj) : AlfColorRGBRef {
         return AlfProgramming::_()->unused($obj, static::_AlfBasicTypeScalar($obj), static::_AlfIntLike($obj));
     }
 

@@ -11,7 +11,7 @@ trait AlfIntSetTrait {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfIntSet($obj) : AlfIntSet {
+    public static function _AlfIntSet($obj) : AlfIntSet {
         return AlfProgramming::_()->unused($obj);
     }
 

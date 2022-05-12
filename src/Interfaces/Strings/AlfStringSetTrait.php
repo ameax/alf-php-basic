@@ -14,7 +14,7 @@ trait AlfStringSetTrait {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfStringSet($obj) : AlfStringSet {
+    public static function _AlfStringSet($obj) : AlfStringSet {
         return AlfProgramming::_()->unused($obj, static::_AlfCharSet($obj));
     }
 

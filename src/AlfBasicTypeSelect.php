@@ -21,7 +21,7 @@ abstract class AlfBasicTypeSelect extends AlfBasicTypeScalar implements AlfStrin
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfBasicTypeSelect($obj) : AlfBasicTypeSelect {
+    public static function _AlfBasicTypeSelect($obj) : AlfBasicTypeSelect {
         return AlfProgramming::_()->unused($obj, static::_AlfBasicTypeScalar($obj));
     }
 
@@ -123,7 +123,7 @@ abstract class AlfBasicTypeSelect extends AlfBasicTypeScalar implements AlfStrin
         if ($this->isNull()) {
             return new AlfStringMarkup();
         }
-        return new AlfStringMarkup($this->getAsString());
+        return parent::getAsHumanAlfStringMarkup();
     }
 
     /* definitions */

@@ -12,7 +12,7 @@ trait AlfCharWorkTrait {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfCharWork($obj) : AlfCharWork {
+    public static function _AlfCharWork($obj) : AlfCharWork {
         return AlfProgramming::_()->unused($obj, static::_AlfCharRead($obj), static::_AlfCharRead($obj));
     }
 

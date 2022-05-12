@@ -11,7 +11,7 @@ class AlfAttrEnumValue extends AlfBasicAttribute {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfAttrEnumValue($obj) : AlfAttrEnumValue {
+    public static function _AlfAttrEnumValue($obj) : AlfAttrEnumValue {
         return AlfProgramming::_()->unused($obj, static::_AlfBasicAttribute($obj));
     }
 

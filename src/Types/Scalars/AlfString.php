@@ -20,7 +20,7 @@ class AlfString extends AlfBasicTypeScalar implements AlfStringLike {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfString($obj) : AlfString {
+    public static function _AlfString($obj) : AlfString {
         return AlfProgramming::_()->unused($obj, static::_AlfBasicTypeScalar($obj), static::_AlfStringLike($obj));
     }
 

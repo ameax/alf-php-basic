@@ -12,7 +12,7 @@ class AlfAttrParameterIsBool extends AlfAttrParameter {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfAttrParameterIsBool($obj) : AlfAttrParameterIsBool {
+    public static function _AlfAttrParameterIsBool($obj) : AlfAttrParameterIsBool {
         return AlfProgramming::_()->unused($obj, static::_AlfAttrParameter($obj));
     }
 

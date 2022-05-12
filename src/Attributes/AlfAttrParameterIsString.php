@@ -14,7 +14,7 @@ class AlfAttrParameterIsString extends AlfAttrParameter {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfAttrParameterIsString($obj) : AlfAttrParameterIsString {
+    public static function _AlfAttrParameterIsString($obj) : AlfAttrParameterIsString {
         return AlfProgramming::_()->unused($obj, static::_AlfAttrParameter($obj));
     }
 

@@ -12,7 +12,7 @@ trait AlfCharSetTrait {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfCharSet($obj) : AlfCharSet {
+    public static function _AlfCharSet($obj) : AlfCharSet {
         return AlfProgramming::_()->unused($obj);
     }
 

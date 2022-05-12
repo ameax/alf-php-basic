@@ -12,7 +12,7 @@ trait AlfEmptyWorkTrait {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfEmptyWork($obj) : AlfEmptyWork {
+    public static function _AlfEmptyWork($obj) : AlfEmptyWork {
         return AlfProgramming::_()->unused($obj, static::_AlfEmptyGet($obj), static::_AlfEmptySet($obj));
     }
 

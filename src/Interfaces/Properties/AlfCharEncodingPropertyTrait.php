@@ -13,7 +13,7 @@ trait AlfCharEncodingPropertyTrait {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfCharEncodingProperty($obj) : AlfCharEncodingProperty {
+    public static function _AlfCharEncodingProperty($obj) : AlfCharEncodingProperty {
         return AlfProgramming::_()->unused($obj);
     }
 

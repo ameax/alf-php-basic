@@ -19,7 +19,7 @@ class AlfProgramming extends AlfBasicSingleton {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfProgramming($obj) : AlfProgramming {
+    public static function _AlfProgramming($obj) : AlfProgramming {
         return AlfProgramming::_()->unused($obj, AlfProgramming::_AlfBasicSingleton($obj));
     }
 

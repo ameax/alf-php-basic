@@ -20,7 +20,7 @@ class AlfInt extends AlfBasicTypeScalar implements AlfIntLike {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfInt($obj) : AlfInt {
+    public static function _AlfInt($obj) : AlfInt {
         return AlfProgramming::_()->unused($obj, static::_AlfBasicTypeScalar($obj), static::_AlfIntLike($obj));
     }
 

@@ -12,7 +12,7 @@ abstract class AlfException extends Exception {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfException($obj) : AlfException {
+    public static function _AlfException($obj) : AlfException {
         return AlfProgramming::_()->unused($obj);
     }
 

@@ -12,7 +12,7 @@ trait AlfStringGetTrait {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfStringGet($obj) : AlfStringGet {
+    public static function _AlfStringGet($obj) : AlfStringGet {
         return AlfProgramming::_()->unused($obj, static::_AlfCharGet($obj));
     }
 

@@ -10,7 +10,7 @@ class AlfColorRGBValue extends AlfInt8U {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfColorRGBValue($obj) : AlfColorRGBValue {
+    public static function _AlfColorRGBValue($obj) : AlfColorRGBValue {
         return AlfProgramming::_()->unused($obj, static::_AlfInt8U($obj));
     }
 

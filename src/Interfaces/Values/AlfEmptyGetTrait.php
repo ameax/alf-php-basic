@@ -13,7 +13,7 @@ trait AlfEmptyGetTrait {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfEmptyGet($obj) : AlfEmptyGet {
+    public static function _AlfEmptyGet($obj) : AlfEmptyGet {
         return AlfProgramming::_()->unused($obj, static::_AlfValueGet($obj));
     }
 

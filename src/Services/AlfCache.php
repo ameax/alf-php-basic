@@ -10,7 +10,7 @@ class AlfCache extends AlfBasicSingleton {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfCache($obj) : AlfCache {
+    public static function _AlfCache($obj) : AlfCache {
         return AlfProgramming::_()->unused($obj, static::_AlfBasicSingleton($obj));
     }
 

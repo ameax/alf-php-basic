@@ -11,7 +11,7 @@ class AlfAttrAutoComplete extends AlfBasicAttribute {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfAttrAutoComplete($obj) : AlfAttrAutoComplete {
+    public static function _AlfAttrAutoComplete($obj) : AlfAttrAutoComplete {
         return AlfProgramming::_()->unused($obj, static::_AlfBasicAttribute($obj));
     }
 

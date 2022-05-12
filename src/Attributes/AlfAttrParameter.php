@@ -12,7 +12,7 @@ abstract class AlfAttrParameter extends AlfBasicAttribute {
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
-    final public static function _AlfAttrParameter($obj) : AlfAttrParameter {
+    public static function _AlfAttrParameter($obj) : AlfAttrParameter {
         return AlfProgramming::_()->unused($obj, static::_AlfBasicAttribute($obj));
     }
 
