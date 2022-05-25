@@ -2,6 +2,11 @@
 
 All notable changes to `alf-php-basic` will be documented in this file.
 
+## 1.3.3 - 2022-05-25
+
+- cases in AlfLanguageCodes
+- cases in AlfCountries
+
 ## 1.3.2 - 2022-05-12
 
 - scalar types are new AlfStringGet

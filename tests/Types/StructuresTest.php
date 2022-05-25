@@ -16,7 +16,7 @@ test('AlfLanguage',
 
         // -
         $test1 = new AlfLanguage();
-        $test1->refCountry()->set(AlfCountries::SWISS);
+        $test1->refCountry()->set(AlfCountries::SWITZERLAND);
         $test1->refLanguageCode()->set(AlfLanguageCodes::GERMAN);
         $this->assertSame((string)$test1, 'de_CH',
                           '(4) AlfLanguage(SWISS,GERMAN) !== "de_CH"');
