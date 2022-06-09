@@ -2,6 +2,14 @@
 
 All notable changes to `alf-php-basic` will be documented in this file.
 
+## 1.3.4 - 2022-06-09
+
+- enum: AlfColorNames
+- select: AlfColorName
+- AlfColorRGB: getStringXYZ() functions for hex, rgb() and css.
+- AlfColorRGB: computed string is now hex and allows short color codes.
+- AlfColorRGB: human string is now hex and never a short code.
+
 ## 1.3.3 - 2022-05-25
 
 - cases in AlfLanguageCodes

@@ -4,7 +4,7 @@ use Alf\Enums\AlfCountries;
 use Alf\Enums\AlfLanguageCodes;
 use Alf\Types\Structures\AlfLanguage;
 
-test('AlfLanguage',
+test('AlfLanguage tests',
     function () : void {
 
         $this->assertSame((new AlfLanguage())->getAsString(), '',
@@ -26,4 +26,13 @@ test('AlfLanguage',
         $this->assertSame((string)$test2, 'de_CH',
                           '(5) AlfLanguage->clone(SWISS,GERMAN) !== "de_CH"');
 
+        // -
+        $this->assertSame($test2->getAsString(), 'de_CH',
+                          '(5a) AlfLanguage->getAsString(SWISS,GERMAN) !== "de_CH"');
+        $this->assertSame($test2->getAsStringUnderscore(), 'de_CH',
+                          '(5b) AlfLanguage->getAsStringUnderscore(SWISS,GERMAN) !== "de_CH"');
+        $this->assertSame($test2->getAsStringDash(), 'de-CH',
+                          '(5c) AlfLanguage->getAsStringDash(SWISS,GERMAN) !== "de-CH"');
+        $this->assertSame($test2->getAsStringSeparator('::'), 'de::CH',
+                          '(5c) AlfLanguage->getAsStringSeparator(::,SWISS,GERMAN) !== "de::CH"');
     });

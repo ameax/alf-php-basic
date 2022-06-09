@@ -65,7 +65,7 @@ test('AlfColorRGB basic functions',
                            '(3b) color1->getBlue()->isEmpty()');
     });
 
-test('AlfColorRGBRef',
+test('AlfColorRGBRef check',
     function () : void {
         // -
         $color2 = new AlfColorRGB();
@@ -252,4 +252,98 @@ test('AlfColorRGB pseudo-random values',
 
     });
 
+test('AlfColorRGB CSS-String',
+    function () : void {
+        $colorTransparent = new AlfColorRGB();
+        $colorTransparent->setToNull();
 
+        $this->assertSame('', $colorTransparent->getAsString(),
+                          '(0a) transparent()->getAsString() !== "" === "'.$colorTransparent->getAsString().'"');
+        $this->assertSame('transparent', $colorTransparent->getAsStringCssHex(),
+                          '(0b) transparent()->getAsStringCssHex() !== "transparent" === "'.$colorTransparent->getAsStringCssHex().'"');
+        $this->assertSame('transparent', $colorTransparent->getAsStringCssRGB(),
+                          '(0c) transparent()->getAsStringCssHex() !== "transparent" === "'.$colorTransparent->getAsStringCssRGB().'"');
+        $this->assertNull($colorTransparent->getAsHumanString(),
+                          '(0d) transparent()->getAsHumanString() !== -NULL- === "'.($colorTransparent->getAsHumanString() ?? '-NULL-').'"');
+        $this->assertSame('', $colorTransparent->getAsHumanAlfStringMarkup()->getAsString(),
+                          '(0e) transparent()->getAsHumanAlfStringMarkup() !== "" ==='
+                          .' "'.($colorTransparent->getAsHumanAlfStringMarkup()->getAsString()).'"');
+
+        // -
+        $colorBlack = new AlfColorRGB();
+        $colorBlack->setRGBInt(0, 0, 0);
+
+        $this->assertSame('#000', $colorBlack->getAsString(),
+                          '(1a) black(0,0,0)->getAsString() !== "#000" === "'.$colorBlack->getAsString().'"');
+        $this->assertSame('#000', $colorBlack->getAsStringCssHex(),
+                          '(1b) black(0,0,0)->getAsStringCssHex() !== "#000" === "'.$colorBlack->getAsStringCssHex().'"');
+        $this->assertSame('rgb(0,0,0)', $colorBlack->getAsStringCssRGB(),
+                          '(1c) black(0,0,0)->getAsStringCssHex() !== "rgb(0,0,0)" === "'.$colorBlack->getAsStringCssRGB().'"');
+        $this->assertSame('#000000', $colorBlack->getAsHumanString(),
+                          '(1d) black(0,0,0)->getAsHumanString() !== "#000000" === "'.($colorBlack->getAsHumanString() ?? '-NULL-').'"');
+
+        // -
+        $colorRed = new AlfColorRGB();
+        $colorRed->setRGBInt(255, 0, 0);
+
+        $this->assertSame('#f00', $colorRed->getAsString(),
+                          '(2a) red(255,0,0)->getAsString() !== "#f00" === "'.$colorRed->getAsString().'"');
+        $this->assertSame('#f00', $colorRed->getAsStringCssHex(),
+                          '(2b) red(255,0,0)->getAsStringCssHex() !== "#f00" === "'.$colorRed->getAsStringCssHex().'"');
+        $this->assertSame('rgb(255,0,0)', $colorRed->getAsStringCssRGB(),
+                          '(2c) red(255,0,0)->getAsStringCssHex() !== "rgb(255,0,0)" === "'.$colorRed->getAsStringCssRGB().'"');
+        $this->assertSame('#ff0000', $colorRed->getAsHumanString(),
+                          '(2d) red(255,0,0)->getAsHumanString() !== "#ff0000" === "'.($colorRed->getAsHumanString() ?? '-NULL-').'"');
+
+        // -
+        $colorGreen = new AlfColorRGB();
+        $colorGreen->setRGBInt(0, 255, 0);
+
+        $this->assertSame('#0f0', $colorGreen->getAsString(),
+                          '(3a) green(0,255,0)->getAsString() !== "#0f0" === "'.$colorGreen->getAsString().'"');
+        $this->assertSame('#0f0', $colorGreen->getAsStringCssHex(),
+                          '(3b) green(0,255,0)->getAsStringCssHex() !== "#0f0" === "'.$colorGreen->getAsStringCssHex().'"');
+        $this->assertSame('rgb(0,255,0)', $colorGreen->getAsStringCssRGB(),
+                          '(3c) green(0,255,0)->getAsStringCssHex() !== "rgb(0,255,0)" === "'.$colorGreen->getAsStringCssRGB().'"');
+        $this->assertSame('#00ff00', $colorGreen->getAsHumanString(),
+                          '(3d) green(0,255,0)->getAsHumanString() !== "#00ff00" === "'.($colorGreen->getAsHumanString() ?? '-NULL-').'"');
+
+        // -
+        $colorBlue = new AlfColorRGB();
+        $colorBlue->setRGBInt(0, 0, 255);
+
+        $this->assertSame('#00f', $colorBlue->getAsString(),
+                          '(3a) blue(0,0,255)->getAsString() !== "#00f" === "'.$colorBlue->getAsString().'"');
+        $this->assertSame('#00f', $colorBlue->getAsStringCssHex(),
+                          '(3b) blue(0,0,255)->getAsStringCssHex() !== "#00f" === "'.$colorBlue->getAsStringCssHex().'"');
+        $this->assertSame('rgb(0,0,255)', $colorBlue->getAsStringCssRGB(),
+                          '(3c) blue(0,0,255)->getAsStringCssHex() !== "rgb(0,0,255)" === "'.$colorBlue->getAsStringCssRGB().'"');
+        $this->assertSame('#0000ff', $colorBlue->getAsHumanString(),
+                          '(3d) blue(0,0,255)->getAsHumanString() !== "#0000ff" === "'.($colorBlue->getAsHumanString() ?? '-NULL-').'"');
+
+        // -
+        $colorOne = new AlfColorRGB();
+        $colorOne->setRGBInt(12, 77, 36);
+
+        $this->assertSame('#0c4d24', $colorOne->getAsString(),
+                          '(4a) one(12,77,36)->getAsString() !== "#0c4d24" === "'.$colorOne->getAsString().'"');
+        $this->assertSame('#0c4d24', $colorOne->getAsStringCssHex(),
+                          '(4b) one(12,77,36)->getAsStringCssHex() !== "#0c4d24" === "'.$colorOne->getAsStringCssHex().'"');
+        $this->assertSame('rgb(12,77,36)', $colorOne->getAsStringCssRGB(),
+                          '(4c) one(12,77,36)->getAsStringCssHex() !== "rgb(12,77,36)" === "'.$colorOne->getAsStringCssRGB().'"');
+        $this->assertSame('#0c4d24', $colorOne->getAsHumanString(),
+                          '(4d) one(12,77,36)->getAsHumanString() !== "#0c4d24" === "'.($colorOne->getAsHumanString() ?? '-NULL-').'"');
+
+        // -
+        $colorTwo = new AlfColorRGB();
+        $colorTwo->setRGBInt(170, 255, 238);
+
+        $this->assertSame('#afe', $colorTwo->getAsString(),
+                          '(4a) two(170,255,238)->getAsString() !== "#afe" === "'.$colorTwo->getAsString().'"');
+        $this->assertSame('#afe', $colorTwo->getAsStringCssHex(),
+                          '(4b) two(170,255,238)->getAsStringCssHex() !== "#afe" === "'.$colorTwo->getAsStringCssHex().'"');
+        $this->assertSame('rgb(170,255,238)', $colorTwo->getAsStringCssRGB(),
+                          '(4c) two(170,255,238)->getAsStringCssHex() !== "rgb(170,255,238)" === "'.$colorTwo->getAsStringCssRGB().'"');
+        $this->assertSame('#aaffee', $colorTwo->getAsHumanString(),
+                          '(4d) two(170,255,238)->getAsHumanString() !== "#aaffee" === "'.($colorTwo->getAsHumanString() ?? '-NULL-').'"');
+    });

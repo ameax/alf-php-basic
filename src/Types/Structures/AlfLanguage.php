@@ -48,15 +48,30 @@ class AlfLanguage extends AlfBasicTypeStructure implements AlfStringGet {
     }
 
     #[Pure]
-    public function getAsString() : string {
+    public function getAsStringSeparator(string $separator) : string {
         if ($this->refLanguageCode()->isNullOrEmpty()) {
             return '';
         }
         $output = (string)$this->refLanguageCode();
         if (!$this->refCountry()->isNullOrEmpty()) {
-            $output .= '_'.$this->refCountry();
+            $output .= $separator.$this->refCountry();
         }
         return $output;
+    }
+
+    #[Pure]
+    public function getAsStringUnderscore() : string {
+        return $this->getAsStringSeparator('_');
+    }
+
+    #[Pure]
+    public function getAsStringDash() : string {
+        return $this->getAsStringSeparator('-');
+    }
+
+    #[Pure]
+    public function getAsString() : string {
+        return $this->getAsStringUnderscore();
     }
 
     #[ArrayShape(['class' => "string", 'parent' => "string", 'country' => "array", 'languageCode' => "array"])]

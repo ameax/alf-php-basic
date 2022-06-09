@@ -98,21 +98,42 @@ class AlfColorRGB extends AlfInt24U {
     }
 
     #[Pure]
+    public function getAsStringCssRGB() : string {
+        if ($this->isNull()) {
+            return 'transparent';
+        }
+        return 'rgb('.$this->getRed()->getAsInt()
+               .','.$this->getGreen()->getAsInt()
+               .','.$this->getBlue()->getAsInt().')';
+    }
+
+    #[Pure]
+    public function getAsStringCssHex(bool $allowShort = true) : string {
+        if ($this->isNull()) {
+            return 'transparent';
+        }
+
+        // -
+        $valHex = substr('000000'.dechex($this->getAsInt()), -6);
+        if ($allowShort && ($valHex[0] === $valHex[1]) && ($valHex[2] === $valHex[3]) && ($valHex[4] === $valHex[5])) {
+            return '#'.$valHex[0].$valHex[2].$valHex[4];
+        }
+        return '#'.$valHex;
+    }
+
+    #[Pure]
     public function getAsString() : string {
         if ($this->isNull()) {
             return '';
         }
-        return 'rgb('.$this->getRed()->getAsHumanString()
-               .','.$this->refGreen()->getAsHumanString()
-               .','.$this->refBlue()->getAsHumanString().')';
+        return $this->getAsStringCssHex();
     }
 
     public function getAsHumanAlfStringMarkup() : AlfStringMarkup {
         if ($this->isNull()) {
             return new AlfStringMarkup();
         }
-        // TODO: Make it better for humans!
-        return new AlfStringMarkup((string)$this);
+        return new AlfStringMarkup($this->getAsStringCssHex(false));
     }
 
 }

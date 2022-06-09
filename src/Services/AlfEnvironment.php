@@ -4,24 +4,26 @@ namespace Alf\Services;
 
 use Alf\AlfBasicSingleton;
 use Alf\Attributes\AlfAttrAutoComplete;
+use Alf\Enums\AlfLanguageCodes;
 use Alf\Exceptions\AlfExceptionRuntime;
 use Alf\Types\Scalars\AlfCharW;
-use Alf\Types\Scalars\AlfString;
-use Alf\Types\Scalars\AlfStringW;
+use Alf\Types\Scalars\AlfStringMarkup;
+use Alf\Types\Structures\AlfLanguage;
 use JetBrains\PhpStorm\Pure;
 use ReflectionClass;
 use ReflectionException;
 
 class AlfEnvironment extends AlfBasicSingleton {
 
-    private static ?string $_instanceName = null;
-    private AlfCharW       $humanNumbersDecimalSeparator;
-    private AlfCharW       $humanNumbersThousandsSeparator;
-    private AlfStringW     $humanTextYes;
-    private AlfStringW     $humanTextNo;
-    private AlfStringW     $humanTextTrue;
-    private AlfStringW     $humanTextFalse;
-    private AlfStringW     $humanTextEmpty;
+    private static ?string  $_instanceName = null;
+    private AlfCharW        $humanNumbersDecimalSeparator;
+    private AlfCharW        $humanNumbersThousandsSeparator;
+    private AlfStringMarkup $humanTextYes;
+    private AlfStringMarkup $humanTextNo;
+    private AlfStringMarkup $humanTextTrue;
+    private AlfStringMarkup $humanTextFalse;
+    private AlfStringMarkup $humanTextEmpty;
+    private AlfLanguage     $pageLanguage;
 
     /** @AlfAttrAutoComplete */
     #[AlfAttrAutoComplete]
@@ -61,11 +63,12 @@ class AlfEnvironment extends AlfBasicSingleton {
         parent::cTor();
         $this->humanNumbersDecimalSeparator = new AlfCharW();
         $this->humanNumbersThousandsSeparator = new AlfCharW();
-        $this->humanTextYes = new AlfStringW();
-        $this->humanTextNo = new AlfStringW();
-        $this->humanTextTrue = new AlfStringW();
-        $this->humanTextFalse = new AlfStringW();
-        $this->humanTextEmpty = new AlfStringW();
+        $this->humanTextYes = new AlfStringMarkup();
+        $this->humanTextNo = new AlfStringMarkup();
+        $this->humanTextTrue = new AlfStringMarkup();
+        $this->humanTextFalse = new AlfStringMarkup();
+        $this->humanTextEmpty = new AlfStringMarkup();
+        $this->pageLanguage = new AlfLanguage();
         $this->reInit();
     }
 
@@ -77,6 +80,8 @@ class AlfEnvironment extends AlfBasicSingleton {
         $this->refHumanTextTrue()->setFromString('true');
         $this->refHumanTextFalse()->setFromString('false');
         $this->refHumanTextEmpty()->setFromString('empty');
+        $this->refPageLanguage()->refLanguageCode()->set(AlfLanguageCodes::ENGLISH);
+        $this->refPageLanguage()->refCountry()->setToNull();
     }
 
     public function refHumanNumbersDecimalSeparator() : AlfCharW {
@@ -87,24 +92,28 @@ class AlfEnvironment extends AlfBasicSingleton {
         return $this->humanNumbersThousandsSeparator;
     }
 
-    public function refHumanTextYes() : AlfStringW {
+    public function refHumanTextYes() : AlfStringMarkup {
         return $this->humanTextYes;
     }
 
-    public function refHumanTextNo() : AlfStringW {
+    public function refHumanTextNo() : AlfStringMarkup {
         return $this->humanTextNo;
     }
 
-    public function refHumanTextTrue() : AlfStringW {
+    public function refHumanTextTrue() : AlfStringMarkup {
         return $this->humanTextTrue;
     }
 
-    public function refHumanTextFalse() : AlfStringW {
+    public function refHumanTextFalse() : AlfStringMarkup {
         return $this->humanTextFalse;
     }
 
-    public function refHumanTextEmpty() : AlfStringW {
+    public function refHumanTextEmpty() : AlfStringMarkup {
         return $this->humanTextEmpty;
+    }
+
+    public function refPageLanguage() : AlfLanguage {
+        return $this->pageLanguage;
     }
 
 }

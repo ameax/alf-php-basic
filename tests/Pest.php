@@ -2,8 +2,6 @@
 
 declare(strict_types = 1);
 
-// TODO: AlfColorRGB: human data
-
 use Alf\AlfBasicAttribute;
 use Alf\AlfBasicClass;
 use Alf\AlfBasicSingleton;
@@ -20,6 +18,7 @@ use Alf\Attributes\AlfAttrParameterIsInt;
 use Alf\Attributes\AlfAttrParameterIsString;
 use Alf\Attributes\AlfAttrTraitAutoCall;
 use Alf\Enums\AlfCharEncodings;
+use Alf\Enums\AlfColorNames;
 use Alf\Enums\AlfColorRGBChannels;
 use Alf\Enums\AlfCountries;
 use Alf\Enums\AlfLanguageCodes;
@@ -105,6 +104,7 @@ use Alf\Types\Scalars\AlfString;
 use Alf\Types\Scalars\AlfStringMarkup;
 use Alf\Types\Scalars\AlfStringW;
 use Alf\Types\Selects\AlfCharEncoding;
+use Alf\Types\Selects\AlfColorName;
 use Alf\Types\Selects\AlfColorRGBChannel;
 use Alf\Types\Selects\AlfCountry;
 use Alf\Types\Selects\AlfLanguageCode;
@@ -229,6 +229,7 @@ function listAlfClasses() : array {
         AlfStringW::class,
         // Types/Selects
         AlfCharEncoding::class,
+        AlfColorName::class,
         AlfColorRGBChannel::class,
         AlfCountry::class,
         AlfLanguageCode::class,
@@ -236,7 +237,6 @@ function listAlfClasses() : array {
         AlfLanguage::class,
     ];
 }
-
 
 #[Pure]
 function listAlfSingletons() : array {
@@ -254,6 +254,7 @@ function listAlfSingletons() : array {
 function listAlfEnums() : array {
     return [
         AlfCharEncodings::class,
+        AlfColorNames::class,
         AlfColorRGBChannels::class,
         AlfCountries::class,
         AlfLanguageCodes::class,
@@ -446,8 +447,8 @@ function getIntValues() : array {
                 'afterDec'  => 0,
             ],
             'AlfColorRGB'      => [
-                'getAsString'      => 'rgb(0,0,0)',
-                'getAsHumanString' => 'rgb(0,0,0)',
+                'getAsString'      => '#000',
+                'getAsHumanString' => '#000000',
             ],
         ],
         [
@@ -475,8 +476,8 @@ function getIntValues() : array {
                 'afterSub9' => 0,
             ],
             'AlfColorRGB'      => [
-                'getAsString'      => 'rgb(0,0,5)',
-                'getAsHumanString' => 'rgb(0,0,5)',
+                'getAsString'      => '#000005',
+                'getAsHumanString' => '#000005',
             ],
         ],
         [
@@ -492,8 +493,8 @@ function getIntValues() : array {
             'afterSub9'        => 16,
             'afterDec'         => 24,
             'AlfColorRGB'      => [
-                'getAsString'      => 'rgb(0,0,25)',
-                'getAsHumanString' => 'rgb(0,0,25)',
+                'getAsString'      => '#000019',
+                'getAsHumanString' => '#000019',
             ],
         ],
         [
@@ -553,8 +554,8 @@ function getIntValues() : array {
                 'afterDec'         => 0,
             ],
             'AlfColorRGB'      => [
-                'getAsString'      => 'rgb(0,0,0)',
-                'getAsHumanString' => 'rgb(0,0,0)',
+                'getAsString'      => '#000',
+                'getAsHumanString' => '#000000',
             ],
         ],
         [
@@ -590,8 +591,8 @@ function getIntValues() : array {
                 'afterDec'         => 254,
             ],
             'AlfColorRGB'      => [
-                'getAsString'      => 'rgb(0,1,244)',
-                'getAsHumanString' => 'rgb(0,1,244)',
+                'getAsString'      => '#0001f4',
+                'getAsHumanString' => '#0001f4',
             ],
 
         ],
@@ -648,8 +649,8 @@ function getIntValues() : array {
                 'afterDec'         => 65534,
             ],
             'AlfColorRGB'      => [
-                'getAsString'      => 'rgb(1,17,112)',
-                'getAsHumanString' => 'rgb(1,17,112)',
+                'getAsString'      => '#011170',
+                'getAsHumanString' => '#011170',
             ],
         ],
         [
@@ -725,8 +726,8 @@ function getIntValues() : array {
                 'afterDec'         => 16777214,
             ],
             'AlfColorRGB'      => [
-                'getAsString'      => 'rgb(255,255,255)',
-                'getAsHumanString' => 'rgb(255,255,255)',
+                'getAsString'      => '#fff',
+                'getAsHumanString' => '#ffffff',
             ],
         ],
         [
@@ -822,8 +823,8 @@ function getIntValues() : array {
                 'afterDec'         => 4294967294,
             ],
             'AlfColorRGB'      => [
-                'getAsString'      => 'rgb(255,255,255)',
-                'getAsHumanString' => 'rgb(255,255,255)',
+                'getAsString'      => '#fff',
+                'getAsHumanString' => '#ffffff',
             ],
         ],
     ];
